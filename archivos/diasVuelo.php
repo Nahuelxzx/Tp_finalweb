@@ -53,7 +53,11 @@ switch ($fecha) {
                 }   
     //$bin = 1111100;
     //echo "<h2>Funcion binarios</br></h2>" . $pos;    
-    //Con esto obtengo un array que separa los 1 y los 0 de forma $var[0]=1,$var[1]=1, etc.                
+    //Con esto obtengo un array que separa los 1 y los 0 de forma $var[0]=1,$var[1]=1, etc.  
+    echo "ACA VEMOS QUE TIENE EL $bin QUE TIRA ERROR"; 
+    ECHO "$bin";
+    echo $bin;
+    var_dump($bin);             
     $arraybinarios=str_split($bin);
     //Hago la busqueda de ese vuelo y veo que dias realiza el vuelo en base al array 1- Si , 0- No
     /* for ($i=0; $i < 7; $i++) { 

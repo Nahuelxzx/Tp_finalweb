@@ -10,24 +10,40 @@ $estructuraConsulta = new estructuraModelo();
 							where A1.Ciudad = "' . $var1 . '" and A2.Ciudad = "' . $var2 . '" ');
 
 							//Cheque cuales son los dias que hace ese vuelo en la semana seguen el binario//
-							//****************************************************************************//
+							//****************************************************************************//							
 							$bin = array();
-							foreach ($diasvuelos as $row)
-							 {
-								echo "</br>DIAS DE VUELO BINARIO COMPLETO : " . $row['Dia_vuelo'];
-								$bin = $row['Dia_vuelo'];
-							 }
-
+							echo "Que hay en dias vuelos";
+							var_dump($diasvuelos);
+							if($diasvuelos)
+							{	
+								echo "Hay resultados";
+								foreach ($diasvuelos as $row)
+								 {
+									echo "</br>DIAS DE VUELO BINARIO COMPLETO : " . $row['Dia_vuelo'];
+									$bin = $row['Dia_vuelo'];
+									var_dump($bin);
+									if (count($bin) <= 0) {
+											echo "PASE POR EL IF Y PUSE TODO EN 000000000";
+											$bin='0000000';
+													   }
+									include "archivos/diasVuelo.php";
+								 }
+							}
+							else
+							{
+								echo "No hay resultados";
+								exit();
+							}	 
 							//Dentro del include se hacen las comparaciones dia a dia segun el binario entregado//
 							//---------------------------------------------------------------------------------//
-							include "archivos/diasVuelo.php";
+							//include "archivos/diasVuelo.php";
 
 							//Si la fecha que selecciono posee algun vuelo realizo la consulta para mostrar el vuelo segun los horarios//
 							//---------------------------------------------------------------------------------------------------//							
 							
 							if (($arraydia[$pos]) == ($arraybinarios[$pos]))
 							{							
-								echo "</br><h1>ESTE VUELO NO TIENE SALIDAS ESA FECHA SELECCIONE OTRA POR FAVOR CHAS GRACIAS AIREXPRESS.COM</H1>";
+								echo "</br><h1>ESTE VUELO TIENE SALIDAS ESA FECHA SELECCIONE GRACIAS AIREXPRESS.COM</H1>";
 								$clientes = $estructuraConsulta->get_sql('select A1.Ciudad as CiudadOrigen, A2.Ciudad as CiudadDestino,
 								V1.Hora_Salida as HoraSalida, V1.Hora_Llegada as HoraLlegada from vuelo V1 inner join aeropuerto A1
 								on V1.Aepto_Origen = A1.idAepto inner join aeropuerto A2 on V1.Aepto_Destino = A2.idAepto
@@ -59,6 +75,6 @@ $estructuraConsulta = new estructuraModelo();
 							}
 						else 
 						{
-								echo "</br><h3>ESTE VUELO NO TIENE SALIDAS ESA FECHA SELECCIONE OTRA POR FAVOR CHAS GRACIAS AIREXPRESS.COM</h3>";
+								echo "</br><h3>ESTE VUELO NO TIENE SALIDAS ESA FECHA SELECCIONE OTRA POR FAVOR MUCHAS GRACIAS AIREXPRESS.COM</h3>";
 						}
 ?>
