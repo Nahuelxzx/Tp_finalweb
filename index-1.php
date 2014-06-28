@@ -151,6 +151,7 @@
 					<div id="lineaIda">
 		              <ul><li><strong> ROTULOS IDA </strong></li></ul>
 			          	<?php
+			          	/*INCLUYO ARCHIVOS PARA LAS CONSULTAS DE VUELO Y LA RESULTADOS VALIDADOS*/
 				          	require_once "Conexion/estructuraConsulta.php";
 				          	include "archivos/resultadosVuelos.php";
 					    ?>
