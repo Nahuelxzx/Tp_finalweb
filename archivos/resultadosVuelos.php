@@ -11,36 +11,29 @@ $estructuraConsulta = new estructuraModelo();
 
 							//Cheque cuales son los dias que hace ese vuelo en la semana seguen el binario//
 							//****************************************************************************//							
-							$bin = array();
-							echo "Que hay en dias vuelos";
-							var_dump($diasvuelos);
+							//$bin = array();						
 							if($diasvuelos)
 							{	
-								echo "Hay resultados";
+								//echo "Hay resultados";
 								foreach ($diasvuelos as $row)
-								 {
-									echo "</br>DIAS DE VUELO BINARIO COMPLETO : " . $row['Dia_vuelo'];
-									$bin = $row['Dia_vuelo'];
-									var_dump($bin);
-									if (count($bin) <= 0) {
-											echo "PASE POR EL IF Y PUSE TODO EN 000000000";
-											$bin='0000000';
-													   }
+								 {									
+									$bin = $row['Dia_vuelo'];									
+									if (count($bin) <= 0) {															
+															$bin='0000000';
+								 						  }
+									//Dentro del include se hacen las comparaciones dia a dia segun el binario entregado//
+									//---------------------------------------------------------------------------------//													   
 									include "archivos/diasVuelo.php";
 								 }
 							}
 							else
 							{
-								echo "No hay resultados";
+								echo "No hay resultados para ese vuelo";
 								exit();
-							}	 
-							//Dentro del include se hacen las comparaciones dia a dia segun el binario entregado//
-							//---------------------------------------------------------------------------------//
-							//include "archivos/diasVuelo.php";
+							}	 														
 
 							//Si la fecha que selecciono posee algun vuelo realizo la consulta para mostrar el vuelo segun los horarios//
-							//---------------------------------------------------------------------------------------------------//							
-							
+							//---------------------------------------------------------------------------------------------------//														
 							if (($arraydia[$pos]) == ($arraybinarios[$pos]))
 							{							
 								echo "</br><h1>ESTE VUELO TIENE SALIDAS ESA FECHA SELECCIONE GRACIAS AIREXPRESS.COM</H1>";
@@ -50,24 +43,22 @@ $estructuraConsulta = new estructuraModelo();
 								where A1.Ciudad = "' . $var1 . '" and A2.Ciudad = "' . $var2 . '" ');								
 								//----------------//INICIO DE LA TABLA DE RESULTADOS//----------------------//
 								echo "</br><table border='1' rules=all>\n";	
-
 								echo "<tr><td>Ciudad Origen</td><td>Ciudad Destino</td><td>Hora Salida</td><td>Hora Llegada</td><td>Avion</td><td>Importe</td></tr>";							
 
 								foreach ($clientes as $row)
-								 {
-					            
-					           	 echo "<ul><label><li><input type='radio' name='i1'></li><li> Sale:\t " . $row['CiudadOrigen'] . "</li><li> Llega: \t" . $row['CiudadOrigen'] . " </li><li> TiempoViaje </li><li> Directo </li><li> LineaAvion </li></label></ul> ";
-					 	   		 echo "\t<tr>\n";
-					 	   		 //echo "<td>" . $row['idVuelo'] . "</td>";
-					             echo "<td>\t" . $row['CiudadOrigen'] . "</td>";
-					             echo "<td>\t\n" . $row['CiudadDestino'] . "</td>";
-					             //echo "<td>" . $row['CiudadDestino'] . "</td>";
-					             //echo "<td>" . $row['Aepto_Destino'] . "</td>";
-					             echo "<td>" . $row['HoraSalida'] . "</td>";
-					             echo "<td>" . $row['HoraLlegada'] . "</td>";
-					             //echo "<td>" . $row['Dia_vuelo'] . "</td>";
-					             //echo "<td>" . $row['Fecha_Salida'] . "</td>";			 	   		 
-					 	   		 echo "\t</tr>\n";
+								 {					            
+					           	  echo "<ul><label><li><input type='radio' name='i1'></li><li> Sale:\t " . $row['CiudadOrigen'] . "</li><li> Llega: \t" . $row['CiudadOrigen'] . " </li><li> TiempoViaje </li><li> Directo </li><li> LineaAvion </li></label></ul> ";
+					 	   		  echo "\t<tr>\n";
+					 	   		  //echo "<td>" . $row['idVuelo'] . "</td>";
+					              echo "<td>\t" . $row['CiudadOrigen'] . "</td>";
+					              echo "<td>\t\n" . $row['CiudadDestino'] . "</td>";
+					              //echo "<td>" . $row['CiudadDestino'] . "</td>";
+					              //echo "<td>" . $row['Aepto_Destino'] . "</td>";
+					              echo "<td>" . $row['HoraSalida'] . "</td>";
+					              echo "<td>" . $row['HoraLlegada'] . "</td>";
+					              //echo "<td>" . $row['Dia_vuelo'] . "</td>";
+					              //echo "<td>" . $row['Fecha_Salida'] . "</td>";			 	   		 
+					 	   		  echo "\t</tr>\n";
 								 }
 
 								echo "</table>\n";
