@@ -29,10 +29,10 @@ $estructuraConsulta = new estructuraModelo();
 									//---------------------------------------------------------------------------------------------------//
 									if (($arraydia[$pos]) == ($arraybinarios[$pos]))
 									{							
-										echo "</br><h1>ESTE VUELO TIENE SALIDAS ESA FECHA SELECCIONE GRACIAS AIREXPRESS.COM</H1>";
+										//echo "</br><h1>ESTE VUELO TIENE SALIDAS ESA FECHA SELECCIONE GRACIAS AIREXPRESS.COM</H1>";
 										$clientes = $estructuraConsulta->get_sql('select A1.Ciudad as CiudadOrigen, A2.Ciudad as CiudadDestino,
-										V1.Hora_Salida as HoraSalida, V1.Hora_Llegada as HoraLlegada from vuelo V1 inner join aeropuerto A1
-										on V1.Aepto_Origen = A1.idAepto inner join aeropuerto A2 on V1.Aepto_Destino = A2.idAepto
+										V1.Hora_Salida as HoraSalida, V1.Hora_Llegada as HoraLlegada, TA.Precio_Economy as PrecioEconomico , TA.Precio_Primary as Precio_Primary from vuelo V1 inner join aeropuerto A1
+										on V1.Aepto_Origen = A1.idAepto inner join aeropuerto A2 on V1.Aepto_Destino = A2.idAepto inner join tarifa TA on V1.Aepto_Destino = TA.Aepto_Destino and V1.Aepto_Origen = TA.Aepto_Origen
 										where A1.Ciudad = "' . $var1 . '" and A2.Ciudad = "' . $var2 . '" ');								
 										//----------------//INICIO DE LA TABLA DE RESULTADOS//----------------------//
 										echo "</br><table border='1' rules=all>\n";	
@@ -48,8 +48,13 @@ $estructuraConsulta = new estructuraModelo();
 							              //echo "<td>" . $row['Aepto_Destino'] . "</td>";
 							              echo "<td>" . $row['HoraSalida'] . "</td>";
 							              echo "<td>" . $row['HoraLlegada'] . "</td>";
-							              //echo "<td>" . $row['Dia_vuelo'] . "</td>";
-							              //echo "<td>" . $row['Fecha_Salida'] . "</td>";			 	   		 
+							              if ($clase == "primera")
+							              {
+							              	echo "<td>" . $row['Precio_Primary'] . "</td>";
+							              }
+							              else{echo "<td>" . $row['PrecioEconomico'] . "</td>";}
+							              //echo "<td>" . $row['PrecioEconomico'] . "</td>";
+							              //echo "<td>" . $row['Precio_Primary'] . "</td>";			 	   		 
 							 	   		  echo "\t</tr>\n";
 										 }
 

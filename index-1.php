@@ -153,6 +153,12 @@
 			          	<?php
 			          	/*INCLUYO ARCHIVOS PARA LAS CONSULTAS DE VUELO Y LA RESULTADOS VALIDADOS*/
 				          	require_once "Conexion/estructuraConsulta.php";
+				          	$clase="none";
+				          	if (isset($_POST['clase'])){
+				          	if ($_POST['clase'] == "primera") {
+				          		$clase="primera";
+				          	}
+				          }
 				          	include "archivos/resultadosVuelos.php";
 					    ?>
 		              <ul><label><li><input type="radio" name="i1"></li><li> Sale: $horaSale </li><li> Llega: $horaLlegada </li><li> $TiempoViaje </li><li> Directo </li><li> $LineaAvion </li></label></ul> 
