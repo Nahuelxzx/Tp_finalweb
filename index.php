@@ -39,7 +39,7 @@
 						</ul>
 							<div style="clear:both"></div>
 			                <div id="loginBox">
-			                    <form id="loginForm">
+			                    <form id="loginForm" action="index-sesion.php">
 			                        <fieldset id="body">
 			                            <fieldset>
 			                                <label for="email">Email</label>
@@ -118,6 +118,7 @@
 								       }
 								    }
 							?>
+
 							<script type="text/javascript">
 										 $(function(){
 										    var autocompletar = new Array();
@@ -228,6 +229,6 @@
 <!-- / footer -->
 	</div>
 </div>
-<script type="text/javascript"> Cufon.now(); </script>
+<script type="text/javascript"> Cufon.now(); </script>			               
 </body>
 </html>

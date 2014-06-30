@@ -18,40 +18,28 @@ USE `tp_finalweb2`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `pasaje`
+-- Table structure for table `administrador`
 --
 
-DROP TABLE IF EXISTS `pasaje`;
+DROP TABLE IF EXISTS `administrador`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `pasaje` (
-  `idPasaje` int(11) NOT NULL DEFAULT '0',
-  `nroVuelo` int(11) DEFAULT NULL,
-  `idPasajero` int(11) DEFAULT NULL,
-  `NroTarifa` int(11) NOT NULL,
-  `Nro_Tarjeta` double DEFAULT NULL,
-  `Nombre_Titular` varchar(45) DEFAULT NULL,
-  `Tipo_Tarjeta` varchar(45) DEFAULT NULL,
-  `Vencimiento` date DEFAULT NULL,
-  `Nro_Doc_Titular` varchar(45) DEFAULT NULL,
-  `Tipo_Doc_Titular` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idPasaje`),
-  KEY `nroVuelo` (`nroVuelo`),
-  KEY `idPasajero` (`idPasajero`),
-  KEY `tarifa_nrofk_idx` (`NroTarifa`),
-  CONSTRAINT `pasaje_ibfk_1` FOREIGN KEY (`nroVuelo`) REFERENCES `vuelo` (`idVuelo`),
-  CONSTRAINT `pasaje_ibfk_2` FOREIGN KEY (`idPasajero`) REFERENCES `pasajero` (`idPasajero`),
-  CONSTRAINT `tarifa_nrofk` FOREIGN KEY (`NroTarifa`) REFERENCES `tarifa` (`idTarifa`) ON DELETE NO ACTION ON UPDATE NO ACTION
+CREATE TABLE `administrador` (
+  `idAdmin` int(11) NOT NULL,
+  `nombre` varchar(45) DEFAULT NULL,
+  `password` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idAdmin`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `pasaje`
+-- Dumping data for table `administrador`
 --
 
-LOCK TABLES `pasaje` WRITE;
-/*!40000 ALTER TABLE `pasaje` DISABLE KEYS */;
-/*!40000 ALTER TABLE `pasaje` ENABLE KEYS */;
+LOCK TABLES `administrador` WRITE;
+/*!40000 ALTER TABLE `administrador` DISABLE KEYS */;
+INSERT INTO `administrador` VALUES (1,'administrador','123456');
+/*!40000 ALTER TABLE `administrador` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

@@ -28,7 +28,6 @@ class estructuraModelo extends Modelo
 		$resultin = $this->_db->query($sqlpar);
 	}
 
-
 	public function close_sql()
 	{
 		//mysqli::close ( void );
