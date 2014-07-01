@@ -39,7 +39,7 @@
 						</ul>
 							<div style="clear:both"></div>
 			                <div id="loginBox">
-			                    <form id="loginForm" action="index-sesion.php">
+			                    <form id="loginForm" action="index-sesion.php" method="POST">
 			                        <fieldset id="body">
 			                            <fieldset>
 			                                <label for="email">Email</label>
