@@ -15,15 +15,15 @@ if ( (isset($_POST['email'])) && (isset($_POST['password']) ))
 		foreach ($miUsuario as $row)
 		{
 			$usuario = $row['nombre'];
-			$password = $row['password'];
-			$ahora = date("Y-n-j H:i:s");
-			$_SESSION["ultimoAcceso"] = $ahora;
+			$password = $row['password'];			
 		}		
 
 		if(($usuario == $nombre_ingresado) && ($password == $password_ingresado))
 			{
 				//Iniciamos las variables de sesion
 				session_start();
+				$ahora = date("Y-n-j H:i:s");
+				$_SESSION["ultimoAcceso"] = $ahora;
 				$_SESSION['nombre_usuario'] = $usuario;
 				$_SESSION['password_usuario'] = $password;
 				$fechaGuardada = $_SESSION["ultimoAcceso"]; 

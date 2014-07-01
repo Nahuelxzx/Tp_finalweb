@@ -5,6 +5,10 @@ setlocale(LC_ALL,"es_ES@euro","es_ES","esp","es");
 $dias = array('','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo');
 
 $varFecha1= $_POST['fechap'];
+if ($vengodevuelo == 1)
+{
+    $varFecha1 = $_POST['fechar'];
+}
 //Obtengo el valor en string de la fecha seleccionada, si es lunes, martes, etc.
 //$fecha = $dias[date('N', strtotime('2014-06-26'))]; 
 $fecha = $dias[date('N', strtotime($varFecha1))]; 
