@@ -154,10 +154,10 @@
 			          	/*INCLUYO ARCHIVOS PARA LAS CONSULTAS DE VUELO Y LA RESULTADOS VALIDADOS*/
 				          	require_once "Conexion/estructuraConsulta.php";
 				          	$clase="none";
-				          	if (isset($_POST['clase'])){
+				          if (isset($_POST['clase'])){
 				          	if ($_POST['clase'] == "primera") {
 				          		$clase="primera";
-				          	}
+				          	 }
 				          }
 				          	include "archivos/resultadosVuelos.php";
 					    ?>

@@ -1,13 +1,8 @@
 <?php
-$estructuraConsulta = new estructuraModelo();
-							$var1 = $_POST['Origen'];
-							$var2 = $_POST['destino'];							
-							
-							//Hago la primer consulta para saber que dias sale el vuelo y ver sin coincide con la seleccionada//
-							//************************************************************************************************//
-							$diasvuelos = $estructuraConsulta->get_sql('Select Dia_vuelo from vuelo V1 inner join aeropuerto A1
+
+			$diasvuelos = $estructuraConsulta->get_sql('Select Dia_vuelo from vuelo V1 inner join aeropuerto A1
 							on V1.Aepto_Origen = A1.idAepto inner join aeropuerto A2 on V1.Aepto_Destino = A2.idAepto
-							where A1.Ciudad = "' . $var1 . '" and A2.Ciudad = "' . $var2 . '" ');
+							where A1.Ciudad = "' . $var2 . '" and A2.Ciudad = "' . $var1 . '" ');
 
 							//Cheque cuales son los dias que hace ese vuelo en la semana seguen el binario//
 							//****************************************************************************//							
@@ -64,16 +59,7 @@ $estructuraConsulta = new estructuraModelo();
 							}
 							else
 							{
-								echo "No hay resultados para ese vuelo";
-								exit();								
-							}
+								echo "No hay resultados para ese vuelo";								
+							}		
 
-							if (isset($_POST['viaje']))
-							{
-								if (($_POST['viaje']) == "iyv")
-								{
-									$vuelta=$_POST['viaje'];
-									include 'archivos/vuelta.php';
-								}
-							}						
-?>
+?>			
