@@ -32,6 +32,12 @@ CREATE TABLE `pasajero` (
   `Dni` int(11) NOT NULL,
   `Tipo_doc` varchar(45) NOT NULL,
   `Email` varchar(35) DEFAULT NULL,
+  `Nro_Tarjeta` int(11) DEFAULT NULL,
+  `Nombre_Titular` varchar(45) DEFAULT NULL,
+  `Tipo_Tarjeta` varchar(45) DEFAULT NULL,
+  `Vencimiento` date DEFAULT NULL,
+  `Nro_Doc_Titular` int(11) DEFAULT NULL,
+  `Tipo_Doc_Titular` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`idPasajero`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -54,4 +60,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-06-30 16:31:24
+-- Dump completed on 2014-07-01 15:49:13
