@@ -30,7 +30,7 @@ if($diasvuelos)
 			$clientes = $estructuraConsulta->get_sql('select A1.Ciudad as CiudadOrigen, A2.Ciudad as CiudadDestino,
 			V1.Hora_Salida as HoraSalida, V1.Hora_Llegada as HoraLlegada, TA.Precio_Economy as PrecioEconomico , TA.Precio_Primary as Precio_Primary from vuelo V1 inner join aeropuerto A1
 			on V1.Aepto_Origen = A1.idAepto inner join aeropuerto A2 on V1.Aepto_Destino = A2.idAepto inner join tarifa TA on V1.Aepto_Destino = TA.Aepto_Destino and V1.Aepto_Origen = TA.Aepto_Origen
-			where A1.Ciudad = "' . $var1 . '" and A2.Ciudad = "' . $var2 . '" ');								
+			where A1.Ciudad = "' . $var2 . '" and A2.Ciudad = "' . $var1 . '" ');								
 			//----------------//INICIO DE LA TABLA DE RESULTADOS//----------------------//
 			echo "</br><table border='1' rules=all>\n";	
 			echo "<tr><td>Ciudad Origen</td><td>Ciudad Destino</td><td>Hora Salida</td><td>Hora Llegada</td><td>Avion</td><td>Importe</td></tr>";							
@@ -61,6 +61,6 @@ if($diasvuelos)
 }
 else
 {
-	echo "No hay resultados para ese vuelo";								
+	echo "No hay resultados para ese vuelo intente otra busqueda";								
 }		
 ?>			

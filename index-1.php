@@ -160,6 +160,15 @@
 				          	 }
 				          }
 				          	include "archivos/resultadosVuelos.php";
+
+						if (isset($_POST['viaje']))
+						 {
+							if (($_POST['viaje']) == "iyv")
+							{
+								$vuelta=$_POST['viaje'];
+								include 'archivos/vuelta.php';								
+							}
+						 }	
 					    ?>
 		              <ul><label><li><input type="radio" name="i1"></li><li> Sale: $horaSale </li><li> Llega: $horaLlegada </li><li> $TiempoViaje </li><li> Directo </li><li> $LineaAvion </li></label></ul> 
 		              <ul><label><li><input type="radio" name="i1"></li><li> Sale: $horaSale </li><li> Llega: $horaLlegada </li><li> $TiempoViaje </li><li> Directo </li><li> $LineaAvion </li></label></ul> 

@@ -66,14 +66,5 @@ else
 {
 	echo "No hay resultados para ese vuelo";
 	exit();								
-}
-
-if (isset($_POST['viaje']))
-{
-	if (($_POST['viaje']) == "iyv")
-	{
-		$vuelta=$_POST['viaje'];
-		include 'archivos/vuelta.php';
-	}
-}					
+}				
 ?>
