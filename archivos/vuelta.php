@@ -25,6 +25,7 @@ if($diasvuelos)
 		//---------------------------------------------------------------------------------------------------//
 		if (($arraydia[$pos]) == ($arraybinarios[$pos]))
 		{							
+			echo "$var1". "$var2";
 			//echo "</br><h1>ESTE VUELO TIENE SALIDAS ESA FECHA SELECCIONE GRACIAS AIREXPRESS.COM</H1>";
 			$clientes = $estructuraConsulta->get_sql('select A1.Ciudad as CiudadOrigen, A2.Ciudad as CiudadDestino,
 			V1.Hora_Salida as HoraSalida, V1.Hora_Llegada as HoraLlegada, TA.Precio_Economy as PrecioEconomico , TA.Precio_Primary as Precio_Primary from vuelo V1 inner join aeropuerto A1
