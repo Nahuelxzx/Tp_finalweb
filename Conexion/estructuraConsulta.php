@@ -32,7 +32,7 @@ class estructuraModelo extends Modelo
 	{
 		//mysqli::close ( void );
 		//$mysqli->close();
-		$this->_db->close();
+		$this->_db->close();		
 	}
 
 }

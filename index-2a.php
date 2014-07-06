@@ -88,11 +88,13 @@
 					<p class="pad_bot2"><strong> Sus datos fueron recibidos con exito.. </strong></p>
 					<p class="pad_bot2"> Ya se encuentra a du disposicion un pdf con sus datos y el codigo de reserva correspondiete a su vuelo.</p>
 				</div>
-				<a href="#" class="button2" onClick="document.getElementById('ContactForm').submit()">Ver Pdf</a>
+				<a href="index-2b.php" class="button2" onClick="document.getElementById('ContactForm').submit()">Ver Pdf</a>
 				<div class="clr"></div><br><br>
 				<p class="color1">Le recordamos que usted se encontrara habilitado para hacer el check-in en el rango de 48hs a 24hs anteriores al vuelo.. </p>
 				<?php
 					session_start();
+					require_once "Conexion/estructuraConsulta.php";
+					$Consulta3 = new estructuraModelo();
 
 					for ($i= 1; $i <= $_SESSION['adultos'] ; $i++){
 						$apAdul = $_POST['appAdul'.$i];
@@ -108,13 +110,11 @@
 						$vence = "20-".$_POST['anioVenc']."-".$_POST['mesVenc']."-01";
 						$tdniTit = $_POST['tipodniTit'];
 						$dninumTit = $_POST['numdniTit'];
-						$email = $_POST['email'];
-					
-						require_once "Conexion/estructuraConsulta.php";
+						$email = $_POST['email'];						
 
-						$Consulta3 = new estructuraModelo();
-
-						$diasvuelos1 = $Consulta3->get_sql_in("INSERT INTO pasajero (Nombre, Apellido, Tipo_doc, Dni, Fec_Nac, Email, Nro_Tarjeta, Nombre_Titular, Tipo_Tarjeta, Vencimiento, Nro_Doc_Titular, Tipo_Doc_Titular) VALUES ('".$nomAdul."', '".$apAdul."' , '".$tdniAdul."' , '".$dninumAdul."' , '".$fnacAdul."', '".$email."','".$numTarj."','".$nomTit."','".$tarjeta."','".$vence."','".$dninumTit."','".$tdniTit."' )");
+						$diasvuelos1 = $Consulta3->get_sql_in("INSERT INTO pasajero (Nombre, Apellido, Tipo_doc, Dni, Fec_Nac, Email, Nro_Tarjeta, Nombre_Titular, Tipo_Tarjeta,
+						 Vencimiento, Nro_Doc_Titular, Tipo_Doc_Titular) VALUES ('".$nomAdul."', '".$apAdul."' , '".$tdniAdul."' , '".$dninumAdul."' , '".$fnacAdul."',
+						 '".$email."','".$numTarj."','".$nomTit."','".$tarjeta."','".$vence."','".$dninumTit."','".$tdniTit."' )");
 
 						}
 
