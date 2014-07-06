@@ -83,7 +83,7 @@
 		</article>
 		<article class="col2 pad_left1">
 			<h2>Completa tus datos</h2>
-			<form id="PagoForm" action="index-2a.php" method="POST">
+			<form id="PagoFormu" action="index-2a.php" method="POST">
 				<div>
 					<?php
 					  session_start();
@@ -101,12 +101,18 @@
 					    echo "</div>";
 					    echo "<div class='wrapper'>";
 					    echo "Documento:"; 
-					    echo "<div class='bg1'><input type='text' class='input1' name='dninumAdul".$i."' required placeholder='Ingrese Numero de Documento'/></div>";
+					    echo "<div class='bg1'><input type='text' id='dni' class='input1' name='dninumAdul".$i."' required placeholder='Ingrese Numero de Documento'/></div>";
 					    echo "<div class='bg1'><select name='tipodniAdul".$i."'><option value='dni'>DNI</option><option value='le'>L.E</option><option value='lc'>L.C</option></select></div>";
 					    echo "</div>";
 					    echo "<div class='wrapper'>";
+					    echo "Fecha de Nacimiento: "; 
+					    echo "<div class='bg1'><input type='text' required id='anio' name='anioAd".$i."' size='4' placeholder='aaaa' maxlength='4' class='input2'> </div>";
+						echo "<div class='bg1'><input type='text' required id='mes' name='mesAd".$i."' size='2' placeholder='mm' maxlength='2' class='input2'> </div>";
+						echo "<div class='bg1'><input type='text' required id='dia' name='diaAd".$i."' size='2' placeholder='dd' maxlength='2' class='input2'> </div>";
+					    echo "</div>";
+					    echo "<div class='wrapper'>";
 					    echo "Sexo:"; 
-					    echo "<div class='radio right'><label>F<input type='radio' value='femenino' name='sexAdul".$i."'/></label><label>M<input type='radio' value='masculino' name='sexAdul".$i."'/></label></div>";
+					    echo "<div class='radio right'><label>F<input type='radio' id='sexo1' value='femenino' name='sexAdul".$i."'/></label><label>M<input type='radio' id='sexo2' value='masculino' name='sexAdul".$i."'/></label></div>";
 					    echo "</div>";
 					  }
 					  for ($f= 1; $f <= $_SESSION['menores']; $f++) { 
@@ -121,22 +127,30 @@
 					    echo "<div class='bg'><input type='text' class='input' name='nomMen".$f."' required placeholder='Ingrese Nombre'/></div>";
 					    echo "</div>";
 					    echo "<div class='wrapper'>";
-					    echo "Sexo:"; 
-					    echo "<div class='radio right'><label>F<input type='radio' value='femenino' name='sexMen".$f."'/></label><label>M<input type='radio' value='masculino' name='sexMen".$f."'/></label></div>";
+					    echo "Documento:"; 
+					    echo "<div class='bg1'><input type='text' id='dni' class='input1' name='dninumMen".$f."' required placeholder='Ingrese Numero de Documento'/></div>";
+					    echo "<div class='bg1'><select name='tipodniMen".$f."'><option value='dni'>DNI</option><option value='le'>L.E</option><option value='lc'>L.C</option></select></div>";
 					    echo "</div>";
 					    echo "<div class='wrapper'>";
-					    echo "Documento:"; 
-					    echo "<div class='bg1'><input type='text' class='input1' name='dninumMen".$f."' required placeholder='Ingrese Numero de Documento'/></div>";
-					    echo "<div class='bg1'><select name='tipodniMen".$f."'><option value='dni'>DNI</option><option value='le'>L.E</option><option value='lc'>L.C</option></select></div>";
+					    echo "Fecha de Nacimiento: "; 
+					    echo "<div class='bg1'><input type='text' id='anio' required name='anioMen".$f."' size='4' placeholder='aaaa' maxlength='4' class='input2'> </div>";
+						echo "<div class='bg1'><input type='text' id='mes' required name='mesMen".$f."' size='2' placeholder='mm' maxlength='2' class='input2'> </div>";
+						echo "<div class='bg1'><input type='text' id='dia' required name='diaMen".$f."' size='2' placeholder='dd' maxlength='2' class='input2'> </div>";
+					    echo "</div>";
+					    echo "<div class='wrapper'>";
+					    echo "Sexo:"; 
+					    echo "<div class='radio right'><label>F<input type='radio' id='sexo1' value='femenino' name='sexMen".$f."'/></label><label>M<input type='radio' id='sexo2' value='masculino' name='sexMen".$f."'/></label></div>";
 					    echo "</div>";
 				  }
 					?>
 					<strong> Formas de Pago:  </strong>
 					<div class='wrapper'>
 						Coutas:
-						<div class='radio right'>
-							<label> 1 Pago <input type='radio' value='unaCuota' name='couta'/></label>
-							<label> 6 Pagos <input type='radio' value='seisCuotas' name='couta'/></label>
+						<div class='bg1'>
+							<select name='cuotas'>
+								<option value='1cuota'> 1 Cuota </option>
+								<option value='6cuotas'> 6 Cuotas </option>
+							</select>
 						</div>
 					</div>
 					<div class='wrapper'>
@@ -151,33 +165,32 @@
 					</div>
 					<div class='wrapper'>
 						Numero de Tarjeta:
-						<div class='bg'><input type='text' name="numTarj" class='input' placeholder="Ingrese los 16 digitos"/></div>
+						<div class='bg'><input type='text' required name="numTarj" id='numTarj' class='input' placeholder="Ingrese los 16 digitos"/></div>
 					</div>
 					<div class='wrapper'>
 						Vencimiento:
-						<div class='bg'><input type='text' name="vence" class='input' placeholder='Ingrese Vencimiento'/></div>
+						<div class='bg1'><input type='text' required name='anioVenc' size='2' placeholder='aa' maxlength='2' class='input2'> </div>
+						<div class='bg1'><input type='text' required name='mesVenc' size='2' placeholder='mm' maxlength='2' class='input2'> </div>
+					</div>
+					<div class='wrapper'>
+					    Nombre Titular:
+					    <div class='bg'><input type='text' class='input' name='nomTit' required placeholder='Ingrese Nombre'/></div>
 					</div>
 					<div class='wrapper'>
 					    Documento:
-					    <div class='bg1'><input type='text' name="numdniTit" class='input1' required placeholder='Ingrese Numero de Documento'/></div>
+					    <div class='bg1'><input type='text' id="dni" name="numdniTit" class='input1' required placeholder='Ingrese Numero de Documento'/></div>
 					    <div class='bg1'><select name="tipodniTit"><option value='dni'>DNI</option><option value='le'>L.E</option><option value='lc'>L.C</option></select></div>
 					</div>
-					<div class='wrapper'>
-						Sexo: 
-					    <div class='radio right'>
-					    	<label> F <input type='radio' value='femenino' name='sexTit'/></label>
-					    	<label> M <input type='radio' value='masculino' name='sexTit'/></label>
-					    </div>
-					</div>
-					<strong> E-Mail de Contacto:  </strong>
+					<strong> E-Mail de Contacto: </strong>
 					<div class='wrapper'>
 						E-Mail:
-						<div class='bg'><input type='text' name="email" class='input' placeholder="Ingrese E-Mail"/></div>
+						<div class='bg'><input type='email' id="email" required name="email" class='input' placeholder="Ingrese E-Mail"/></div>
 					</div>
 					<div class='wrapper'>
 						Verificar E-Mail:
-						<div class='bg'><input type='text' class='input' name="remail" placeholder="Re-Ingrese E-Mail"/></div>
+						<div class='bg'><input type='email' id="remail" required class='input' name="remail" placeholder="Re-Ingrese E-Mail"/></div>
 					</div>
+					<div id="ok"></div>
 					<input type="submit" class="button2" id="boton" value="Enviar"/>
 					<input type="reset" class="button2" id="boton" value="Cancelar"/>
 					<!--<a href="#" class="button2" onClick="document.getElementById('ContactForm').submit()">Enviar</a>
@@ -185,7 +198,6 @@
 				</div>
 				<div class="clr"></div>
 			</form>
-
 		</article>
 	</section>
 <!-- / content -->

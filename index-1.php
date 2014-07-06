@@ -144,24 +144,21 @@
 			</div>
 		</article>
 		<article class="col2 pad_left1">
-		<h2>Vuelos de <?php if (isset($_POST['Origen'])) { echo $_POST['Origen'];} ?> a <?php if (isset($_POST['destino'])) { echo $_POST['destino'];} ?></h2>			
-		<form id="form_1" action="index-2.php" method="POST">
-			<div class="marker">
-				<div class="wrapper">
-					<div id="lineaIda">
-		              <ul><li><strong> ROTULOS IDA </strong></li></ul>
-			          	<?php
-			          	/*INCLUYO ARCHIVOS PARA LAS CONSULTAS DE VUELO Y LA RESULTADOS VALIDADOS*/
-				          	require_once "Conexion/estructuraConsulta.php";
-				          	$clase="none";
-				          if (isset($_POST['clase'])){
-				          	if ($_POST['clase'] == "primera") {
-				          		$clase="primera";
-				          	 }
-				          }
-				          	include "archivos/resultadosVuelos.php";
-
-						if (isset($_POST['viaje']))
+		<h2>Vuelos de &nbsp;&nbsp;<?php if (isset($_POST['Origen'])) { echo $_POST['Origen'];} ?>&nbsp;&nbsp; a &nbsp;&nbsp;<?php if (isset($_POST['destino'])) { echo $_POST['destino'];} ?></h2>			
+		<form id="form_vuelo" action="index-2.php" method="POST">
+			<?php
+			/*INCLUYO ARCHIVOS PARA LAS CONSULTAS DE VUELO Y LA RESULTADOS VALIDADOS*/
+				require_once "Conexion/estructuraConsulta.php";
+				
+				$clase="none";
+				if (isset($_POST['clase'])){
+					if ($_POST['clase'] == "primera") {
+						$clase="primera";
+					 }
+				}
+				include "archivos/resultadosVuelos.php";
+				
+				if (isset($_POST['viaje']))
 						 {
 							if (($_POST['viaje']) == "iyv")
 							{
@@ -169,28 +166,6 @@
 								include 'archivos/vuelta.php';								
 							}
 						 }	
-					    ?>
-		              <ul><label><li><input type="radio" name="i1"></li><li> Sale: $horaSale </li><li> Llega: $horaLlegada </li><li> $TiempoViaje </li><li> Directo </li><li> $LineaAvion </li></label></ul> 
-		              <ul><label><li><input type="radio" name="i1"></li><li> Sale: $horaSale </li><li> Llega: $horaLlegada </li><li> $TiempoViaje </li><li> Directo </li><li> $LineaAvion </li></label></ul> 
-		              <ul><label><li><input type="radio" name="i1"></li><li> Sale: $horaSale </li><li> Llega: $horaLlegada </li><li> $TiempoViaje </li><li> Directo </li><li> $LineaAvion </li></label></ul> 
-		              <ul><label><li><input type="radio" name="i1"></li><li> Sale: $horaSale </li><li> Llega: $horaLlegada </li><li> $TiempoViaje </li><li> Directo </li><li> $LineaAvion </li></label></ul> 
-		            </div>
-				</div>
-			</div>
-			<?php
-			if ($_POST['viaje'] == "iyv") {
-				echo "<div class='marker'>";
-				echo "<div class='wrapper'>";
-				echo "<div id='lineaVuelta'>";
-				echo "<ul> <li><strong> ROTULOS Vuelta </strong></li> </ul>";
-				echo "<ul> <label><li><input type='radio' name='v1'></li><li> Sale: horaSale </li><li> Llega: horaLlegada </li><li> TiempoViaje </li><li> Directo </li><li> LineaAvion </li></label> </ul> ";
-		        echo "<ul> <label><li><input type='radio' name='v1'></li><li> Sale: horaSale </li><li> Llega: horaLlegada </li><li> TiempoViaje </li><li> Directo </li><li> LineaAvion </li></label> </ul> ";
-		        echo "<ul> <label><li><input type='radio' name='v1'></li><li> Sale: horaSale </li><li> Llega: horaLlegada </li><li> TiempoViaje </li><li> Directo </li><li> LineaAvion </li></label> </ul> ";
-		        echo "<ul> <label><li><input type='radio' name='v1'></li><li> Sale: horaSale </li><li> Llega: horaLlegada </li><li> TiempoViaje </li><li> Directo </li><li> LineaAvion </li></label> </ul> ";
-				echo "</div>";
-				echo "</div>";
-				echo "</div>";
-			}
 			?>
 			<div class="wrapper pad_bot2">
 				<!--<a href="datos.php" class="button2" onClick="document.getElementById('form_1').submit()"> Buscar </a> -->

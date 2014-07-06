@@ -1,4 +1,55 @@
 
+/**********************  VALIDACION DE FORMULARIO DE PAGO   ***********************/
+window.onload = inicio
+        
+        function inicio(){
+            document.getElementById("PagoFormu").onsubmit = validar;
+        }
+
+function validar(){
+    
+    if(isNaN(document.getElementById("dni").value)){
+        alert ("El campo Dni acepta solo numeros");
+        return false;
+    }
+
+    if(isNaN(document.getElementById("numTarj").value)){
+        alert ("El campo Numero de Tarjeta acepta solo numeros");
+        return false;
+    }
+
+    var anio = document.getElementById("anio").value;
+    var mes = document.getElementById("mes").value-1;
+    var dia = document.getElementById("dia").value;
+
+    var valor = new Date(anio, mes, dia);
+
+    if(dia != valor.getDate() || mes != valor.getMonth() || anio != valor.getFullYear()) {
+        alert("la fecha es incorrecta ");
+        return false;
+    }
+
+    if(document.getElementById("sexo1").checked && document.getElementById("sexo2").checked){
+        alert ("El campo sexo es obligatorio");
+        return false;
+    }
+
+   /* if(){
+        alert ("El campo sexo es obligatorio");
+        return false;
+    }*/
+
+    if(document.getElementById("email").value != document.getElementById("remail").value){
+        alert ("El Email y Verficar Email deben ser iguales");
+        return false;
+    }
+    
+    return true;
+}
+
+/**********************  VALIDACION DE FORMULARIO DE CHECK-IN   ***********************/
+
+
 /********************** DATEPICKER FECHAS  *************************/
 
 //$('#txtStartDate').datepicker({ minDate: "D" });  });
@@ -17,38 +68,18 @@ $(function() {
 
 /**********************  OCULTAR DIV REGRESO  ***********************/
 
-function ocultar(elemento) {
 
-  if(elemento.value == "si") {
-      document.getElementById("ocultarDiv").style.display = "none";
+$(document).ready(function(){
+        $('input[type="radio"]').click(function(){
+            if($(this).attr("value")=="si"){
+                $("#ocultarDiv").hide();
+            }
+            if($(this).attr("value")=="iyv"){
+                $("#ocultarDiv").show();
+            }
+        });
+    });
 
-   } else {
-     document.getElementById("ocultarDiv").style.display = "block";
-   }
-}
-
-/********************** AUTOCOMPLETAR BUSQUEDA  ***********************/
-
-/*var data;
-
-$.post('pruebaBase.php', {}, function (ciudad) {
-  data = ciudad;
-  console.log(ciudad);
-}, 'post');
-
-$(function() {
-	$("#search").autocomplete({
-		source: "pruebaBase.php",
-		minLength:2
-	});	
-});
-
-$(function() {
-	$("#search1").autocomplete({
-		source: "pruebaBase.php",
-		minLength:2
-	});	
-});*/
 
 /********************** BOTON DE LOGUEO  ***********************/
 

@@ -78,6 +78,15 @@ footer span {color:#3e96b4;}
 #form_1 .radio {width:98px;float:left}
 #form_1 .radio input {vertical-align:middle;float:left;line-height:20px}
 
+#form_checkin p {padding-bottom:0}
+#form_checkin .button2 {padding:0 26px}
+#form_checkin .input {height:17px;background:none;color:#9d9fa2;font:14px Arial,Helvetica,sans-serif;padding:2px 15px} 
+#form_checkin .input1 {width:205px}
+#form_checkin .input2 {width:83px}
+#form_checkin .bg {background:#fff;border-top:1px solid #ccc;border-left:1px solid #ccc;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;behavior:url(js/PIE.htc);position:relative;margin-bottom:8px}
+#form_checkin .radio {width:98px;float:left}
+#form_checkin .radio input {vertical-align:middle;float:left;line-height:20px}
+
 #ContactForm {}
 #ContactForm .bg {float:right;background:#f8f8f8;border-top:1px solid #c6c6c6;border-left:1px solid #c6c6c6;margin-bottom:8px;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;behavior:url(js/PIE.htc);position:relative}
 #ContactForm a {margin-top:12px}
@@ -95,9 +104,25 @@ footer span {color:#3e96b4;}
 .cuadro div {background-color: #373737;color: white;height: 17px;width: 156px;padding-left: 6px;margin-left: 30px; font-family: Arial, Helvetica, sans-serif;font-size: 12px;padding-top: 3px;}
 
 
-#PagoForm .bg {float:right;background:#f8f8f8;border-top:1px solid #c6c6c6;border-left:1px solid #c6c6c6;margin-bottom:8px;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;behavior:url(js/PIE.htc);position:relative}
-#PagoForm .bg1 {margin-left: 15px; float:right;background:#f8f8f8;border-top:1px solid #c6c6c6;border-left:1px solid #c6c6c6;margin-bottom:8px;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;behavior:url(js/PIE.htc);position:relative}
-#PagoForm .input {height:17px;width:220px;background:none;color:#9d9fa2;font:14px Arial,Helvetica,sans-serif;padding:2px 15px}
-#PagoForm .input1 {height:17px;width:150px;background:none;color:#9d9fa2;font:14px Arial,Helvetica,sans-serif;padding:2px 15px}
-#PagoForm .wrapper{ padding-top: 7px; padding-bottom: 7px; width: 450px; padding-left: 50px;}
-#PagoForm {padding-top: 20px; padding-bottom: 20px;}
+#PagoFormu .bg {float:right;background:#f8f8f8;border-top:1px solid #c6c6c6;border-left:1px solid #c6c6c6;margin-bottom:8px;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;behavior:url(js/PIE.htc);position:relative}
+#PagoFormu .bg1 {margin-left: 15px; float:right;background:#f8f8f8;border-top:1px solid #c6c6c6;border-left:1px solid #c6c6c6;margin-bottom:8px;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;behavior:url(js/PIE.htc);position:relative}
+#PagoFormu .input2 {height:17px;width:32px;background:none;color:#9d9fa2;font:14px Arial,Helvetica,sans-serif;padding:2px 15px}
+#PagoFormu .input {height:17px;width:220px;background:none;color:#9d9fa2;font:14px Arial,Helvetica,sans-serif;padding:2px 15px}
+#PagoFormu .input1 {height:17px;width:150px;background:none;color:#9d9fa2;font:14px Arial,Helvetica,sans-serif;padding:2px 15px}
+#PagoFormu .wrapper{ padding-top: 7px; padding-bottom: 7px; width: 450px; padding-left: 50px;}
+#PagoFormu {padding-top: 20px; padding-bottom: 20px;}
+
+/*****************	ESTILOS BUTACAS 	*****************/
+#holder1{height:410px; width:140px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:10px;padding-left: 10px; padding-right: 10px}
+#holder2{height:570px; width:240px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:10px;padding-left: 10px; padding-right: 10px}
+#holder3{height:850px; width:240px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:10px;padding-left: 10px; padding-right: 10px}
+#holder4{height:1210px; width:190px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:10px;padding-left: 10px; padding-right: 10px}
+#place {position:relative; margin:7px;}
+#place a{font-size:0.6em;}
+#place li{list-style: none outside none; position: absolute;}    
+#place li:hover{background-color: #fff;} 
+#place .seat{background:url("images/vacia.gif") no-repeat scroll 0 0 transparent;height:33px; width:33px; display:block;}
+#place .selectedSeat{background-image:url("images/ocupada.gif");}
+#place .selectingSeat{background-image:url("images/selec.gif");}
+#seatDescription li{verticle-align:middle;list-style: none outside none;padding-left:35px; height:35px; float:left;}
+
