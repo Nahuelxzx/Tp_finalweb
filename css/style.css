@@ -44,6 +44,7 @@ header .right {width:600px}
 /* content */
 #content {width:100%;overflow:hidden}
 .pad_1 {padding:0 50px 35px 60px}
+.pad_2 {padding:0 50px 35px 60px; height: 100%}
 .pad_left1 {padding-left:65px}
 .pad_bot1 {padding-bottom:20px}
 .pad_bot2 {padding-bottom:10px}
@@ -58,6 +59,7 @@ header .right {width:600px}
 .link1:hover {text-decoration:underline} 
 .color1 {color:#1e749a}
 .marker {display:block;padding-left:13px;background:url(../images/marker_1.gif) 0 7px no-repeat}
+.marker_1 {display:block;padding: 20px 15px 20px 15px ;background:url(../images/marker_1.gif) 0 25px no-repeat}
 .box1 {width:206px;float:right;background:url(../images/bg_box1.jpg) top repeat-x #1e749a;color:#fff;margin-top:32px;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;behavior:url(js/PIE.htc);position:relative}
 .box1 .pad_1 {padding:25px 24px 4px;background:url(../images/bg_testimonials.gif) 17px 16px no-repeat}
 .list1 li {line-height:20px}
