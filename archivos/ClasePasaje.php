@@ -16,15 +16,15 @@ class pasaje{
 	var_dump($datos);
 		foreach ($datos as $row)
 		{
-			//$this->aeptoOrigen = $row['aepto_Origen'];
-			//$this->aeptoDestino = $row['Aepto_Destino'];
-			//$this->claveAutoNumerica = $row['claveAuto'];
-			//$this->nroVuelo = $row['idVuelo'];
-			//$this->categoria = $row['categoria'];
-			//$this->asiento = $row['asiento'];
+			$this->aeptoOrigen = $row['CiudadOrigen'];
+			$this->aeptoDestino = $row['CiudadDestino'];
+			$this->claveAutoNumerica = $row['Clave'];
+			$this->nroVuelo = $row['NroVuelo'];
+			$this->categoria = $row['Categoria'];
+			$this->asiento = $row['NroAsiento'];
 			$this->apellido = $row['Apellido'];
 			$this->nombre = $row['Nombre'];
-			//$this->fecha = $row['Fecha_Salida'];			
+			$this->fecha = $row['FechaSalida'];			
 		}
 									  } //Fin del constructor
 
