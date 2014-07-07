@@ -1,19 +1,14 @@
 <?php
-$estructuraConsulta = new estructuraModelo();
-$var1 = $_POST['Origen'];
-$var2 = $_POST['destino'];				
 
-//Hago la primer consulta para saber que dias sale el vuelo y ver sin coincide con la seleccionada//
-//************************************************************************************************//
 $diasvuelos = $estructuraConsulta->get_sql('Select Dia_vuelo from vuelo V1 inner join aeropuerto A1
 on V1.Aepto_Origen = A1.idAepto inner join aeropuerto A2 on V1.Aepto_Destino = A2.idAepto
-where A1.Ciudad = "' . $var1 . '" and A2.Ciudad = "' . $var2 . '" ');
+where A1.Ciudad = "' . $var2 . '" and A2.Ciudad = "' . $var1 . '" ');
 
 //Cheque cuales son los dias que hace ese vuelo en la semana seguen el binario//
 //****************************************************************************//							
 //$bin = array();						
-echo "<br>";
-echo "<div class='marker'><strong> IDA </strong></div>";
+echo "<div class='marker'><strong> VUELTA </strong></div>";
+
 
 if($diasvuelos)
 {	
@@ -26,7 +21,7 @@ if($diasvuelos)
 	 						  }
 		//Dentro del include se hacen las comparaciones dia a dia segun el binario entregado//
 		//---------------------------------------------------------------------------------//
-		$vengodevuelo = 0;													   
+	 	$vengodevuelta = 1;															   
 		include "archivos/diasVuelo.php";
 	 }
 		 //Si la fecha que selecciono posee algun vuelo realizo la consulta para mostrar el vuelo segun los horarios//
@@ -37,27 +32,26 @@ if($diasvuelos)
 			$clientes = $estructuraConsulta->get_sql('select A1.Ciudad as CiudadOrigen, A2.Ciudad as CiudadDestino,
 			V1.Hora_Salida as HoraSalida, V1.Hora_Llegada as HoraLlegada, TA.Precio_Economy as PrecioEconomico , TA.Precio_Primary as Precio_Primary from vuelo V1 inner join aeropuerto A1
 			on V1.Aepto_Origen = A1.idAepto inner join aeropuerto A2 on V1.Aepto_Destino = A2.idAepto inner join tarifa TA on V1.Aepto_Destino = TA.Aepto_Destino and V1.Aepto_Origen = TA.Aepto_Origen
-			where A1.Ciudad = "' . $var1 . '" and A2.Ciudad = "' . $var2 . '" ');								
-			//----------------//INICIO DE LA TABLA DE RESULTADOS//----------------------//
+			where A1.Ciudad = "' . $var2. '" and A2.Ciudad = "' . $var1. '" ');								
+			//-------------------//INICIO DE LA TABLA DE RESULTADOS//----------------------//
+			
 			echo "</br><table border='1' rules=all>";
 			echo "<tr><td></td><td width=145px height=35px><strong> ORIGEN </strong></td><td width=145px height=20px><strong> DESTINO </strong></td><td width=70px height=20px><strong> SALIDA </strong></td><td width=80px height=20px><strong> LLEGADA </strong></td><td width=70px height=20px><strong> IMPORTE </strong></td></tr>";							
 
 			foreach ($clientes as $row)
 			 {					            	   
 	 	   		  echo "<tr height=40px>";
-	 	   		  echo "<td><input type='radio' name='ida' id='ida'></td>";							 	   		  
+	 	   		  echo "<td><input type='radio' name='vuelta' id='vuelta'></td>";							 	   		  
 	              echo "<td>" . $row['CiudadOrigen'] . "</td>";
 	              echo "<td>" . $row['CiudadDestino'] . "</td>";							             
 	              echo "<td>" . $row['HoraSalida'] . "</td>";
 	              echo "<td>" . $row['HoraLlegada'] . "</td>";
-
 	              if ($clase == "primera")
 	              {
-	              	echo "<td>" . $row['Precio_Primary'] . "</td>";
+	              	echo "<td>".$row['Precio_Primary']."</td>";
 	              }
-	              else{echo "<td>" . $row['PrecioEconomico'] . "</td>";}							             	 	   		 
+	              else{echo "<td>".$row['PrecioEconomico']."</td>";}							             	 	   		 
 	 	   		  echo "</tr>";
-
 			}
 			echo "</table>";
 			echo "<br><br>";
@@ -69,6 +63,6 @@ if($diasvuelos)
 }
 else
 {
-	echo "No hay resultados para ese vuelo";			
-}		
+	echo "No hay resultados para ese vuelo";
+}
 ?>

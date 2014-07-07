@@ -7,6 +7,8 @@
 	<link rel="stylesheet" href="css/layout.css" type="text/css" media="all">
 	<link rel="stylesheet" href="css/style.css" type="text/css" media="all">
 	<link rel="stylesheet" href="css/jquery-ui.css" type="text/css" media="all">
+	<script type="text/javascript" src="jqueryButacas/ga.js"></script> <!-- script butaca-->
+    <script type="text/javascript" src="jqueryButacas/jquery-1.4.1.min.js"></script> <!-- script butaca-->
 	<script type="text/javascript" src="js/cufon-yui.js"></script>
 	<script type="text/javascript" src="js/cufon-replace.js"></script> 
 	<script type="text/javascript" src="js/Myriad_Pro_italic_600.font.js"></script>
@@ -19,6 +21,19 @@
 		<script type="text/javascript" src="http://info.template-help.com/files/ie6_warning/ie6_script_other.js"></script>
 		<script type="text/javascript" src="js/html5.js"></script>
 	<![endif]-->
+	<style type="text/css">
+        #holder1{height:410px; width:140px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:10px;padding-left: 10px; padding-right: 10px}
+        #holder2{height:570px; width:240px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:10px;padding-left: 10px; padding-right: 10px}
+        #holder3{height:850px; width:240px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:10px;padding-left: 10px; padding-right: 10px}
+        #holder4{height:1210px; width:190px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:10px;padding-left: 10px; padding-right: 10px}
+        #place {position:relative; margin:7px;}
+        #place a{font-size:0.6em; text-decoration: none; color: black;}
+        #place li{list-style: none outside none; position: absolute;}    
+        #place li:hover{background-color: #fff;} 
+        #place .seat{background:url("images/vacia.gif") no-repeat scroll 0 0 transparent;height:33px; width:33px; display:block;}
+        #place .selectedSeat{background-image:url("images/ocupada.gif");}
+        #place .selectingSeat{background-image:url("images/selec.gif");}
+    </style>
 </head>
 <body id="page5">
 <div class="body1">
@@ -39,7 +54,7 @@
 					</nav>
 					<nav>
 						<ul id="menu">
-							<li id="menu_active"><a href="index.php">Home</a></li>
+							<li><a href="index.php">Home</a></li>
 							<li><a href="index-3.php">Check - in</a></li>
 							<li><a href="index-4.php">Contacto</a></li>
 
@@ -82,59 +97,47 @@
 			</div>
 		</article>
 		<article class="col2 pad_left1">
-			<h2>Gracias por volar con nosotros</h2>
-			<form id="PagoForm" action="index-2a.php" method="POST">
-				<div class="marker">
-					<p class="pad_bot2"><strong> Sus datos fueron recibidos con exito.. </strong></p>
-					<p class="pad_bot2"> Ya se encuentra a du disposicion un pdf con sus datos y el codigo de reserva correspondiete a su vuelo.</p>
-				</div>
-				<a href="index-2b.php" class="button2" onClick="document.getElementById('ContactForm').submit()">Ver Pdf</a>
-				<div class="clr"></div><br><br>
-				<p class="color1">Le recordamos que usted se encontrara habilitado para hacer el check-in en el rango de 48hs a 24hs anteriores al vuelo.. </p>
-				<?php
-					session_start();
+			
+			<?php
+//LEVANTO LOS DATOS CON POST Y LLAMO A INICIO SESION DONDE COMPARO LOS DATOS//
+//*************************************************************************//
+if ( (isset($_POST['email'])) && (isset($_POST['password']) ))
+	{
+		require_once "Conexion/estructuraConsulta.php";		
 
-					require_once "Conexion/estructuraConsulta.php";
+		$nombre_ingresado = $_POST['email'];
+		$password_ingresado = $_POST['password'];
 
-					$Consulta3 = new estructuraModelo();
+		$consulta_Usuario = new estructuraModelo();
+		$miUsuario = $consulta_Usuario->get_sql('Select nombre,password from administrador order by nombre');
 
-					$nomTit = $_POST['nomTit'];
-					$cuotas = $_POST['cuotas'];
-					$tarjeta = $_POST['tarjeta'];
-					$numTarj = $_POST['numTarj'];
-					$vence = "20-".$_POST['anioVenc']."-".$_POST['mesVenc']."-01";
-					$tdniTit = $_POST['tipodniTit'];
-					$dninumTit = $_POST['numdniTit'];
-					$email = $_POST['email'];					
+		//Traer por post los valores introducidos en los campos de usuario y contraseña del Form(falta)
+		foreach ($miUsuario as $row)
+		{
+			$usuario = $row['nombre'];
+			$password = $row['password'];			
+		}		
 
-					for ($i= 1; $i <= $_SESSION['adultos'] ; $i++){
-						$apAdul = $_POST['appAdul'.$i];
-						$nomAdul = $_POST['nomAdul'.$i];
-						$sexAdul = $_POST['sexAdul'.$i];
-						$fnacAdul = $_POST['anioAd'.$i]."-".$_POST['mesAd'.$i]."-".$_POST['diaAd'.$i];
-						$tdniAdul = $_POST['tipodniAdul'.$i];
-						$dninumAdul = $_POST['dninumAdul'.$i];
-					
-						$diasvuelos1 = $Consulta3->get_sql_in("INSERT INTO pasajero (Nombre, Apellido, Tipo_doc, Dni, Fec_Nac, Email, Nro_Tarjeta, Nombre_Titular, Tipo_Tarjeta, Vencimiento, Nro_Doc_Titular, Tipo_Doc_Titular) VALUES ('".$nomAdul."', '".$apAdul."' , '".$tdniAdul."' , '".$dninumAdul."' , '".$fnacAdul."', '".$email."','".$numTarj."','".$nomTit."','".$tarjeta."','".$vence."','".$dninumTit."','".$tdniTit."' )");
-						}
+		if(($usuario == $nombre_ingresado) && ($password == $password_ingresado))
+			{
+				//Iniciamos las variables de sesion
+				session_start();
+				$ahora = date("Y-n-j H:i:s");
+				$_SESSION["ultimoAcceso"] = $ahora;
+				$_SESSION['nombre_usuario'] = $usuario;
+				$_SESSION['password_usuario'] = $password;
+				$fechaGuardada = $_SESSION["ultimoAcceso"]; 
+				$ahora = date("Y-n-j H:i:s");
+				echo "Bienvenido : " . $usuario . " Su ultimo ingreso fue : " . $_SESSION['ultimoAcceso'];
+			}
+		else{
+				echo '<script>alert("Hola\n Su password o usuario son incorrectos por favor reingrese");</script>';
+				header("Location: index.php");				
+			}
+	}
+	?>
 
-					for ($i= 1; $i <= $_SESSION['menores'] ; $i++){
-						$apMen = $_POST['appMen'.$i];
-						$nomMen = $_POST['nomMen'.$i];
-						$sexMen = $_POST['sexMen'.$i];
-						$fnacMen = $_POST['anioMen'.$i]."-".$_POST['mesMen'.$i]."-".$_POST['diaMen'.$i];
-						$tdniMen = $_POST['tipodniMen'.$i];
-						$dninumMen = $_POST['dninumMen'.$i];
-
-					$diasvuelos1 = $Consulta3->get_sql_in("INSERT INTO pasajero (Nombre, Apellido, Tipo_doc, Dni, Fec_Nac, Email, Nro_Tarjeta, Nombre_Titular, Tipo_Tarjeta, Vencimiento, Nro_Doc_Titular, Tipo_Doc_Titular) 
-						VALUES ('".$nomMen."','".$apMen."','".$tdniMen."','".$dninumMen."','".$fnacMen."', '".$email."','".$numTarj."','".$nomTit."','".$tarjeta."','".$vence."','".$dninumTit."','".$tdniTit."')");
-					}
-					
-				?>
-				<div class="clr"></div>
-			</form>
-
-		</article>
+	</article>
 	</section>
 <!-- / content -->
 </div>
@@ -143,7 +146,7 @@
 <!-- footer -->
 		<footer>
 			Trabajo Practico Integrador - Programacion Web II - UNLaM <br>
-			<span id="pie">Velasco, Romina Giselle · Zerpa, Nadia Lorena · Zurdo, Nahuel Matias</span>
+			<span>Velasco, Romina Giselle · Zerpa, Nadia Lorena · Zurdo, Nahuel Matias</span>
 		</footer>
 <!-- / footer -->
 	</div>
@@ -151,4 +154,3 @@
 <script type="text/javascript"> Cufon.now(); </script>
 </body>
 </html>
-

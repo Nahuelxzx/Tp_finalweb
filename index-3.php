@@ -66,19 +66,20 @@
 		<article class="col1">
 			<div class="pad_1">
 				<h2> Check - in </h2>
-				<form id="form_1" action="" method="post">
+				<form id="form_checkin" action="index-3a.php" method="post">
 
 					<div class="wrapper3">
 						Apellido :
-						<div class="bg"><input type="text" class="input input1" value="Ingrese su Apellido" onblur="if(this.value=='') this.value='Ingrese su Apeliido'" onFocus="if(this.value =='Ingrese su Apellido' ) this.value=''"></div>
+						<div class="bg"><input type="text" required id="apellido" class="input input1" placeholder="Ingrese su Apellido" ></div>
 					</div>
 					<div class="wrapper3">
 						Codigo de Reserva :
-						<div class="bg"><input type="text" class="input input1" value="Ingrese su Codigo de Reserva" onblur="if(this.value=='') this.value='Ingrese su Codigo de Reserva'" onFocus="if(this.value =='Ingrese su Codigo de Reserva' ) this.value=''"></div>
+						<div class="bg"><input type="text" required id="codigo_reserva" class="input input1" placeholder="Ingrese su Codigo de Reserva" ></div>
 					</div>
 
 					<div class="wrapper3">
-					<a href="#" class="button2" onClick="document.getElementById('form_1').submit()">go!</a>
+					<!--<a href="#" class="button2" onClick="document.getElementById('form_1').submit()">go!</a>-->
+					<input type="submit" class="button2" value="Enviar">
 					</div>
 
 				</form>
@@ -89,7 +90,7 @@
 			</div>
 		</article>
 		<article class="col2 pad_left1">
-			<h2>Vola con Airlines donde quieras</h2>
+			<h2>Vola con &nbsp;Airlines&nbsp; donde quieras</h2>
 			<div class="wrapper">
 				<p> Airlines ofrece vuelos a los más variados destinos del mundo. Con los mejores servicios y comodidades a bordo, los pasajeros experimentarán un vuelo placentero, sin importar la ciudad que hayan elegido. </p>
 			</div>

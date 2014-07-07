@@ -18,37 +18,28 @@ USE `tp_finalweb2`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `pasajero`
+-- Table structure for table `administrador`
 --
 
-DROP TABLE IF EXISTS `pasajero`;
+DROP TABLE IF EXISTS `administrador`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `pasajero` (
-  `idPasajero` int(11) NOT NULL AUTO_INCREMENT,
-  `Nombre` varchar(30) DEFAULT NULL,
-  `Apellido` varchar(30) DEFAULT NULL,
-  `Fec_Nac` date DEFAULT NULL,
-  `Dni` int(11) NOT NULL,
-  `Tipo_doc` varchar(45) NOT NULL,
-  `Email` varchar(35) DEFAULT NULL,
-  `Nro_Tarjeta` int(11) DEFAULT NULL,
-  `Nombre_Titular` varchar(45) DEFAULT NULL,
-  `Tipo_Tarjeta` varchar(45) DEFAULT NULL,
-  `Vencimiento` date DEFAULT NULL,
-  `Nro_Doc_Titular` int(11) DEFAULT NULL,
-  `Tipo_Doc_Titular` varchar(15) DEFAULT NULL,
-  PRIMARY KEY (`idPasajero`)
+CREATE TABLE `administrador` (
+  `idAdmin` int(11) NOT NULL,
+  `nombre` varchar(45) DEFAULT NULL,
+  `password` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idAdmin`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `pasajero`
+-- Dumping data for table `administrador`
 --
 
-LOCK TABLES `pasajero` WRITE;
-/*!40000 ALTER TABLE `pasajero` DISABLE KEYS */;
-/*!40000 ALTER TABLE `pasajero` ENABLE KEYS */;
+LOCK TABLES `administrador` WRITE;
+/*!40000 ALTER TABLE `administrador` DISABLE KEYS */;
+INSERT INTO `administrador` VALUES (1,'administrador','123456');
+/*!40000 ALTER TABLE `administrador` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -60,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-07-01 15:49:13
+-- Dump completed on 2014-07-01 15:49:12

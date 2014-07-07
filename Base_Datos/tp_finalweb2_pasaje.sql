@@ -4,7 +4,7 @@ USE `tp_finalweb2`;
 --
 -- Host: localhost    Database: tp_finalweb2
 -- ------------------------------------------------------
--- Server version	5.6.17
+-- Server version	5.6.14-enterprise-commercial-advanced
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -29,12 +29,6 @@ CREATE TABLE `pasaje` (
   `nroVuelo` int(11) DEFAULT NULL,
   `idPasajero` int(11) DEFAULT NULL,
   `NroTarifa` int(11) NOT NULL,
-  `Nro_Tarjeta` double DEFAULT NULL,
-  `Nombre_Titular` varchar(45) DEFAULT NULL,
-  `Tipo_Tarjeta` varchar(45) DEFAULT NULL,
-  `Vencimiento` date DEFAULT NULL,
-  `Nro_Doc_Titular` varchar(45) DEFAULT NULL,
-  `Tipo_Doc_Titular` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idPasaje`),
   KEY `nroVuelo` (`nroVuelo`),
   KEY `idPasajero` (`idPasajero`),
@@ -63,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-06-27 23:55:51
+-- Dump completed on 2014-07-01 15:49:12
