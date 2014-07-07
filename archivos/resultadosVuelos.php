@@ -42,10 +42,12 @@ if($diasvuelos)
 			echo "</br><table border='1' rules=all>";
 			echo "<tr height=40px><td></td><td width=350px><strong> ORIGEN </strong></td><td width=350px><strong> DESTINO </strong></td><td width=100px><strong> SALIDA </strong></td><td width=100px><strong> LLEGADA </strong></td><td width=100px><strong>CATEG.</strong></td><td width=100px><strong> IMPORTE </strong></td></tr>";
 
+			$j = 0;
+
 			foreach ($clientes as $row)
 			 {					            	   
 	 	   		  echo "<tr height=40px>";
-	 	   		  echo "<td><input type='radio' name='ida' id='ida'></td>";					 	   		  
+	 	   		  echo "<td><input type='radio' name='ida' id='ida-".$j."'></td>";					 	   		  
 	              echo "<td>" . $row['CiudadOrigen'] . "</td>";
 	              echo "<td>" . $row['CiudadDestino'] . "</td>";							             
 	              echo "<td>" . $row['HoraSalida'] . "</td>";
@@ -58,9 +60,10 @@ if($diasvuelos)
 	              }
 	              else{
 	              	echo "<td>Economica</td>";	
-	              	echo "<td>" . $row['PrecioEconomico'] . "</td>";}							             	 	   		 
+	              	echo "<td>" . $row['PrecioEconomico'] . "</td>";
+	              }							             	 	   		 
 	 	   		  echo "</tr>";
-
+	 	   		  $j++;
 			}
 			echo "</table>";
 			echo "<br><br>";

@@ -34,11 +34,6 @@ function validar(){
         return false;
     }
 
-   /* if(){
-        alert ("El campo sexo es obligatorio");
-        return false;
-    }*/
-
     if(document.getElementById("email").value != document.getElementById("remail").value){
         alert ("El Email y Verficar Email deben ser iguales");
         return false;
@@ -47,7 +42,27 @@ function validar(){
     return true;
 }
 
-/**********************  VALIDACION DE FORMULARIO DE CHECK-IN   ***********************/
+/**********************  VALIDACION DE FORMULARIO DE RESULTADO VUELO   ***********************/
+
+window.onload = inicio
+        
+    function inicio(){
+        document.getElementById("form_vuelo").onsubmit = valida;
+    }
+
+function valida(){
+    
+    if(!document.getElementById("ida-0").checked && !document.getElementById("ida-1").checked){
+            alert ("Debe seleccionar una viaje de ida");
+            return false;
+    }
+
+    if(!document.getElementById("vuelta-0").checked && !document.getElementById("vuelta-1").checked){
+        alert ("Debe seleccionar una viaje de vuelta");
+        return false;
+    }
+    return true;
+}
 
 
 /********************** DATEPICKER FECHAS  *************************/

@@ -163,13 +163,13 @@
 				include "archivos/resultadosVuelos.php";
 				
 				if (isset($_POST['viaje']))
-						 {
-							if (($_POST['viaje']) == "iyv")
-							{
-								$vuelta=$_POST['viaje'];
-								include 'archivos/vuelta.php';								
-							}
-						 }	
+				 {
+					if (($_POST['viaje']) == "iyv")
+					{
+						$vuelta=$_POST['viaje'];
+						include 'archivos/vuelta.php';								
+					}
+				 }	
 			?>
 			<div class="wrapper pad_bot2">
 				<!--<a href="datos.php" class="button2" onClick="document.getElementById('form_1').submit()"> Buscar </a> -->
