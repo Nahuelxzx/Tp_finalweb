@@ -2,9 +2,9 @@
 /**********************  VALIDACION DE FORMULARIO DE PAGO   ***********************/
 window.onload = inicio
         
-        function inicio(){
-            document.getElementById("PagoFormu").onsubmit = validar;
-        }
+    function inicio(){
+        document.getElementById("PagoFormu").onsubmit = validar;
+    }
 
 function validar(){
     
@@ -68,7 +68,6 @@ $(function() {
 
 /**********************  OCULTAR DIV REGRESO  ***********************/
 
-
 $(document).ready(function(){
         $('input[type="radio"]').click(function(){
             if($(this).attr("value")=="si"){
@@ -79,7 +78,6 @@ $(document).ready(function(){
             }
         });
     });
-
 
 /********************** BOTON DE LOGUEO  ***********************/
 

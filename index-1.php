@@ -147,7 +147,7 @@
 				<p><a href="#" class="link1">Los Precios mas baratos..</a><br>Febrero 12, 2014</p>
 			</div>
 		</article>
-		<article class="col2 pad_left1">
+		<article class="col3 pad_left1">
 		<h2>Vuelos de &nbsp;&nbsp;<?php if (isset($_POST['Origen'])) { echo $_POST['Origen'];} ?>&nbsp;&nbsp; a &nbsp;&nbsp;<?php if (isset($_POST['destino'])) { echo $_POST['destino'];} ?></h2>			
 		<form id="form_vuelo" action="index-2.php" method="POST">
 			<?php

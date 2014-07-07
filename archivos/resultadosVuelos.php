@@ -40,12 +40,12 @@ if($diasvuelos)
 			where A1.Ciudad = "' . $var1 . '" and A2.Ciudad = "' . $var2 . '" ');								
 			//----------------//INICIO DE LA TABLA DE RESULTADOS//----------------------//
 			echo "</br><table border='1' rules=all>";
-			echo "<tr><td></td><td width=145px height=35px><strong> ORIGEN </strong></td><td width=145px height=20px><strong> DESTINO </strong></td><td width=70px height=20px><strong> SALIDA </strong></td><td width=80px height=20px><strong> LLEGADA </strong></td><td width=70px height=20px><strong> IMPORTE </strong></td></tr>";							
+			echo "<tr height=40px><td></td><td width=350px><strong> ORIGEN </strong></td><td width=350px><strong> DESTINO </strong></td><td width=100px><strong> SALIDA </strong></td><td width=100px><strong> LLEGADA </strong></td><td width=100px><strong>CATEG.</strong></td><td width=100px><strong> IMPORTE </strong></td></tr>";
 
 			foreach ($clientes as $row)
 			 {					            	   
 	 	   		  echo "<tr height=40px>";
-	 	   		  echo "<td><input type='radio' name='ida' id='ida'></td>";							 	   		  
+	 	   		  echo "<td><input type='radio' name='ida' id='ida'></td>";					 	   		  
 	              echo "<td>" . $row['CiudadOrigen'] . "</td>";
 	              echo "<td>" . $row['CiudadDestino'] . "</td>";							             
 	              echo "<td>" . $row['HoraSalida'] . "</td>";
@@ -53,9 +53,12 @@ if($diasvuelos)
 
 	              if ($clase == "primera")
 	              {
+	              	echo "<td>Primera</td>";	
 	              	echo "<td>" . $row['Precio_Primary'] . "</td>";
 	              }
-	              else{echo "<td>" . $row['PrecioEconomico'] . "</td>";}							             	 	   		 
+	              else{
+	              	echo "<td>Economica</td>";	
+	              	echo "<td>" . $row['PrecioEconomico'] . "</td>";}							             	 	   		 
 	 	   		  echo "</tr>";
 
 			}
