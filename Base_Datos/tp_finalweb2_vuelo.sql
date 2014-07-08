@@ -4,7 +4,7 @@ USE `tp_finalweb2`;
 --
 -- Host: localhost    Database: tp_finalweb2
 -- ------------------------------------------------------
--- Server version	5.6.14-enterprise-commercial-advanced
+-- Server version	5.6.17
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -40,7 +40,7 @@ CREATE TABLE `vuelo` (
   CONSTRAINT `FK_Aepto_Destino` FOREIGN KEY (`Aepto_Destino`) REFERENCES `aeropuerto` (`idAepto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_Aepto_Origen` FOREIGN KEY (`Aepto_Origen`) REFERENCES `aeropuerto` (`idAepto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_Nro_Avion` FOREIGN KEY (`idAvion`) REFERENCES `avion` (`idAvion`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,7 +49,7 @@ CREATE TABLE `vuelo` (
 
 LOCK TABLES `vuelo` WRITE;
 /*!40000 ALTER TABLE `vuelo` DISABLE KEYS */;
-INSERT INTO `vuelo` VALUES (1,'SAVR','SAZY','16:20:00','18:20:00','Lunes','2014-05-10',3),(2,'SAZA','SAZW','14:20:00','16:15:00','Martes','2014-03-05',2),(3,'SAAP','SAAR','00:00:20','00:00:22','Mierco','2014-02-07',2),(4,'SAAP','SAAU','00:00:14','00:00:18','Jueves','2014-02-07',2),(5,'SAVR','SAZY','00:00:15','00:00:17','vierne','2014-05-11',3),(6,'SAVR','SAZY','00:00:12','00:00:14','Lunes','2014-05-10',1),(7,'SAVR','SAZY','00:00:10','00:00:12','Lunes','2014-05-10',2),(8,'SABE','SAZV','10:00:00','11:00:00','1111100','2014-06-05',2),(9,'SABE','SAZH','00:00:12','00:00:14','0000100','2014-05-05',1),(10,'SACO','SAOC','14:00:00','19:00:00','0011001','2014-07-18',3),(11,'SABE','SAZV','14:00:00','16:00:00','1111100','2014-07-18',2);
+INSERT INTO `vuelo` VALUES (1,'SAVR','SAZY','16:20:00','18:20:00','Lunes','2014-05-10',3),(2,'SAZA','SAZW','14:20:00','16:15:00','Martes','2014-03-05',2),(3,'SAAP','SAAR','00:00:20','00:00:22','Mierco','2014-02-07',2),(4,'SAAP','SAAU','00:00:14','00:00:18','Jueves','2014-02-07',2),(5,'SAVR','SAZY','00:00:15','00:00:17','vierne','2014-05-11',3),(6,'SAVR','SAZY','00:00:12','00:00:14','Lunes','2014-05-10',1),(7,'SAVR','SAZY','00:00:10','00:00:12','Lunes','2014-05-10',2),(8,'SABE','SAZV','10:00:00','11:00:00','1111100','2014-06-05',2),(9,'SABE','SAZH','00:00:12','00:00:14','0000100','2014-05-05',1),(10,'SACO','SAOC','14:00:00','19:00:00','0011001','2014-07-18',3),(11,'SABE','SAZV','14:00:00','16:00:00','1111100','2014-07-18',2),(12,'SAOC','SACO','17:00:00','19:00:00','0011001','2014-07-18',3);
 /*!40000 ALTER TABLE `vuelo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -62,4 +62,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-07-01 15:49:12
+-- Dump completed on 2014-07-07  2:25:27

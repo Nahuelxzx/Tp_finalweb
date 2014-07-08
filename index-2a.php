@@ -115,7 +115,8 @@
 						$tdniAdul = $_POST['tipodniAdul'.$i];
 						$dninumAdul = $_POST['dninumAdul'.$i];
 					
-						$diasvuelos1 = $Consulta3->get_sql_in("INSERT INTO pasajero (Nombre, Apellido, Tipo_doc, Dni, Fec_Nac, Email, Nro_Tarjeta, Nombre_Titular, Tipo_Tarjeta, Vencimiento, Nro_Doc_Titular, Tipo_Doc_Titular) VALUES ('".$nomAdul."', '".$apAdul."' , '".$tdniAdul."' , '".$dninumAdul."' , '".$fnacAdul."', '".$email."','".$numTarj."','".$nomTit."','".$tarjeta."','".$vence."','".$dninumTit."','".$tdniTit."' )");
+						$diasvuelos1 = $Consulta3->get_sql_in("INSERT INTO pasajero (Nombre, Apellido, Tipo_doc, Dni, Fec_Nac, Email, Nro_Tarjeta, Nombre_Titular, Tipo_Tarjeta, Vencimiento, Nro_Doc_Titular, Tipo_Doc_Titular) 
+							VALUES ('".$nomAdul."', '".$apAdul."' , '".$tdniAdul."' , '".$dninumAdul."' , '".$fnacAdul."', '".$email."','".$numTarj."','".$nomTit."','".$tarjeta."','".$vence."','".$dninumTit."','".$tdniTit."' )");
 						}
 
 					for ($i= 1; $i <= $_SESSION['menores'] ; $i++){

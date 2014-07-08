@@ -4,7 +4,7 @@ USE `tp_finalweb2`;
 --
 -- Host: localhost    Database: tp_finalweb2
 -- ------------------------------------------------------
--- Server version	5.6.14-enterprise-commercial-advanced
+-- Server version	5.6.17
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -29,6 +29,11 @@ CREATE TABLE `pasaje` (
   `nroVuelo` int(11) DEFAULT NULL,
   `idPasajero` int(11) DEFAULT NULL,
   `NroTarifa` int(11) NOT NULL,
+  `categoria` varchar(10) DEFAULT '0',
+  `asiento` int(11) DEFAULT '0',
+  `claveAuto` varchar(10) DEFAULT NULL,
+  `tarifa` decimal(10,2) DEFAULT NULL,
+  `Fecha_Salida` date DEFAULT NULL,
   PRIMARY KEY (`idPasaje`),
   KEY `nroVuelo` (`nroVuelo`),
   KEY `idPasajero` (`idPasajero`),
@@ -45,6 +50,7 @@ CREATE TABLE `pasaje` (
 
 LOCK TABLES `pasaje` WRITE;
 /*!40000 ALTER TABLE `pasaje` DISABLE KEYS */;
+INSERT INTO `pasaje` VALUES (1,12,1,261,'0',0,'XXXXXX',2054.00,'2014-07-18');
 /*!40000 ALTER TABLE `pasaje` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -57,4 +63,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-07-01 15:49:12
+-- Dump completed on 2014-07-07  2:25:28

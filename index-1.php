@@ -82,8 +82,8 @@
 				<form id="form_1" action="index-1.php" method="post">
 					<div class="wrapper pad_bot1">
 						<div class="radio marg_right1">
-							<label><input type="radio" name="viaje" value="iyv" <?php if (isset($_POST['viaje'])) { if ($_POST['viaje'] == "iyv") { echo "checked = 'checked'";}} ?> onclick="ocultar(this)"> Ida y Vuelta </label><br>
-							<label><input type="radio" name="viaje" value="si" <?php if (isset($_POST['viaje'])) { if ($_POST['viaje'] == "si") { echo "checked = 'checked'";}} ?> onclick="ocultar(this)">Solo Ida</label>
+							<label><input type="radio" name="viaje" value="iyv" id="iyv" <?php if (isset($_POST['viaje'])) { if ($_POST['viaje'] == "iyv") { echo "checked = 'checked'";}} ?> onclick="ocultar(this)"> Ida y Vuelta </label><br>
+							<label><input type="radio" name="viaje" value="si" id="si" <?php if (isset($_POST['viaje'])) { if ($_POST['viaje'] == "si") { echo "checked = 'checked'";}} ?> onclick="ocultar(this)">Solo Ida</label>
 						</div>
 						<div class="radio">
 							<label><input type="radio" name="clase" value="primera" <?php if (isset($_POST['clase'])) { if ($_POST['clase'] == "primera") { echo "checked='checked'";}} ?> >Primera</label><br>
@@ -160,16 +160,15 @@
 						$clase="primera";
 					 }
 				}
+
 				include "archivos/resultadosVuelos.php";
 				
-				if (isset($_POST['viaje']))
-				 {
-					if (($_POST['viaje']) == "iyv")
-					{
+				if (isset($_POST['viaje'])) {
+					if (($_POST['viaje']) == "iyv") {
 						$vuelta=$_POST['viaje'];
 						include 'archivos/vuelta.php';								
 					}
-				 }	
+				}	
 			?>
 			<div class="wrapper pad_bot2">
 				<!--<a href="datos.php" class="button2" onClick="document.getElementById('form_1').submit()"> Buscar </a> -->

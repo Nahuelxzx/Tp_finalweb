@@ -4,7 +4,7 @@ USE `tp_finalweb2`;
 --
 -- Host: localhost    Database: tp_finalweb2
 -- ------------------------------------------------------
--- Server version	5.6.14-enterprise-commercial-advanced
+-- Server version	5.6.17
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -39,7 +39,7 @@ CREATE TABLE `pasajero` (
   `Nro_Doc_Titular` int(11) DEFAULT NULL,
   `Tipo_Doc_Titular` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`idPasajero`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,6 +48,7 @@ CREATE TABLE `pasajero` (
 
 LOCK TABLES `pasajero` WRITE;
 /*!40000 ALTER TABLE `pasajero` DISABLE KEYS */;
+INSERT INTO `pasajero` VALUES (1,'Matias','Celiz',NULL,50225478,'dni','1990-07-16',NULL,NULL,NULL,NULL,NULL,NULL),(2,'aldana','Porto',NULL,65887789,'dni','2000-05-01',NULL,NULL,NULL,NULL,NULL,NULL),(3,'Matias','Celiz',NULL,50225478,'dni','1990-07-16',NULL,NULL,NULL,NULL,NULL,NULL),(4,'aldana','Porto',NULL,65887789,'dni','2000-05-01',NULL,NULL,NULL,NULL,NULL,NULL),(5,'tito','Norboski',NULL,50222544,'dni','2000-07-09',NULL,NULL,NULL,NULL,NULL,NULL),(6,'jomi','Clour',NULL,25114587,'dni','1968-02-01',NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `pasajero` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -60,4 +61,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-07-01 15:49:13
+-- Dump completed on 2014-07-07  2:25:28

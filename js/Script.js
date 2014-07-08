@@ -52,18 +52,45 @@ window.onload = inicio
 
 function valida(){
     
-    if(!document.getElementById("ida-0").checked && !document.getElementById("ida-1").checked){
-            alert ("Debe seleccionar una viaje de ida");
-            return false;
+    ida = document.getElementsByName("ida");
+
+    var seleccionado = false;
+
+    for(var i=0; i<ida.length; i++) {    
+      if(ida[i].checked) {
+        seleccionado = true;
+        break;
+      }
+    }
+     
+    if(!seleccionado) {
+
+        alert("Debe seleccionar al menos una opccion de ida");
+      return false;
     }
 
-    if(!document.getElementById("vuelta-0").checked && !document.getElementById("vuelta-1").checked){
-        alert ("Debe seleccionar una viaje de vuelta");
-        return false;
-    }
-    return true;
+//validacion de vuelta
+
+    if (document.getElementById("iyv").checked) {
+
+        vuelta = document.getElementsByName("vuelta");
+
+        var seleccionado1 = false;
+
+        for(var j=0; j<vuelta.length; j++) {    
+          if(vuelta[j].checked) {
+            seleccionado1 = true;
+            break;
+          }
+        }
+         
+        if(!seleccionado1) {
+
+            alert("Debe seleccionar al menos una opccion de vuelta");
+          return false;
+        }
+    }else{};
 }
-
 
 /********************** DATEPICKER FECHAS  *************************/
 
