@@ -1,6 +1,8 @@
 <?php
 //Seteo el idioma local para que las fechas no esten en ingles
 setlocale(LC_ALL,"es_ES@euro","es_ES","esp","es");
+date_default_timezone_set('America/Buenos_Aires');
+
 //Cargo los dias de la semana en un array en donde 1-Lunes y 7-Domingo el ''- Es el 0 pero no lo tenemos en cuenta.
 $dias = array('','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo');
 
@@ -12,7 +14,14 @@ if ($vengodevuelo == 1)
 //Obtengo el valor en string de la fecha seleccionada, si es lunes, martes, etc.
 //$fecha = $dias[date('N', strtotime('2014-06-26'))]; 
 $fecha = $dias[date('N', strtotime($varFecha1))]; 
-//echo "</br>FECHA AHORA : " . $fecha;
+//$var2 = date('N',strtotime('07-02-2014'));
+//$var2 = date('N',$varFecha1);
+//echo "$varFecha1";
+
+//echo "</br>diaaaaaaaaaaaa ******************************************" . $dias[date('N', strtotime($varFecha1))];
+//echo "</br>*****************************************************FECHA AHORA : " . $fecha;
+//$hoy = getdate($varFecha1);
+//print_r($hoy);
 //Inicio el array
 $arraydia = array();
 $pos=55;

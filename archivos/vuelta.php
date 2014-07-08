@@ -21,7 +21,7 @@ if($diasvuelos)
 	 						  }
 		//Dentro del include se hacen las comparaciones dia a dia segun el binario entregado//
 		//---------------------------------------------------------------------------------//
-	 	$vengodevuelta = 1;															   
+	 	$vengodevuelo = 1;															   
 		include "archivos/diasVuelo.php";
 	 }
 		 //Si la fecha que selecciono posee algun vuelo realizo la consulta para mostrar el vuelo segun los horarios//
