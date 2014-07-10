@@ -1,4 +1,3 @@
-
 /**********************  VALIDACION DE FORMULARIO DE PAGO   ***********************/
 window.onload = inicio
         

@@ -87,6 +87,19 @@
 				<div class="marker">
 					<p class="pad_bot2"><strong> Sus datos fueron recibidos con exito.. </strong></p>
 					<p class="pad_bot2"> Ya se encuentra a du disposicion un pdf con sus datos y el codigo de reserva correspondiete a su vuelo.</p>
+					<p class="pad_bot2">
+						<?php
+						function generar_clave($longitud){ 
+						       $cadena="[^A-Z0-9]"; 
+						       return substr(eregi_replace($cadena, "", md5(rand())) . 
+						       eregi_replace($cadena, "", md5(rand())) . 
+						       eregi_replace($cadena, "", md5(rand())), 
+						       0, $longitud); 
+						} 
+						//Ejemplo de utilización para una clave de 10 caracteres: 
+						$codigo = generar_clave(6);
+						?>
+					</p>
 				</div>
 				<a href="index-2b.php" class="button2" onClick="document.getElementById('ContactForm').submit()">Ver Pdf</a>
 				<div class="clr"></div><br><br>
