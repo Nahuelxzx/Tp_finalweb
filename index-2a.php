@@ -109,6 +109,7 @@
 					require_once "Conexion/estructuraConsulta.php";
 
 					$Consulta3 = new estructuraModelo();
+					$Consulta4 = new estructuraModelo();
 
 					$nomTit = $_POST['nomTit'];
 					$cuotas = $_POST['cuotas'];
@@ -129,14 +130,25 @@
 						$tdniAdul = $_POST['tipodniAdul'.$i];
 						$dninumAdul = $_POST['dninumAdul'.$i];
 					
-						$pasajero1 = $Consulta3->get_sql_in("INSERT INTO pasajero (Nombre, Apellido, Tipo_doc, Dni, Fec_Nac, Email, Nro_Tarjeta, Nombre_Titular, Tipo_Tarjeta, Vencimiento, Nro_Doc_Titular, Tipo_Doc_Titular) 
-						VALUES ('".$nomAdul."', '".$apAdul."' , '".$tdniAdul."' , '".$dninumAdul."' , '".$fnacAdul."', '".$email."','".$numTarj."','".$nomTit."','".$tarjeta."','".$vence."','".$dninumTit."','".$tdniTit."' )");
+						//$Consulta3->get_sql_in("INSERT INTO pasajero (Nombre, Apellido, Tipo_doc, Dni, Fec_Nac, Email, Nro_Tarjeta, Nombre_Titular, Tipo_Tarjeta, Vencimiento, Nro_Doc_Titular, Tipo_Doc_Titular) VALUES ('".$nomAdul."', '".$apAdul."' , '".$tdniAdul."' , '".$dninumAdul."' , '".$fnacAdul."', '".$email."','".$numTarj."','".$nomTit."','".$tarjeta."','".$vence."','".$dninumTit."','".$tdniTit."' )");						
+						$Consulta3->get_sql_in("INSERT INTO pasajero (Nombre, Apellido) VALUES ('".$nomAdul."', '".$apAdul."');");
+						//$Consulta3->get_sql_in("insert into pasajero (nombre,apellido) values ($nomAdul, $apAdul);");
+
+						$Consulta3->get_sql_in("insert into pasajero (nombre,apellido,dni) values ('" . $nomAdul . "','" . $apAdul . "'," . $dninumAdul . " );");						
+						//$pasajero_consulta = $Consulta4->get_sql("SELECT idPasajero FROM pasajero WHERE Nombre = '".$nomAdul."', Apellido = '".$apAdul."', dni = '".$dninumAdul."' ");
+						$pasajero_consulta = $Consulta4->get_sql("SELECT idPasajero FROM pasajero WHERE dni = '".$dninumAdul."' ");
+
+						echo "pasajero_consulta : ()\n" . $dninumAdul;
+						var_dump($pasajero_consulta);
+
+						$id_pasajero = 32;
 						
-						/*$pasajero_consulta = $Consulta4->get_sql("SELECT idPasajero FROM pasajero WHERE Nombre = '".$nomAdul."', Apellido = '".$apAdul."', dni = '".$dninumAdul."' ");
 						foreach ($pasajero_consulta as $row){
 							$id_pasajero = $row['idPasajero'];
 							echo "id_pasajero".$id_pasajero."<br>";
-						}*/ $id_pasajero = 32;
+						}
+
+						
 
 						$var1 = $_SESSION['origen'];
 						$var2 = $_SESSION['destino'];
@@ -165,8 +177,11 @@
 
 						$codigo = generar_clave(6);
 						echo "codigo".$codigo."<br>";
+
+					}//borrar esta llave!
 					
-						$carga_pasaje = $Consulta3->get_sql_in("INSERT INTO pasaje (idPasaje, nroVuelo, idPasajero, NroTarifa, categoria, claveAuto ) 
+				/*	
+					$carga_pasaje = $Consulta3->get_sql_in("INSERT INTO pasaje (idPasaje, nroVuelo, idPasajero, NroTarifa, categoria, claveAuto ) 
 						VALUES ('".$id."','".$nroVueloIda."', '".$id_pasajero."' , '".$nro_tarifa."', '".$categoria."', '".$codigo."' )");
 						$id++;
 					}
@@ -183,7 +198,10 @@
 
 						$diasvuelos1 = $Consulta3->get_sql_in("INSERT INTO pasajero (Nombre, Apellido, Tipo_doc, Dni, Fec_Nac, Email, Nro_Tarjeta, Nombre_Titular, Tipo_Tarjeta, Vencimiento, Nro_Doc_Titular, Tipo_Doc_Titular) 
 						VALUES ('".$nomMen."','".$apMen."','".$tdniMen."','".$dninumMen."','".$fnacMen."', '".$email."','".$numTarj."','".$nomTit."','".$tarjeta."','".$vence."','".$dninumTit."','".$tdniTit."')");
+
+						$Consulta3->close();
 					}
+				*/	
 				?>
 				<div class="clr"></div>
 			</form>
@@ -205,4 +223,3 @@
 <script type="text/javascript"> Cufon.now(); </script>
 </body>
 </html>
-
