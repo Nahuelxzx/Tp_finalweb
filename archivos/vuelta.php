@@ -25,7 +25,7 @@ if($diasvuelos){
 	//---------------------------------------------------------------------------------------------------//
 	if (($arraydia[$pos]) == ($arraybinarios[$pos])){							
 		//echo "</br><h1>ESTE VUELO TIENE SALIDAS ESA FECHA SELECCIONE GRACIAS AIREXPRESS.COM</H1>";
-		$clientes = $estructuraConsulta->get_sql('select A1.Ciudad as CiudadOrigen, A2.Ciudad as CiudadDestino,
+		$clientes = $estructuraConsulta->get_sql('SELECT V1.idVuelo as id_vuelo, A1.Ciudad as CiudadOrigen, A2.Ciudad as CiudadDestino,
 		V1.Hora_Salida as HoraSalida, V1.Hora_Llegada as HoraLlegada, TA.Precio_Economy as PrecioEconomico , TA.Precio_Primary as Precio_Primary from vuelo V1 inner join aeropuerto A1
 		on V1.Aepto_Origen = A1.idAepto inner join aeropuerto A2 on V1.Aepto_Destino = A2.idAepto inner join tarifa TA on V1.Aepto_Destino = TA.Aepto_Destino and V1.Aepto_Origen = TA.Aepto_Origen
 		where A1.Ciudad = "' . $var2. '" and A2.Ciudad = "' . $var1. '" ');								
@@ -36,7 +36,7 @@ if($diasvuelos){
 
 		foreach ($clientes as $row){
 			echo "<tr height=40px>";
-			echo "<td><input type='radio' name='vuelta'></td>";							 	   		  
+			echo "<td><input type='radio' name='vuelta' value='".$row['id_vuelo']."'></td>";							 	   		  
 			echo "<td>" .$row['CiudadOrigen']. "</td>";
 			echo "<td>" .$row['CiudadDestino']. "</td>";							             
 			echo "<td>" .$row['HoraSalida']. "</td>";

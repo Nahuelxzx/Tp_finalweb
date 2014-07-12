@@ -19,6 +19,15 @@
 		<script type="text/javascript" src="http://info.template-help.com/files/ie6_warning/ie6_script_other.js"></script>
 		<script type="text/javascript" src="js/html5.js"></script>
 	<![endif]-->
+	<?php
+		 session_start();
+		if (isset($_POST['ida_vuelo'])) {
+			$_SESSION['vuelo_ida'] = $_POST['ida_vuelo'];
+		}
+		if (isset($_POST['vuelta'])) {
+			$_SESSION['vuelo_vuelta'] = $_POST['vuelta'];
+		}
+	?>
 </head>
 <body id="page5">
 <div class="body1">
@@ -86,8 +95,6 @@
 			<form id="PagoFormu" action="index-2a.php" method="POST">
 				<div>
 					<?php
-					  session_start();
-
 					  for ($i= 1; $i <= $_SESSION['adultos'] ; $i++) {
 					  	echo "<div class='marker'>";
 					    echo "<strong class='rotulo'> Pasajero Adulto $i: </strong>";

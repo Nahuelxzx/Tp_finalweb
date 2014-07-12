@@ -51,7 +51,7 @@ window.onload = inicio
 
 function valida(){
     
-    ida = document.getElementsByName("ida");
+    ida = document.getElementsByName("ida_vuelo");
 
     var seleccionado = false;
 
@@ -64,7 +64,7 @@ function valida(){
      
     if(!seleccionado) {
 
-        alert("Debe seleccionar al menos una opccion de ida");
+        alert("Debe seleccionar una opccion de ida");
       return false;
     }
 
@@ -85,7 +85,7 @@ function valida(){
          
         if(!seleccionado1) {
 
-            alert("Debe seleccionar al menos una opccion de vuelta");
+            alert("Debe seleccionar una opccion de vuelta");
           return false;
         }
     }else{};
