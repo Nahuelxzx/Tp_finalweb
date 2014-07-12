@@ -22,10 +22,13 @@
 		<script type="text/javascript" src="js/html5.js"></script>
 	<![endif]-->
 	<style type="text/css">
-        #holder1{height:410px; width:140px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:150px;padding-left: 10px; padding-right: 10px}
-        #holder2{height:570px; width:240px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:115px;padding-left: 10px; padding-right: 10px}
-        #holder3{height:850px; width:240px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:110px;padding-left: 10px; padding-right: 10px}
-        #holder4{height:1210px; width:190px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:120px;padding-left: 10px; padding-right: 10px}
+        #holder1-eco{height:410px; width:140px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:150px;padding-left: 10px; padding-right: 10px}
+        #holder2-eco{height:570px; width:240px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:115px;padding-left: 10px; padding-right: 10px}
+        #holder3-eco{height:850px; width:240px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:110px;padding-left: 10px; padding-right: 10px}
+        #holder4-eco{height:1210px; width:190px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:120px;padding-left: 10px; padding-right: 10px}
+        #holder2-pri{height:210px; width:100px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:150px;padding-left: 10px; padding-right: 10px}
+        #holder3-pri{height:410px; width:100px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:150px;padding-left: 10px; padding-right: 10px}
+        #holder4-pri{height:410px; width:140px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:150px;padding-left: 10px; padding-right: 10px}
         #place {position:relative; margin:7px;}
         #place a{font-size:10px; text-decoration: none; color: black;}
         #place li{list-style: none outside none; position: absolute;}    
@@ -109,19 +112,27 @@
 
 				    //echo "Asientos que puede seleccionar: ".$totalAsiento;
 				    echo "<br>";
+				    /*
+				    if ($_SESSION['case'] == 'primera') {
+				    	$clase = 'pri';
+				    }else{
+				    	$clase = 'eco';
+				    }*/
+				    $clase = 'pri';
 
-				    $tipoAvion = 1;
+				    $tipoAvion = 4;
 
 				    require_once "Conexion/estructuraConsulta.php";
 
 				    $Consulta = new estructuraModelo();
 
-				    $diasvuelos = $Consulta->get_sql("SELECT DISTINCT Fila_eco, Columna_eco FROM avion WHERE Tipo = '".$tipoAvion."'");
+				    $diasvuelos = $Consulta->get_sql("SELECT DISTINCT Fila_".$clase.", Columna_".$clase." FROM avion WHERE Tipo = '".$tipoAvion."'");
 				    
-				    foreach ($diasvuelos as $row) {
-				       // echo "fila: ".$row['Fila_eco']." columna: ".$row['Columna_eco']."<br><br>";
-				        $filaAvion = $row['Fila_eco'];
-				        $columnaAvion = $row['Columna_eco'];
+				    foreach ($diasvuelos as $row) { 
+				      	$filaAvion = $row['Fila_'.$clase];
+				        $columnaAvion = $row['Columna_'.$clase];
+				        //echo "fila: ".$filaAvion." columna: ".$columnaAvion."<br><br>";
+
 				    }
 				?>
 				<div id="contenedor_descripcion"> 
@@ -132,7 +143,7 @@
 			      </ul>
 			    </div>
 			    <div id="contenedor_butacas">
-			    <div id="holder<?php echo $tipoAvion?>"> 
+			    <div id="holder<?php echo $tipoAvion."-".$clase ?>"> 
 			      <ul  id="place"> </ul>    
 			    </div>
 			     </div>
