@@ -23,15 +23,15 @@ $cat = $datosPasajero->getCategoria();
 $asiento = $datosPasajero->getAsiento();
 $fecha = $datosPasajero->getFecha();	
 
-echo $nombre;
+/*echo $nombre;
 echo $apellido;
 echo $aOrigen;
 echo "$aDestino";
-echo "$clave";
+echo "<br>$clave";
 echo "$Nvuelo";
 echo "$cat";
 echo "$asiento";
-echo "$fecha";
+echo "$fecha";*/
 //PREPARAR TODO PARA EL PDF SEÑORES
 
 //LLAMAR AL PDF

@@ -13,7 +13,7 @@ class pasaje{
 
 	public function __construct($datos){	
 	
-	var_dump($datos);
+	//var_dump($datos);
 		foreach ($datos as $row)
 		{
 			$this->aeptoOrigen = $row['CiudadOrigen'];
