@@ -106,10 +106,11 @@
 				<?php
 					session_start();
 
-					require_once "Conexion/estructuraConsulta.php";
-
-					$Consulta3 = new estructuraModelo();
-
+					$conexion=mysql_connect("localhost","root","") or
+					  die("Problemas en la conexion");
+					mysql_select_db("tp_finalweb2",$conexion) or
+					  die("Problemas en la selección de la base de datos");
+					
 					$nomTit = $_POST['nomTit'];
 					$cuotas = $_POST['cuotas'];
 					$tarjeta = $_POST['tarjeta'];
@@ -119,7 +120,7 @@
 					$dninumTit = $_POST['numdniTit'];
 					$email = $_POST['email'];					
 					
-					$id = 3;
+					$id = 6;
 
 					for ($i= 1; $i <= $_SESSION['adultos'] ; $i++){
 						$apAdul = $_POST['appAdul'.$i];
@@ -128,15 +129,19 @@
 						$fnacAdul = $_POST['anioAd'.$i]."-".$_POST['mesAd'.$i]."-".$_POST['diaAd'.$i];
 						$tdniAdul = $_POST['tipodniAdul'.$i];
 						$dninumAdul = $_POST['dninumAdul'.$i];
-					
-						$pasajero1 = $Consulta3->get_sql_in("INSERT INTO pasajero (Nombre, Apellido, Tipo_doc, Dni, Fec_Nac, Email, Nro_Tarjeta, Nombre_Titular, Tipo_Tarjeta, Vencimiento, Nro_Doc_Titular, Tipo_Doc_Titular) 
-						VALUES ('".$nomAdul."', '".$apAdul."' , '".$tdniAdul."' , '".$dninumAdul."' , '".$fnacAdul."', '".$email."','".$numTarj."','".$nomTit."','".$tarjeta."','".$vence."','".$dninumTit."','".$tdniTit."' )");
+
+						$Insert_registros = mysql_query("INSERT INTO pasajero (Nombre, Apellido, Tipo_doc, Dni, Fec_Nac, Email, Nro_Tarjeta, Nombre_Titular, Tipo_Tarjeta, Vencimiento, Nro_Doc_Titular, Tipo_Doc_Titular) 
+						VALUES ('".$nomAdul."', '".$apAdul."' , '".$tdniAdul."' , '".$dninumAdul."' , '".$fnacAdul."', '".$email."','".$numTarj."','".$nomTit."','".$tarjeta."','".$vence."','".$dninumTit."','".$tdniTit."' )", 
+					    $conexion) or die("Problemas en el select:".mysql_error());
 						
-						/*$pasajero_consulta = $Consulta4->get_sql("SELECT idPasajero FROM pasajero WHERE Nombre = '".$nomAdul."', Apellido = '".$apAdul."', dni = '".$dninumAdul."' ");
-						foreach ($pasajero_consulta as $row){
-							$id_pasajero = $row['idPasajero'];
-							echo "id_pasajero".$id_pasajero."<br>";
-						}*/ $id_pasajero = 32;
+
+						$Consulta_registros1=mysql_query(" SELECT idPasajero FROM pasajero WHERE dni = ".$dninumAdul."  ", 
+                        $conexion) or die("Problemas en el select:".mysql_error());
+						var_dump($Consulta_registros1);
+						while ($reg = mysql_fetch_array($Consulta_registros1)){
+							$id_pasajero = $reg['idPasajero'];
+							echo "id_pasajero".$id_pasajero."<br>";						
+						}
 
 						$var1 = $_SESSION['origen'];
 						$var2 = $_SESSION['destino'];
@@ -144,21 +149,29 @@
 						echo "destino".$var2."<br>";
 						$categoria = $_SESSION['clase'];
 						
-						/*$tarifa_nro = $Consulta3->get_sql('SELECT TA.NroTarifa as NroTarifa, TA.Precio_Economy as PrecioEconomico , TA.Precio_Primary as Precio_Primary from vuelo V1 inner join aeropuerto A1
-						on V1.Aepto_Origen = A1.idAepto inner join aeropuerto A2 on V1.Aepto_Destino = A2.idAepto inner join tarifa TA on V1.Aepto_Destino = TA.Aepto_Destino and V1.Aepto_Origen = TA.Aepto_Origen	where A1.Ciudad = "' . $var1 . '" and A2.Ciudad = "' . $var2 . '" ');
-										
-						foreach ($tarifa_nro as $row){
-							$nro_tarifa = $row['NroTarifa'];
-							echo "nro_tarifa".$nro_tarifa."<br>";
+						$Consulta_registros2=mysql_query(" SELECT TA.idTarifa as NroTarifa, 
+							                                      TA.Precio_Economy as PrecioEconomico , 
+							                                      TA.Precio_Primary as Precio_Primary 
+						                                   from vuelo V1 
+						                                   inner join aeropuerto A1 on V1.Aepto_Origen = A1.idAepto 
+						                                   inner join aeropuerto A2 on V1.Aepto_Destino = A2.idAepto 
+						                                   inner join tarifa as TA on V1.Aepto_Destino = TA.Aepto_Destino and V1.Aepto_Origen = TA.Aepto_Origen	
+						                                   where A1.Ciudad = '".$var1."' 
+						                                   and A2.Ciudad = '".$var2."'  ", $conexion) 
+						                                   or die("Problemas en el select:".mysql_error());
+						var_dump($Consulta_registros2);
+						while ($reg = mysql_fetch_array($Consulta_registros2)) {
+							$nro_tarifa = $reg['NroTarifa'];
+							echo "nro_tarifa: ".$nro_tarifa."<br>";
 
 							if ($categoria == "primera"){
-								$tarifa = $row['Precio_Primary'];
+								$tarifa = $reg['Precio_Primary'];
 								echo "tarifa".$tarifa."<br>";
 							}else {
-								$tarifa = $row['PrecioEconomico'];
+								$tarifa = $reg['PrecioEconomico'];
 								echo "tarifa".$tarifa."<br>";
-							}			
-						}*/	 $nro_tarifa = 1;
+							}
+						}
 
 						$nroVueloIda = $_SESSION['vuelo_ida'];
 						echo "nroVuelo".$nroVueloIda."<br>";
@@ -166,10 +179,15 @@
 						$codigo = generar_clave(6);
 						echo "codigo".$codigo."<br>";
 					
-						$carga_pasaje = $Consulta3->get_sql_in("INSERT INTO pasaje (idPasaje, nroVuelo, idPasajero, NroTarifa, categoria, claveAuto ) 
-						VALUES ('".$id."','".$nroVueloIda."', '".$id_pasajero."' , '".$nro_tarifa."', '".$categoria."', '".$codigo."' )");
+						$registros=mysql_query(" INSERT INTO pasaje (idPasaje, nroVuelo, idPasajero, NroTarifa, categoria, claveAuto, tarifa ) 
+						VALUES ('".$id."','".$nroVueloIda."', '".$id_pasajero."' , '".$nro_tarifa."', '".$categoria."', '".$codigo."', '".$tarifa."' ) ", 
+                       $conexion) or die("Problemas en el select:".mysql_error());
+
 						$id++;
 					}
+
+
+
 
 					// MENORES!! //
 
@@ -181,8 +199,8 @@
 						$tdniMen = $_POST['tipodniMen'.$i];
 						$dninumMen = $_POST['dninumMen'.$i];
 
-						$diasvuelos1 = $Consulta3->get_sql_in("INSERT INTO pasajero (Nombre, Apellido, Tipo_doc, Dni, Fec_Nac, Email, Nro_Tarjeta, Nombre_Titular, Tipo_Tarjeta, Vencimiento, Nro_Doc_Titular, Tipo_Doc_Titular) 
-						VALUES ('".$nomMen."','".$apMen."','".$tdniMen."','".$dninumMen."','".$fnacMen."', '".$email."','".$numTarj."','".$nomTit."','".$tarjeta."','".$vence."','".$dninumTit."','".$tdniTit."')");
+						//$diasvuelos1 = $Consulta3->get_sql_in("INSERT INTO pasajero (Nombre, Apellido, Tipo_doc, Dni, Fec_Nac, Email, Nro_Tarjeta, Nombre_Titular, Tipo_Tarjeta, Vencimiento, Nro_Doc_Titular, Tipo_Doc_Titular) 
+						//VALUES ('".$nomMen."','".$apMen."','".$tdniMen."','".$dninumMen."','".$fnacMen."', '".$email."','".$numTarj."','".$nomTit."','".$tarjeta."','".$vence."','".$dninumTit."','".$tdniTit."')");
 					}
 				?>
 				<div class="clr"></div>
