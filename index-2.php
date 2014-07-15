@@ -49,9 +49,9 @@
 					<nav>
 						<ul id="menu">
 							<li id="menu_active"><a href="index.php">Home</a></li>
+							<li><a href="index-pago.php"> Pago </a></li>
 							<li><a href="index-3.php">Check - in</a></li>
 							<li><a href="index-4.php">Contacto</a></li>
-
 							<li id="redes"><a href=""><img src="images/img4.png"></a></li>
 							<li><a href=""><img src="images/img5.png"></a></li>
 							<li><a href=""><img src="images/img6.png"></a></li>
@@ -150,44 +150,7 @@
 					    echo "</div>";
 				  }
 					?>
-					<strong> Formas de Pago:  </strong>
-					<div class='wrapper'>
-						Coutas:
-						<div class='bg1'>
-							<select name='cuotas'>
-								<option value='1cuota'> 1 Cuota </option>
-								<option value='6cuotas'> 6 Cuotas </option>
-							</select>
-						</div>
-					</div>
-					<div class='wrapper'>
-						Tarjeta:
-						<div class='bg'>
-							<select name="tarjeta">
-								<option value='visa'> Visa </option>
-								<option value='americanExpress'> American Express </option>
-								<option value='master'> Master Card </option>
-							</select>
-						</div>
-					</div>
-					<div class='wrapper'>
-						Numero de Tarjeta:
-						<div class='bg'><input type='text' maxlength='16' required name="numTarj" id='numTarj' class='input' placeholder="Ingrese los 16 digitos"/></div>
-					</div>
-					<div class='wrapper'>
-						Vencimiento:
-						<div class='bg1'><input type='text' required name='anioVenc' size='2' placeholder='aa' maxlength='2' class='input2'> </div>
-						<div class='bg1'><input type='text' required name='mesVenc' size='2' placeholder='mm' maxlength='2' class='input2'> </div>
-					</div>
-					<div class='wrapper'>
-					    Nombre Titular:
-					    <div class='bg'><input type='text' class='input' name='nomTit' required placeholder='Ingrese Nombre'/></div>
-					</div>
-					<div class='wrapper'>
-					    Documento:
-					    <div class='bg1'><input type='text' id="dni" name="numdniTit" class='input1' maxlength='8' required placeholder='Ingrese Numero de Documento'/></div>
-					    <div class='bg1'><select name="tipodniTit"><option value='dni'>DNI</option><option value='le'>L.E</option><option value='lc'>L.C</option></select></div>
-					</div>
+
 					<strong> E-Mail de Contacto: </strong>
 					<div class='wrapper'>
 						E-Mail:

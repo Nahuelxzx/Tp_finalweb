@@ -20,7 +20,7 @@
 		<script type="text/javascript" src="js/html5.js"></script>
 	<![endif]-->
 </head>
-<body id="page5">
+<body id="page4">
 <div class="body1">
 	<div class="main">
 <!-- header -->
@@ -40,9 +40,9 @@
 					<nav>
 						<ul id="menu">
 							<li><a href="index.php">Home</a></li>
-							<li><a href="index-pago.php"> Pago </a></li>
+							<li id="menu_active"><a href="index-pago.php"> Pago </a></li>
 							<li><a href="index-3.php">Check - in</a></li>
-							<li id="menu_active"><a href="index-4.php">Contacto</a></li>
+							<li><a href="index-4.php">Contacto</a></li>
 							<li id="redes"><a href=""><img src="images/img4.png"></a></li>
 							<li><a href=""><img src="images/img5.png"></a></li>
 							<li><a href=""><img src="images/img6.png"></a></li>
@@ -66,43 +66,53 @@
 	<section id="content">
 		<article class="col1">
 			<div class="pad_1">
-				<h2>Contactenos</h2>
-				<span class="cols">
-					Pais:<br>
-					Provincia:<br>
-					Telefono:<br>
-					Email:
-				</span>
-				Argentina<br>
-				Buenos Aires<br>
-				(011) 4635621<br>
-				<a href="mailto:">consultas@airlines.com</a>
-				<h2>Mas Informacion</h2>
-				<p> Airlines ofrece vuelos a los destinos más lindos del continente americano, dándoles a todos los viajeros la posibilidad de descubrir todos sus encantos.</p>
+				<h2> Pago </h2>
+				<form id="form_pago" action="index-pago1.php" method="post">
+
+					<div class="wrapper3">
+						Apellido :
+						<div class="bg"><input type="text" required name="apellido" class="input input1" placeholder="Ingrese su Apellido"></div>
+					</div>
+					<div class="wrapper3">
+						Codigo de Reserva :
+						<div class="bg"><input type="text" required name="codigo_reserva" class="input input1" placeholder="Ingrese su Codigo de Reserva" ></div>
+					</div>
+
+					<div class="wrapper3">
+					<!--<a href="#" class="button2" onClick="document.getElementById('form_1').submit()">go!</a>-->
+					<input type="submit" class="button2" value="Enviar">
+					</div>
+
+				</form>
+				<div class="clr"></div>
+				<h2>Noticias Recientes</h2>
+				<p class="under"><a href="#" class="link1">Nuevos Destinos a tu alcance..</a><br>Mayo 20, 2014</p>
+				<p><a href="#" class="link1">Los Precios mas baratos..</a><br>Febrero 12, 2014</p>
 			</div>
 		</article>
 		<article class="col2 pad_left1">
-			<h2>Formulario de Contacto</h2>
-			<form id="ContactForm" action="">
-				<div>
-					<div class="wrapper">
-						<div class="bg"><input type="text" class="input" /></div>
-						Nombre :<br />
-					</div>
-					<div class="wrapper">
-						<div class="bg"><input type="text" class="input" /></div>
-						Apellido :<br />
-					</div>
-					<div class="wrapper">
-						<div class="bg">
-							<textarea name="textarea" cols="1" rows="1"></textarea>
-						</div>
-						Mensaje :<br />
-					</div>
-					<a href="#" class="button1" onClick="document.getElementById('ContactForm').submit()">Enviar</a>
-					<a href="#" class="button1" onClick="document.getElementById('ContactForm').reset()">Cancelar</a>
+			<h2>Vola con &nbsp;Airlines&nbsp; donde quieras</h2>
+			<div class="wrapper">
+				<p> Airlines ofrece vuelos a los más variados destinos del mundo. Con los mejores servicios y comodidades a bordo, los pasajeros experimentarán un vuelo placentero, sin importar la ciudad que hayan elegido. </p>
+			</div>
+			<div class="abajo">
+				<div class="cuadro">	
+					<img src="images/img7.png">
+					<div> Pasajes a Miami </div>
+				</div>	
+				<div class="cuadro">
+					<img src="images/img8.png">
+					<div> Pasajes a Florian&oacute;polis </div>
+				</div>	
+				<div class="cuadro">
+					<img src="images/img9.png">
+					<div> Pasajes a Mendoza </div>
 				</div>
-			</form>
+				<div class="cuadro">
+					<img src="images/img10.png">
+					<div> Pasajes a Santiago de Chile </div>
+				</div>
+			</div>
 		</article>
 	</section>
 <!-- / content -->
@@ -112,7 +122,7 @@
 <!-- footer -->
 		<footer>
 			Trabajo Practico Integrador - Programacion Web II - UNLaM <br>
-			<span id="pie">Velasco, Romina Giselle · Zerpa, Nadia Lorena · Zurdo, Nahuel Matias</span>
+			<span>Velasco, Romina Giselle · Zerpa, Nadia Lorena · Zurdo, Nahuel Matias</span>
 		</footer>
 <!-- / footer -->
 	</div>

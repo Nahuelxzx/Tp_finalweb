@@ -81,9 +81,9 @@
 					<nav>
 						<ul id="menu">
 							<li><a href="index.php">Home</a></li>
+							<li><a href="index-pago.php"> Pago </a></li>
 							<li><a href="index-3.php">Check - in</a></li>
 							<li><a href="index-4.php">Contacto</a></li>
-
 							<li id="redes"><a href=""><img src="images/img4.png"></a></li>
 							<li><a href=""><img src="images/img5.png"></a></li>
 							<li><a href=""><img src="images/img6.png"></a></li>

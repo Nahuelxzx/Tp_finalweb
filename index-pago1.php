@@ -19,8 +19,17 @@
 		<script type="text/javascript" src="http://info.template-help.com/files/ie6_warning/ie6_script_other.js"></script>
 		<script type="text/javascript" src="js/html5.js"></script>
 	<![endif]-->
+	<?php
+		 session_start();
+		if (isset($_POST['ida_vuelo'])) {
+			$_SESSION['vuelo_ida'] = $_POST['ida_vuelo'];
+		}
+		if (isset($_POST['vuelta'])) {
+			$_SESSION['vuelo_vuelta'] = $_POST['vuelta'];
+		}
+	?>
 </head>
-<body id="page4">
+<body id="page5">
 <div class="body1">
 	<div class="main">
 <!-- header -->
@@ -40,8 +49,8 @@
 					<nav>
 						<ul id="menu">
 							<li><a href="index.php">Home</a></li>
-							<li><a href="index-pago.php"> Pago </a></li>
-							<li id="menu_active"><a href="index-3.php">Check - in</a></li>
+							<li id="menu_active"><a href="index-pago.php"> Pago </a></li>
+							<li><a href="index-3.php">Check - in</a></li>
 							<li><a href="index-4.php">Contacto</a></li>
 							<li id="redes"><a href=""><img src="images/img4.png"></a></li>
 							<li><a href=""><img src="images/img5.png"></a></li>
@@ -66,16 +75,16 @@
 	<section id="content">
 		<article class="col1">
 			<div class="pad_1">
-				<h2> Check - in </h2>
-				<form id="form_checkin" action="index-3a.php" method="post">
+				<h2> Pago </h2>
+				<form id="form_pago" action="index-pago1.php" method="post">
 
 					<div class="wrapper3">
 						Apellido :
-						<div class="bg"><input type="text" required id="apellido" class="input input1" placeholder="Ingrese su Apellido" ></div>
+						<div class="bg"><input type="text" required name="apellido" class="input input1" value="<?php if (isset($_POST['apellido'])) { echo $_POST['apellido'];} ?>" ></div>
 					</div>
 					<div class="wrapper3">
 						Codigo de Reserva :
-						<div class="bg"><input type="text" required id="codigo_reserva" class="input input1" placeholder="Ingrese su Codigo de Reserva" ></div>
+						<div class="bg"><input type="text" required name="codigo_reserva" class="input input1" value="<?php if (isset($_POST['codigo_reserva'])) { echo $_POST['codigo_reserva'];} ?>" ></div>
 					</div>
 
 					<div class="wrapper3">
@@ -91,29 +100,60 @@
 			</div>
 		</article>
 		<article class="col2 pad_left1">
-			<h2>Vola con &nbsp;Airlines&nbsp; donde quieras</h2>
-			<div class="wrapper">
-				<p> Airlines ofrece vuelos a los más variados destinos del mundo. Con los mejores servicios y comodidades a bordo, los pasajeros experimentarán un vuelo placentero, sin importar la ciudad que hayan elegido. </p>
-			</div>
-			<div class="abajo">
-				<div class="cuadro">	
-					<img src="images/img7.png">
-					<div> Pasajes a Miami </div>
-				</div>	
-				<div class="cuadro">
-					<img src="images/img8.png">
-					<div> Pasajes a Florian&oacute;polis </div>
-				</div>	
-				<div class="cuadro">
-					<img src="images/img9.png">
-					<div> Pasajes a Mendoza </div>
+			<h2><strong> Formas de Pago: </strong></h2>
+			<form id="PagoFormu" action="index-2a.php" method="POST">
+				<div>
+					<div class='wrapper'>
+					    Nombre Titular:
+					    <div class='bg'><input type='text' class='input' name='nomTit' required placeholder='Ingrese Nombre'/></div>
+					</div>
+					<div class='wrapper'>
+					    Apellido Titular:
+					    <div class='bg'><input type='text' class='input' name='ApTit' required placeholder='Ingrese Apellido'/></div>
+					</div>
+					<div class='wrapper'>
+					    Documento:
+					    <div class='bg1'><input type='text' id="dni" name="numdniTit" class='input1' maxlength='8' required placeholder='Ingrese Numero de Documento'/></div>
+					    <div class='bg1'><select name="tipodniTit"><option value='dni'>DNI</option><option value='le'>L.E</option><option value='lc'>L.C</option></select></div>
+					</div>
+					<div class='wrapper'>
+						Numero de Tarjeta:
+						<div class='bg'><input type='text' maxlength='16' required name="numTarj" id='numTarj' class='input' placeholder="Ingrese los 16 digitos"/></div>
+					</div>
+					<div class='wrapper'>
+						Vencimiento:
+						<div class='bg1'><input type='text' required name='anioVenc' size='2' placeholder='aa' maxlength='2' class='input2'> </div>
+						<div class='bg1'><input type='text' required name='mesVenc' size='2' placeholder='mm' maxlength='2' class='input2'> </div>
+					</div>
+					<div class='wrapper'>
+						Tarjeta:
+						<div class='bg'>
+							<select name="tarjeta">
+								<option value='visa'> Visa </option>
+								<option value='americanExpress'> American Express </option>
+								<option value='master'> Master Card </option>
+							</select>
+						</div>
+					</div>
+					<div class='wrapper'>
+						Coutas:
+						<div class='bg1'>
+							<select name='cuotas'>
+								<option value='1cuota'> 1 Cuota </option>
+								<option value='6cuotas'> 6 Cuotas </option>
+							</select>
+						</div>
+					</div>			
+					<div id="ok"></div><br>
+					<input type="submit" class="button2" id="boton" value="Enviar"/>
+					<input type="reset" class="button2" id="boton" value="Cancelar"/>
 				</div>
-				<div class="cuadro">
-					<img src="images/img10.png">
-					<div> Pasajes a Santiago de Chile </div>
-				</div>
-			</div>
+				<div class="clr"></div>
+			</form>
 		</article>
+		<?php
+			
+		?>
 	</section>
 <!-- / content -->
 </div>
@@ -122,7 +162,7 @@
 <!-- footer -->
 		<footer>
 			Trabajo Practico Integrador - Programacion Web II - UNLaM <br>
-			<span>Velasco, Romina Giselle · Zerpa, Nadia Lorena · Zurdo, Nahuel Matias</span>
+			<span id="pie">Velasco, Romina Giselle · Zerpa, Nadia Lorena · Zurdo, Nahuel Matias</span>
 		</footer>
 <!-- / footer -->
 	</div>

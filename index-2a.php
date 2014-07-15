@@ -40,9 +40,9 @@
 					<nav>
 						<ul id="menu">
 							<li id="menu_active"><a href="index.php">Home</a></li>
+							<li><a href="index-pago.php"> Pago </a></li>
 							<li><a href="index-3.php">Check - in</a></li>
 							<li><a href="index-4.php">Contacto</a></li>
-
 							<li id="redes"><a href=""><img src="images/img4.png"></a></li>
 							<li><a href=""><img src="images/img5.png"></a></li>
 							<li><a href=""><img src="images/img6.png"></a></li>
@@ -102,25 +102,17 @@
 				</div>
 				<a href="index-2b.php" class="button2" onClick="document.getElementById('ContactForm').submit()">Ver Pdf</a>
 				<div class="clr"></div><br><br>
-				<p class="color1">Le recordamos que usted se encontrara habilitado para hacer el check-in en el rango de 48hs a 24hs anteriores al vuelo.. </p>
 				<?php
 					session_start();
 
-					$conexion=mysql_connect("localhost","root","") or
+					$conexion = mysql_connect("localhost","root","") or
 					  die("Problemas en la conexion");
 					mysql_select_db("tp_finalweb2",$conexion) or
 					  die("Problemas en la selección de la base de datos");
 					
-					$nomTit = $_POST['nomTit'];
-					$cuotas = $_POST['cuotas'];
-					$tarjeta = $_POST['tarjeta'];
-					$numTarj = $_POST['numTarj'];
-					$vence = "20".$_POST['anioVenc']."-".$_POST['mesVenc']."-01";
-					$tdniTit = $_POST['tipodniTit'];
-					$dninumTit = $_POST['numdniTit'];
-					$email = $_POST['email'];					
-					
-					$id = 6;
+						$email = $_POST['email'];	
+
+					$id = 10;
 
 					for ($i= 1; $i <= $_SESSION['adultos'] ; $i++){
 						$apAdul = $_POST['appAdul'.$i];
@@ -130,23 +122,23 @@
 						$tdniAdul = $_POST['tipodniAdul'.$i];
 						$dninumAdul = $_POST['dninumAdul'.$i];
 
-						$Insert_registros = mysql_query("INSERT INTO pasajero (Nombre, Apellido, Tipo_doc, Dni, Fec_Nac, Email, Nro_Tarjeta, Nombre_Titular, Tipo_Tarjeta, Vencimiento, Nro_Doc_Titular, Tipo_Doc_Titular) 
-						VALUES ('".$nomAdul."', '".$apAdul."' , '".$tdniAdul."' , '".$dninumAdul."' , '".$fnacAdul."', '".$email."','".$numTarj."','".$nomTit."','".$tarjeta."','".$vence."','".$dninumTit."','".$tdniTit."' )", 
+						$Insert_registros = mysql_query("INSERT INTO pasajero (Nombre, Apellido, Tipo_doc, Dni, Fec_Nac, Email ) 
+						VALUES ('".$nomAdul."', '".$apAdul."' , '".$tdniAdul."' , '".$dninumAdul."' , '".$fnacAdul."', '".$email."' )", 
 					    $conexion) or die("Problemas en el select:".mysql_error());
 						
 
 						$Consulta_registros1=mysql_query(" SELECT idPasajero FROM pasajero WHERE dni = ".$dninumAdul."  ", 
                         $conexion) or die("Problemas en el select:".mysql_error());
-						var_dump($Consulta_registros1);
+
 						while ($reg = mysql_fetch_array($Consulta_registros1)){
 							$id_pasajero = $reg['idPasajero'];
-							echo "id_pasajero".$id_pasajero."<br>";						
+							//echo "id_pasajero".$id_pasajero."<br>";						
 						}
 
 						$var1 = $_SESSION['origen'];
 						$var2 = $_SESSION['destino'];
-						echo "origen".$var1."<br>";
-						echo "destino".$var2."<br>";
+						//echo "origen".$var1."<br>";
+						//echo "destino".$var2."<br>";
 						$categoria = $_SESSION['clase'];
 						
 						$Consulta_registros2=mysql_query(" SELECT TA.idTarifa as NroTarifa, 
@@ -159,25 +151,25 @@
 						                                   where A1.Ciudad = '".$var1."' 
 						                                   and A2.Ciudad = '".$var2."'  ", $conexion) 
 						                                   or die("Problemas en el select:".mysql_error());
-						var_dump($Consulta_registros2);
+
 						while ($reg = mysql_fetch_array($Consulta_registros2)) {
 							$nro_tarifa = $reg['NroTarifa'];
-							echo "nro_tarifa: ".$nro_tarifa."<br>";
+							//echo "nro_tarifa: ".$nro_tarifa."<br>";
 
 							if ($categoria == "primera"){
 								$tarifa = $reg['Precio_Primary'];
-								echo "tarifa".$tarifa."<br>";
+								//echo "tarifa".$tarifa."<br>";
 							}else {
 								$tarifa = $reg['PrecioEconomico'];
-								echo "tarifa".$tarifa."<br>";
+								//echo "tarifa".$tarifa."<br>";
 							}
 						}
 
 						$nroVueloIda = $_SESSION['vuelo_ida'];
-						echo "nroVuelo".$nroVueloIda."<br>";
+						//echo "nroVuelo".$nroVueloIda."<br>";
 
 						$codigo = generar_clave(6);
-						echo "codigo".$codigo."<br>";
+						echo "Codigo de Reserva Pasajero ".$i." : ".$codigo."<br>";
 					
 						$registros=mysql_query(" INSERT INTO pasaje (idPasaje, nroVuelo, idPasajero, NroTarifa, categoria, claveAuto, tarifa ) 
 						VALUES ('".$id."','".$nroVueloIda."', '".$id_pasajero."' , '".$nro_tarifa."', '".$categoria."', '".$codigo."', '".$tarifa."' ) ", 
@@ -185,8 +177,6 @@
 
 						$id++;
 					}
-
-
 
 
 					// MENORES!! //
@@ -203,7 +193,8 @@
 						//VALUES ('".$nomMen."','".$apMen."','".$tdniMen."','".$dninumMen."','".$fnacMen."', '".$email."','".$numTarj."','".$nomTit."','".$tarjeta."','".$vence."','".$dninumTit."','".$tdniTit."')");
 					}
 				?>
-				<div class="clr"></div>
+				<p class="color1">Le recordamos que usted se encontrara habilitado para hacer el check-in en el rango de 48hs a 24hs anteriores al vuelo.. </p>
+				<br><div class="clr"></div>
 			</form>
 
 		</article>
