@@ -122,16 +122,20 @@ footer span {color:#3e96b4;}
 #PagoFormu {padding-top: 20px; padding-bottom: 20px;}
 
 /*****************	ESTILOS BUTACAS 	*****************/
-#holder1{height:410px; width:140px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:10px;padding-left: 10px; padding-right: 10px}
-#holder2{height:570px; width:240px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:10px;padding-left: 10px; padding-right: 10px}
-#holder3{height:850px; width:240px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:10px;padding-left: 10px; padding-right: 10px}
-#holder4{height:1210px; width:190px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:10px;padding-left: 10px; padding-right: 10px}
+#holder1-economy{height:410px; width:140px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:150px;padding-left: 10px; padding-right: 10px}
+#holder2-economy{height:570px; width:240px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:115px;padding-left: 10px; padding-right: 10px}
+#holder3-economy{height:850px; width:240px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:110px;padding-left: 10px; padding-right: 10px}
+#holder4-economy{height:1210px; width:190px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:120px;padding-left: 10px; padding-right: 10px}
+#holder2-primera{height:210px; width:100px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:150px;padding-left: 10px; padding-right: 10px}
+#holder3-primera{height:410px; width:100px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:150px;padding-left: 10px; padding-right: 10px}
+#holder4-primera{height:410px; width:140px; background-color:#F5F5F5; border:1px solid #A4A4A4; margin-left:150px;padding-left: 10px; padding-right: 10px}
 #place {position:relative; margin:7px;}
-#place a{font-size:0.6em;}
+#place a{font-size:10px; text-decoration: none; color: black;}
 #place li{list-style: none outside none; position: absolute;}    
 #place li:hover{background-color: #fff;} 
-#place .seat{background:url("images/vacia.gif") no-repeat scroll 0 0 transparent;height:33px; width:33px; display:block;}
-#place .selectedSeat{background-image:url("images/ocupada.gif");}
-#place .selectingSeat{background-image:url("images/selec.gif");}
-#seatDescription li{verticle-align:middle;list-style: none outside none;padding-left:35px; height:35px; float:left;}
-
+#place .seat{background:url("../images/vacia.gif") no-repeat scroll 0 0 transparent;height:33px; width:33px; display:block;}
+#place .selectedSeat{background-image:url("../images/ocupada.gif");}
+#place .selectingSeat{background-image:url("../images/selec.gif");}
+#contenedor_descripcion{float: right;}
+#contenedor_butacas{float: left;}
+#butacas_descripcion li {padding: 20px;}
