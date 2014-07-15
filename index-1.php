@@ -26,10 +26,10 @@
 		$_SESSION['adultos'] = $_POST['cantAdul'];
 	if (isset($_POST['cantMen']))
 		$_SESSION['menores'] = $_POST['cantMen'];
-	if (isset($_POST['clase'])) {
+	if (isset($_POST['clase']))
 		$_SESSION['clase'] = $_POST['clase'];
-	}
-
+	if (isset($_POST['viaje']))
+		$_SESSION['viaje'] = $_POST['viaje'];
 	?>
 </head>
 <body id="page1">
