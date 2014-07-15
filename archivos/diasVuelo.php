@@ -1,21 +1,35 @@
 <?php
 //Seteo el idioma local para que las fechas no esten en ingles
 setlocale(LC_ALL,"es_ES@euro","es_ES","esp","es");
+date_default_timezone_set("America/Argentina/Buenos_Aires");
 //Cargo los dias de la semana en un array en donde 1-Lunes y 7-Domingo el ''- Es el 0 pero no lo tenemos en cuenta.
 $dias = array('','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo');
 
 $varFecha1= $_POST['fechap'];
+echo $varFecha1;
+
+//$fecha2 = date("d-m-Y",strtotime($varFecha1));
+//echo $fecha2;
+
 if ($vengodevuelo == 1)
 {
     $varFecha1 = $_POST['fechar'];
 }
 //Obtengo el valor en string de la fecha seleccionada, si es lunes, martes, etc.
-//$fecha = $dias[date('N', strtotime('2014-06-26'))]; 
-$fecha = $dias[date('N', strtotime($varFecha1))]; 
-//echo "</br>FECHA AHORA : " . $fecha;
+//$fecha = $dias[date('N', strtotime('2014-06-26'))];
+//$fecha = $dias[date('N', strtotime($fecha2))]; 
+
+$ss = split("/",$varFecha1);
+$fecha = $dias[date('N', strtotime($ss[1]."/".$ss[0]."/".$ss[2]))];
+echo strtotime($ss[1]."/".$ss[0]."/".$ss[2]);
+
+echo "</br>FECHA AHORA : " . $fecha;
 //Inicio el array
 $arraydia = array();
 $pos=55;
+
+//$dias[$fecha]
+
 //Asigno segun el dia un valor en un array para compararlo con el binario recibido
 switch ($fecha) {
     case 'Lunes':
