@@ -107,13 +107,13 @@
 					mysql_select_db("tp_finalweb2",$conexion) or
 					  die("Problemas en la selección de la base de datos");
 					
-						$email = $_POST['email'];	
+					$email = $_POST['email'];	
 
-					$id = 17;
+					$id = 17; // Id que se tiene que borrar cuando el Id de la tabla Pasaje sea identiti
 
-					// ADULTOS!! //
+					// ADULTOS!! //s
 
-					for ($i= 1; $i <= $_SESSION['adultos'] ; $i++) {						
+					for ($i= 1; $i <= $_SESSION['adultos'] ; $i++) {
 						$apAdul = $_POST['appAdul'.$i];
 						$nomAdul = $_POST['nomAdul'.$i];
 						$sexAdul = $_POST['sexAdul'.$i];
@@ -213,7 +213,6 @@
 						}
 					}
 
-
 					// MENORES!! //
 
 					for ($i= 1; $i <= $_SESSION['menores'] ; $i++){
@@ -261,9 +260,9 @@
 						$nroVueloIda = $_SESSION['vuelo_ida'];
 
 						$codigo = generar_clave(6);
-						echo "Codigo de Reserva Pasajero ".$i." : ".$codigo."<br>";
+						echo "Codigo de Reserva Pasajero Menor ".$i." : ".$codigo."<br>";
 					
-						$registros=mysql_query(" INSERT INTO pasaje (idPasaje, nroVuelo, idPasajero, NroTarifa, categoria, claveAuto, tarifa ) 
+						$registros = mysql_query(" INSERT INTO pasaje (idPasaje, nroVuelo, idPasajero, NroTarifa, categoria, claveAuto, tarifa ) 
 						VALUES ('".$id."','".$nroVueloIda."', '".$id_pasajero."' , '".$nro_tarifa."', '".$categoria."', '".$codigo."', '".$tarifa."' ) ", 
 						$conexion) or die("Problemas en el select:".mysql_error());
 
@@ -273,14 +272,14 @@
 
 						if ($_SESSION['viaje'] == 'iyv') {
 
-							$Consulta_registros1=mysql_query(" SELECT idPasajero FROM pasajero WHERE dni = ".$dninumMen."  ", 
+							$Consulta_registros1 = mysql_query(" SELECT idPasajero FROM pasajero WHERE dni = ".$dninumMen."  ", 
 	                        $conexion) or die("Problemas en el select:".mysql_error());
 
 							while ($reg = mysql_fetch_array($Consulta_registros1)){
 								$id_pasajero = $reg['idPasajero'];						
 							}
 							
-							$Consulta_registros2=mysql_query(" SELECT TA.idTarifa as NroTarifa, 
+							$Consulta_registros2 = mysql_query(" SELECT TA.idTarifa as NroTarifa, 
 								                                      TA.Precio_Economy as PrecioEconomico , 
 								                                      TA.Precio_Primary as Precio_Primary 
 							                                   from vuelo V1 

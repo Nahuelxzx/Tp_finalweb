@@ -20,7 +20,7 @@
 		<script type="text/javascript" src="js/html5.js"></script>
 	<![endif]-->
 </head>
-<body id="page4">
+<body id="page5">
 <div class="body1">
 	<div class="main">
 <!-- header -->
@@ -66,53 +66,82 @@
 	<section id="content">
 		<article class="col1">
 			<div class="pad_1">
-				<h2> Pago </h2>
-				<form id="form_pago" action="index-pago1.php" method="post">
-
-					<div class="wrapper3">
-						Apellido :
-						<div class="bg"><input type="text" required name="apellido" class="input input1" placeholder="Ingrese su Apellido"></div>
-					</div>
-					<div class="wrapper3">
-						Codigo de Reserva :
-						<div class="bg"><input type="text" maxlength='6' required name="codigo_reserva" class="input input1" placeholder="Ingrese su Codigo de Reserva" ></div>
-					</div>
-
-					<div class="wrapper3">
-					<!--<a href="#" class="button2" onClick="document.getElementById('form_1').submit()">go!</a>-->
-					<input type="submit" class="button2" value="Enviar">
-					</div>
-
-				</form>
-				<div class="clr"></div>
-				<h2>Noticias Recientes</h2>
-				<p class="under"><a href="#" class="link1">Nuevos Destinos a tu alcance..</a><br>Mayo 20, 2014</p>
-				<p><a href="#" class="link1">Los Precios mas baratos..</a><br>Febrero 12, 2014</p>
+				<h2>Contact Us</h2>
+				<span class="cols">
+					Pais:<br>
+					Provincia:<br>
+					Telefono:<br>
+					Email:
+				</span>
+				Argentina<br>
+				Buenos Aires<br>
+				(011) 4635621<br>
+				<a href="mailto:">consultas@airlines.com</a>
+				<h2>Mas Informacion</h2>
+				<p> Airlines ofrece vuelos a los destinos más lindos del continente americano, dándoles a todos los viajeros la posibilidad de descubrir todos sus encantos.</p>
 			</div>
 		</article>
 		<article class="col2 pad_left1">
-			<h2>Vola con &nbsp;Airlines&nbsp; donde quieras</h2>
-			<div class="wrapper">
-				<p> Airlines ofrece vuelos a los más variados destinos del mundo. Con los mejores servicios y comodidades a bordo, los pasajeros experimentarán un vuelo placentero, sin importar la ciudad que hayan elegido. </p>
-			</div>
-			<div class="abajo">
-				<div class="cuadro">	
-					<img src="images/img7.png">
-					<div> Pasajes a Miami </div>
-				</div>	
-				<div class="cuadro">
-					<img src="images/img8.png">
-					<div> Pasajes a Florian&oacute;polis </div>
-				</div>	
-				<div class="cuadro">
-					<img src="images/img9.png">
-					<div> Pasajes a Mendoza </div>
+			<h2>Gracias por volar con nosotros</h2>
+			<form id="PagoForm" action="index-2a.php" method="POST">
+				<div class="marker">
+					<p class="pad_bot2"><strong> Sus datos fueron recibidos con exito.. </strong></p>
+					<p class="pad_bot2"> Ya se encuentra a du disposicion un pdf con sus datos y el codigo de reserva correspondiete a su vuelo.</p>
+					<p class="pad_bot2"></p>
+
+					<?php
+					session_start();
+
+					$conexion = mysql_connect("localhost","root","") or die("Problemas en la conexion");
+					mysql_select_db("tp_finalweb2",$conexion) or die("Problemas en la selección de la base de datos");
+
+					$apellido = $_SESSION['apellido'];
+
+					$codigo_reserva = $_SESSION['codigo_reserva'];
+
+					if (isset($_POST['nomTit']))
+						$nomTit = $_POST['nomTit'];
+					if (isset($_POST['cuotas']))
+						$cuotas = $_POST['cuotas'];
+					if (isset($_POST['tarjeta']))
+						$tarjeta = $_POST['tarjeta'];
+					if (isset($_POST['numTarj']))
+						$numTarj = $_POST['numTarj'];
+					if (isset($_POST['anioVenc']) && isset($_POST['mesVenc']))
+						$vence = "20".$_POST['anioVenc']."-".$_POST['mesVenc']."-01";
+					if (isset($_POST['tipodniTit']))
+						$tdniTit = $_POST['tipodniTit'];
+					if (isset($_POST['numdniTit']))
+						$dninumTit = $_POST['numdniTit'];
+					if (isset($_POST['email']))
+						$email = $_POST['email'];	
+
+					$Consulta = mysql_query(" SELECT idPasajero
+										   FROM pasaje 
+										   WHERE claveAuto = '".$codigo_reserva."'  ", $conexion) or die("Problemas en el select:".mysql_error());
+					
+					while ($reg = mysql_fetch_array($Consulta)) {
+						$id_pasajero = $reg['idPasajero'];						
+					}
+
+					$registros=mysql_query(" UPDATE pasajero 
+										SET Nro_Tarjeta = '".$numTarj."', 
+											Nombre_Titular = '".$nomTit."', 
+											Tipo_Tarjeta = '".$tarjeta."', 
+											Vencimiento = '".$vence."', 
+											Nro_Doc_Titular = '".$dninumTit."', 
+											Tipo_Doc_Titular = '".$tdniTit."' 
+										WHERE idPasajero = ".$id_pasajero, 
+			        $conexion) or die("Problemas en el select:".mysql_error());
+
+					?>
 				</div>
-				<div class="cuadro">
-					<img src="images/img10.png">
-					<div> Pasajes a Santiago de Chile </div>
-				</div>
-			</div>
+				<a href="index-2b.php" class="button2" onClick="document.getElementById('ContactForm').submit()">Ver Pdf</a>
+				<div class="clr"></div><br><br>
+				<p class="color1">Le recordamos que usted se encontrara habilitado para hacer el check-in en el rango de 48hs a 24hs anteriores al vuelo.. </p>
+				<br><div class="clr"></div>
+			</form>
+
 		</article>
 	</section>
 <!-- / content -->
@@ -122,7 +151,7 @@
 <!-- footer -->
 		<footer>
 			Trabajo Practico Integrador - Programacion Web II - UNLaM <br>
-			<span>Velasco, Romina Giselle · Zerpa, Nadia Lorena · Zurdo, Nahuel Matias</span>
+			<span id="pie">Velasco, Romina Giselle · Zerpa, Nadia Lorena · Zurdo, Nahuel Matias</span>
 		</footer>
 <!-- / footer -->
 	</div>
@@ -130,3 +159,4 @@
 <script type="text/javascript"> Cufon.now(); </script>
 </body>
 </html>
+

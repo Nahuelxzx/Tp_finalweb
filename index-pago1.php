@@ -20,13 +20,12 @@
 		<script type="text/javascript" src="js/html5.js"></script>
 	<![endif]-->
 	<?php
-		 session_start();
-		if (isset($_POST['ida_vuelo'])) {
-			$_SESSION['vuelo_ida'] = $_POST['ida_vuelo'];
-		}
-		if (isset($_POST['vuelta'])) {
-			$_SESSION['vuelo_vuelta'] = $_POST['vuelta'];
-		}
+	session_start();
+	
+	if (isset($_POST['apellido']))
+		$_SESSION['apellido'] = $_POST['apellido'];
+	if (isset($_POST['codigo_reserva']))
+		$_SESSION['codigo_reserva'] = $_POST['codigo_reserva'];
 	?>
 </head>
 <body id="page5">
@@ -84,7 +83,7 @@
 					</div>
 					<div class="wrapper3">
 						Codigo de Reserva :
-						<div class="bg"><input type="text" required name="codigo_reserva" class="input input1" value="<?php if (isset($_POST['codigo_reserva'])) { echo $_POST['codigo_reserva'];} ?>" ></div>
+						<div class="bg"><input type="text" maxlength='6' required name="codigo_reserva" class="input input1" value="<?php if (isset($_POST['codigo_reserva'])) { echo $_POST['codigo_reserva'];} ?>" ></div>
 					</div>
 
 					<div class="wrapper3">
@@ -101,7 +100,7 @@
 		</article>
 		<article class="col2 pad_left1">
 			<h2><strong> Formas de Pago: </strong></h2>
-			<form id="PagoFormu" action="index-2a.php" method="POST">
+			<form id="PagoFormu" action="index-pago2.php" method="POST">
 				<div>
 					<div class='wrapper'>
 					    Nombre Titular:
@@ -151,9 +150,6 @@
 				<div class="clr"></div>
 			</form>
 		</article>
-		<?php
-			
-		?>
 	</section>
 <!-- / content -->
 </div>
