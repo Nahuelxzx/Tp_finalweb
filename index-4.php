@@ -86,11 +86,11 @@
 			<form id="ContactForm" action="">
 				<div>
 					<div class="wrapper">
-						<div class="bg"><input type="text" class="input" name="nommail"/></div>
+						<div class="bg"><input type="text" class="input" /></div>
 						Nombre :<br />
 					</div>
 					<div class="wrapper">
-						<div class="bg"><input type="text" class="input" name="apemail"/></div>
+						<div class="bg"><input type="text" class="input" /></div>
 						Apellido :<br />
 					</div>
 					<div class="wrapper">
@@ -99,7 +99,7 @@
 						</div>
 						Mensaje :<br />
 					</div>
-					<a href="archivos/mail.php" class="button1" onClick="document.getElementById('ContactForm').submit()">Enviar</a>
+					<a href="#" class="button1" onClick="document.getElementById('ContactForm').submit()">Enviar</a>
 					<a href="#" class="button1" onClick="document.getElementById('ContactForm').reset()">Cancelar</a>
 				</div>
 			</form>

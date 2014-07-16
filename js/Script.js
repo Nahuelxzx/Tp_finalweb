@@ -1,10 +1,9 @@
-
 /**********************  VALIDACION DE FORMULARIO DE PAGO   ***********************/
 window.onload = inicio
         
-        function inicio(){
-            document.getElementById("PagoFormu").onsubmit = validar;
-        }
+    function inicio(){
+        document.getElementById("PagoFormu").onsubmit = validar;
+    }
 
 function validar(){
     
@@ -29,15 +28,10 @@ function validar(){
         return false;
     }
 
-    if(document.getElementById("sexo1").checked && document.getElementById("sexo2").checked){
+    if(!document.getElementById("sexo1").checked && !document.getElementById("sexo2").checked){
         alert ("El campo sexo es obligatorio");
         return false;
     }
-
-   /* if(){
-        alert ("El campo sexo es obligatorio");
-        return false;
-    }*/
 
     if(document.getElementById("email").value != document.getElementById("remail").value){
         alert ("El Email y Verficar Email deben ser iguales");
@@ -47,8 +41,55 @@ function validar(){
     return true;
 }
 
-/**********************  VALIDACION DE FORMULARIO DE CHECK-IN   ***********************/
+/**********************  VALIDACION DE FORMULARIO DE RESULTADO VUELO   ***********************/
 
+window.onload = inicio
+        
+    function inicio(){
+        document.getElementById("form_vuelo").onsubmit = valida;
+    }
+
+function valida(){
+    
+    ida = document.getElementsByName("ida_vuelo");
+
+    var seleccionado = false;
+
+    for(var i=0; i<ida.length; i++) {    
+      if(ida[i].checked) {
+        seleccionado = true;
+        break;
+      }
+    }
+     
+    if(!seleccionado) {
+
+        alert("Debe seleccionar una opccion de ida");
+      return false;
+    }
+
+//validacion de vuelta
+
+    if (document.getElementById("iyv").checked) {
+
+        vuelta = document.getElementsByName("vuelta");
+
+        var seleccionado1 = false;
+
+        for(var j=0; j<vuelta.length; j++) {    
+          if(vuelta[j].checked) {
+            seleccionado1 = true;
+            break;
+          }
+        }
+         
+        if(!seleccionado1) {
+
+            alert("Debe seleccionar una opccion de vuelta");
+          return false;
+        }
+    }else{};
+}
 
 /********************** DATEPICKER FECHAS  *************************/
 
@@ -68,7 +109,6 @@ $(function() {
 
 /**********************  OCULTAR DIV REGRESO  ***********************/
 
-
 $(document).ready(function(){
         $('input[type="radio"]').click(function(){
             if($(this).attr("value")=="si"){
@@ -79,7 +119,6 @@ $(document).ready(function(){
             }
         });
     });
-
 
 /********************** BOTON DE LOGUEO  ***********************/
 

@@ -1,7 +1,10 @@
-.col1, .col2, .col3, .cols {float:left}
-.col1 {width:346px;background:#f4f4f4;height:auto;} 
+.col1, .col2, .col3, .cols, .cols_1 {float:left}
+.col1 {width:346px;background:#f4f4f4} 
 .col2 {width:530px}
+.col3 {width:570px}
 .cols {width:280px}
+.cols_1 {width:280px}
+
 /* index.html */
 #page1 h1 {padding-top:33px}
 #page1 #top_nav {padding-top:33px}
@@ -14,6 +17,8 @@
 #page3 .cols {width:249px}
 /* index-3.html */
 /* index-4.html */
-#page5 .cols {width:80px}
+#page5 .cols {width:80px} 
+
+#page5 .cols_1 {width:110px}
 /* index-5.html */
 /* index-6.html */
