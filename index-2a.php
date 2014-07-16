@@ -156,7 +156,7 @@
 						echo "destino".$var2."<br>";
 						$categoria = $_SESSION['clase'];
 						
-						/*$tarifa_nro = $Consulta3->get_sql('SELECT TA.NroTarifa as NroTarifa, TA.Precio_Economy as PrecioEconomico , TA.Precio_Primary as Precio_Primary from vuelo V1 inner join aeropuerto A1
+						$tarifa_nro = $Consulta3->get_sql('SELECT TA.NroTarifa as NroTarifa, TA.Precio_Economy as PrecioEconomico , TA.Precio_Primary as Precio_Primary from vuelo V1 inner join aeropuerto A1
 						on V1.Aepto_Origen = A1.idAepto inner join aeropuerto A2 on V1.Aepto_Destino = A2.idAepto inner join tarifa TA on V1.Aepto_Destino = TA.Aepto_Destino and V1.Aepto_Origen = TA.Aepto_Origen	where A1.Ciudad = "' . $var1 . '" and A2.Ciudad = "' . $var2 . '" ');
 										
 						foreach ($tarifa_nro as $row){
@@ -170,7 +170,7 @@
 								$tarifa = $row['PrecioEconomico'];
 								echo "tarifa".$tarifa."<br>";
 							}			
-						}*/	 $nro_tarifa = 1;
+						}	 $nro_tarifa = 1;
 
 						$nroVueloIda = $_SESSION['vuelo_ida'];
 						echo "nroVuelo".$nroVueloIda."<br>";
