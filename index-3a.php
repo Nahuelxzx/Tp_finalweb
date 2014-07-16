@@ -21,12 +21,6 @@
 		<script type="text/javascript" src="http://info.template-help.com/files/ie6_warning/ie6_script_other.js"></script>
 		<script type="text/javascript" src="js/html5.js"></script>
 	<![endif]-->
-	<?php 
-		if (isset($_POST['apellido'])) 
-			$_SESSION['apellido'] = $_POST['apellido'];
-		if (isset($_POST['codigo_reserva'])) 
-			$_SESSION['codigo_reserva'] = $_POST['codigo_reserva'];
-	?>
 </head>
 <body id="page5">
 <div class="body1">
@@ -98,11 +92,16 @@
 		</article>
 		<article class="col2 pad_left1">
 			<h2>Seleccione su Asiento</h2>
-			<form id="checkin" action="index-2a.php" method="POST">
+			<form id="checkin" name="checkin" action="index-3b.php" method="POST">
 				<?php
-					$totalAsiento = 1;
-
 					session_start();
+					
+					if (isset($_POST['apellido'])) 
+						$_SESSION['apellido'] = $_POST['apellido'];
+					if (isset($_POST['codigo_reserva'])) 
+						$_SESSION['codigo_reserva'] = $_POST['codigo_reserva'];
+
+					$totalAsiento = 1;
 
 					$conexion = mysql_connect("localhost","root","") or die("Problemas en la conexion");
 					mysql_select_db("tp_finalweb2",$conexion) or die("Problemas en la selección de la base de datos");
@@ -141,6 +140,11 @@
 						$tipoAvion = $reg['Tipo'];
 					}
 				?>
+				<p class="pad_bot2">
+					<div class="marker">Apellido: <?php echo $apellido;?></div>
+					<div class="marker">Codigo de Reserva: <?php echo $codigo_reserva;?></div>
+					<div class="marker">Asiento Seleccionado: <input type="text" size="4" value=""></div>
+				</p>
 				<div id="contenedor_descripcion"> 
 			      <ul id="butacas_descripcion">
 			        <li style="background:url('images/vacia.gif') no-repeat scroll 0 0 transparent;">Disp.</li>
@@ -154,8 +158,7 @@
 			    </div>
 			     </div>
 			     <div class="clr"></div><br>
-			      <input type="button" class="button2" id="btnShowNew" value="Mostrar butacas seleccionadas" />
-			      <input type="button" class="button2" id="btnShow" value="Mostrar Ocupadas" />           
+			      <input type="submit" class="button2" id="btnShowNew" value="Enviar" />           
 			</form>
 		</article>
 	</section>
@@ -216,13 +219,13 @@
 		    }  
 		});
 
-		$('#btnShow').click(function () { //muestra las q selecciono y estan ocupadas
+		/*$('#btnShow').click(function () { //muestra las q selecciono y estan ocupadas
 		    var str = [];
 		    $.each($('#place li.' + settings.selectedSeatCss + ' a, #place li.'+ settings.selectingSeatCss + ' a'), function (index, value) {
 		    str.push($(this).attr('title'));
 		    });
-		    alert(str.join(','));
-		})
+		    document.write(str.join(','));
+		})*/
 
 		$('#btnShowNew').click(function (){ // muestra solo las q selecciono
 		    var str = [], item;
@@ -230,11 +233,11 @@
 		    item = $(this).attr('title');                   
 		    str.push(item);                   
 		    });
-		    alert(str.join(','));
+			document.cookie ='variable='+ str.join(',') +'; expires=Thu, 2 Aug 2021 20:47:11 UTC; path=/';
 		    })
+			
 		});
 	</script>
-	<!-- / content -->
 	</div>
 	<div class="body2">
 		<div class="main">

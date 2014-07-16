@@ -109,7 +109,7 @@
 					
 					$email = $_POST['email'];	
 
-					$id = 17; // Id que se tiene que borrar cuando el Id de la tabla Pasaje sea identiti
+					$id = 21; // Id que se tiene que borrar cuando el Id de la tabla Pasaje sea identiti
 
 					// ADULTOS!! //s
 
