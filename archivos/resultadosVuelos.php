@@ -20,6 +20,10 @@ WHERE A1.Ciudad = "' . $var1 . '" and A2.Ciudad = "' . $var2 . '" ');
 echo "<br>";
 echo "<div class='marker'><strong> IDA </strong></div>";
 
+//echo $_POST['fechap'];
+//echo $_POST['fechar'];
+$varFecha1 = $_POST['fechap'];
+
 if($diasvuelos){	
 	//echo "Hay resultados";
 	foreach ($diasvuelos as $row){									
