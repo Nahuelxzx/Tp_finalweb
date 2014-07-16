@@ -1,12 +1,9 @@
 <?php
 //Seteo el idioma local para que las fechas no esten en ingles
 setlocale(LC_ALL,"es_ES@euro","es_ES","esp","es");
-<<<<<<< HEAD
+
 date_default_timezone_set('America/Argentina/Buenos_Aires');
 
-=======
-date_default_timezone_set("America/Argentina/Buenos_Aires");
->>>>>>> origin/master
 //Cargo los dias de la semana en un array en donde 1-Lunes y 7-Domingo el ''- Es el 0 pero no lo tenemos en cuenta.
 $dias = array('','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo');
 
