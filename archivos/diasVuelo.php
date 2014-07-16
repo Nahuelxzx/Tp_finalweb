@@ -17,8 +17,7 @@ if ($vengodevuelo == 1)
 }
 //Obtengo el valor en string de la fecha seleccionada, si es lunes, martes, etc.
 //$fecha = $dias[date('N', strtotime('2014-06-26'))];
-//$fecha = $dias[date('N', strtotime($fecha2))]; 
-
+//$fecha = $dias[date('N', strtotime($fecha2))];
 $ss = split("/",$varFecha1);
 $fecha = $dias[date('N', strtotime($ss[1]."/".$ss[0]."/".$ss[2]))];
 echo strtotime($ss[1]."/".$ss[0]."/".$ss[2]);
@@ -27,9 +26,6 @@ echo "</br>FECHA AHORA : " . $fecha;
 //Inicio el array
 $arraydia = array();
 $pos=55;
-
-//$dias[$fecha]
-
 //Asigno segun el dia un valor en un array para compararlo con el binario recibido
 switch ($fecha) {
     case 'Lunes':
