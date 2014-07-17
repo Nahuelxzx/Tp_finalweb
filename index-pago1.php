@@ -27,6 +27,14 @@
 	if (isset($_POST['codigo_reserva']))
 		$_SESSION['codigo_reserva'] = $_POST['codigo_reserva'];
 	?>
+	<script type="text/javascript">
+		window.onload = inicio
+        
+	    function inicio(){
+	        document.getElementById("form_pago").onsubmit = validamos;
+	        alert("otra vez el quilombo");
+	    }
+	</script>
 </head>
 <body id="page5">
 <div class="body1">
@@ -100,7 +108,7 @@
 		</article>
 		<article class="col2 pad_left1">
 			<h2><strong> Formas de Pago: </strong></h2>
-			<form id="PagoFormu" action="index-pago2.php" method="POST">
+			<form id="form_pago" action="index-pago2.php" method="POST">
 				<div>
 					<div class='wrapper'>
 					    Nombre Titular:

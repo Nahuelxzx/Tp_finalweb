@@ -31,6 +31,13 @@
 	if (isset($_POST['viaje']))
 		$_SESSION['viaje'] = $_POST['viaje'];
 	?>
+	<script type="text/javascript">
+		window.onload = inicio
+	        
+	    function inicio(){
+	        document.getElementById("form_vuelo").onsubmit = valida;
+	    }
+	</script>
 </head>
 <body id="page1">
 <div class="body1">
@@ -104,14 +111,14 @@
 						Partida:
 						<div class="wrapper">
 							<div class="bg left"><input type="text" name="fechap" id="txtStartDate" class="input input2" value="<?php if (isset($_POST['fechap'])) { echo $_POST['fechap'];} ?>"></div>
-							<div class="bg right"><input type="text" class="input input2" value="12:00am" onblur="if(this.value=='') this.value='12:00am'" onFocus="if(this.value =='12:00am' ) this.value=''"></div>
+							<div class="bg right"><input type="text" class="input input2" placeholder="12:00am"></div>
 						</div>
 					</div>
 					<div class="wrapper">
 						<div id="ocultarDiv" style="display:block">Regreso:
 						<div class="wrapper">
 							<div class="bg left"><input type="text" name="fechar" id="txtEndDate" class="input input2" value="<?php if (isset($_POST['fechar'])) { echo $_POST['fechar']; } ?>"></div>
-							<div class="bg right"><input type="text" class="input input2" value="12:00am" onblur="if(this.value=='') this.value='12:00am'" onFocus="if(this.value =='12:00am' ) this.value=''"></div>
+							<div class="bg right"><input type="text" class="input input2" placeholder="12:00am"></div>
 						</div></div>
 					</div>
 					<div class="wrapper_1">
@@ -138,7 +145,6 @@
 				        </div>
 					</div>
 					<div class="wrapper_2">
-					<!--<a href="datos.php" class="button2" onClick="document.getElementById('form_1').submit()"> Buscar </a> -->
 					<input type="submit" class="button2" id="boton" value="Buscar"/>
 					</div>
 				</form>
@@ -172,8 +178,7 @@
 				}	
 			?>
 			<div class="wrapper pad_bot2">
-				<!--<a href="datos.php" class="button2" onClick="document.getElementById('form_1').submit()"> Buscar </a> -->
-				<input type="submit" class="button2" id="boton" value="Seleccionar"/>
+				<input type="submit" class="button2" value="Seleccionar"/>
 			</div>
 		</form>
 		</article>

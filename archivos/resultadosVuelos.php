@@ -12,13 +12,17 @@ $var2 = $_POST['destino'];
 //************************************************************************************************//
 $diasvuelos = $estructuraConsulta->get_sql('SELECT Dia_vuelo FROM vuelo V1 INNER JOIN aeropuerto A1
 ON V1.Aepto_Origen = A1.idAepto INNER JOIN aeropuerto A2 ON V1.Aepto_Destino = A2.idAepto
-WHERE A1.Ciudad = "' . $var1 . '" and A2.Ciudad = "' . $var2 . '" ');
+WHERE A1.Ciudad = "'.$var1.'" and A2.Ciudad = "'.$var2.'" ');
 
 //Cheque cuales son los dias que hace ese vuelo en la semana seguen el binario//
 //****************************************************************************//							
 //$bin = array();						
 echo "<br>";
 echo "<div class='marker'><strong> IDA </strong></div>";
+
+//echo $_POST['fechap'];
+//echo $_POST['fechar'];
+$varFecha1 = $_POST['fechap'];
 
 if($diasvuelos){	
 	//echo "Hay resultados";

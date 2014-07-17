@@ -18,7 +18,7 @@ if($diasvuelos){
 		}
 		//Dentro del include se hacen las comparaciones dia a dia segun el binario entregado//
 		//---------------------------------------------------------------------------------//
-	 	$vengodevuelta = 1;															   
+	 	$vengodevuelo = 1;															   
 		include "archivos/diasVuelo.php";
 	}
 	 //Si la fecha que selecciono posee algun vuelo realizo la consulta para mostrar el vuelo segun los horarios//
@@ -30,7 +30,7 @@ if($diasvuelos){
 		on V1.Aepto_Origen = A1.idAepto inner join aeropuerto A2 on V1.Aepto_Destino = A2.idAepto inner join tarifa TA on V1.Aepto_Destino = TA.Aepto_Destino and V1.Aepto_Origen = TA.Aepto_Origen
 		where A1.Ciudad = "' . $var2. '" and A2.Ciudad = "' . $var1. '" ');								
 		//-------------------//INICIO DE LA TABLA DE RESULTADOS//----------------------//
-		
+
 		echo "</br><table border='1' rules=all>";
 		echo "<tr height=40px><td></td><td width=350px><strong> ORIGEN </strong></td><td width=350px><strong> DESTINO </strong></td><td width=100px><strong> SALIDA </strong></td><td width=100px><strong> LLEGADA </strong></td><td width=100px><strong>CATEG.</strong></td><td width=100px><strong> IMPORTE </strong></td></tr>";
 
@@ -41,7 +41,7 @@ if($diasvuelos){
 			echo "<td>" .$row['CiudadDestino']. "</td>";							             
 			echo "<td>" .$row['HoraSalida']. "</td>";
 			echo "<td>" .$row['HoraLlegada']. "</td>";
-			
+
 			if ($clase == "primera"){
 				echo "<td>Primera</td>";	
 				echo "<td>".$row['Precio_Primary']."</td>";

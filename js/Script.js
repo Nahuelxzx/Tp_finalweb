@@ -1,19 +1,8 @@
-/**********************  VALIDACION DE FORMULARIO DE PAGO   ***********************/
-window.onload = inicio
-        
-    function inicio(){
-        document.getElementById("PagoFormu").onsubmit = validar;
-    }
-
+/**********************  VALIDACION DE FORMULARIO DE REGISTRO   ***********************/
 function validar(){
     
     if(isNaN(document.getElementById("dni").value)){
         alert ("El campo Dni acepta solo numeros");
-        return false;
-    }
-
-    if(isNaN(document.getElementById("numTarj").value)){
-        alert ("El campo Numero de Tarjeta acepta solo numeros");
         return false;
     }
 
@@ -41,13 +30,25 @@ function validar(){
     return true;
 }
 
-/**********************  VALIDACION DE FORMULARIO DE RESULTADO VUELO   ***********************/
+/**********************  VALIDACION DE FORMULARIO DE PAGO   ***********************/
 
-window.onload = inicio
-        
-    function inicio(){
-        document.getElementById("form_vuelo").onsubmit = valida;
+function validamos(){
+    
+    if(isNaN(document.getElementById("dni").value)){
+        alert ("El campo Dni acepta solo numeros");
+        return false;
     }
+
+    if(isNaN(document.getElementById("numTarj").value)){
+        alert ("El campo Numero de Tarjeta acepta solo numeros");
+        return false;
+    }
+    
+    return true;
+}
+
+
+/**********************  VALIDACION DE FORMULARIO DE RESULTADO VUELO   ***********************/
 
 function valida(){
     

@@ -28,6 +28,13 @@
 			$_SESSION['vuelo_vuelta'] = $_POST['vuelta'];
 		}
 	?>
+	<script type="text/javascript">
+		window.onload = inicio
+        
+	    function inicio(){
+	        document.getElementById("PagoFormu").onsubmit = validar;
+	    }
+	</script>
 </head>
 <body id="page5">
 <div class="body1">
@@ -161,10 +168,8 @@
 						<div class='bg'><input type='email' id="remail" required class='input' name="remail" placeholder="Re-Ingrese E-Mail"/></div>
 					</div>
 					<div id="ok"></div>
-					<input type="submit" class="button2" id="boton" value="Enviar"/>
-					<input type="reset" class="button2" id="boton" value="Cancelar"/>
-					<!--<a href="#" class="button2" onClick="document.getElementById('ContactForm').submit()">Enviar</a>
-					<a href="#" class="button2" onClick="document.getElementById('ContactForm').reset()">Cancelar</a> -->
+					<input type="submit" class="button2"  value="Enviar"/>
+					<input type="reset" class="button2" value="Cancelar"/>
 				</div>
 				<div class="clr"></div>
 			</form>

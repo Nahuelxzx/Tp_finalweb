@@ -83,49 +83,82 @@
 		</article>
 		<article class="col2 pad_left1">
 			<h2>Gracias por volar con nosotros</h2>
-			<form id="PagoForm" action="index-2a.php" method="POST">
 				<div class="marker">
-					<p class="pad_bot2"><strong> Sus datos fueron recibidos con exito.. </strong></p>
-					<p class="pad_bot2"> Ya se encuentra a du disposicion un pdf con sus datos y el codigo de reserva correspondiete a su vuelo.</p>
-					<p class="pad_bot2">
-					<?php
-					function generar_clave($longitud){ 
-				       $cadena="[^A-Z0-9]"; 
-				       return substr(eregi_replace($cadena, "", md5(rand())) . 
-				       eregi_replace($cadena, "", md5(rand())) . 
-				       eregi_replace($cadena, "", md5(rand())), 
-				       0, $longitud); 
-					} 
-					//Ejemplo de utilización para una clave de 10 caracteres: 
-					?>
-					</p>
-				<?php
-					session_start();
+				<p class="pad_bot2"><strong> Sus datos fueron recibidos con exito.. </strong></p>
+				<p class="pad_bot2"></p>
 
-					$conexion = mysql_connect("localhost","root","") or
-					  die("Problemas en la conexion");
-					mysql_select_db("tp_finalweb2",$conexion) or
-					  die("Problemas en la selección de la base de datos");
+			<?php
+				session_start();
+
+				$conexion = mysql_connect("localhost","root","") or die("Problemas en la conexion");
+				mysql_select_db("tp_finalweb2",$conexion) or die("Problemas en la selección de la base de datos");
+				
+				$var1 = $_SESSION['origen'];
+				$var2 = $_SESSION['destino'];
+				$categoria = $_SESSION['clase'];
+				$email = $_POST['email'];
+				$varfechap = $_SESSION['fechap'];
+				$varfechar = $_SESSION['fechar'];
+				$nroVueloIda = $_SESSION['vuelo_ida'];
+				$nroVueloVuelta = $_SESSION['vuelo_vuelta'];
+				
+				$fechap = date("Y-m-d",strtotime($varfechap));
+				$fechar = date("Y-m-d",strtotime($varfechar));
+
+				function generar_clave($longitud){ 
+			       $cadena="[^A-Z0-9]"; 
+			       return substr(eregi_replace($cadena, "", md5(rand())) . 
+			       eregi_replace($cadena, "", md5(rand())) . 
+			       eregi_replace($cadena, "", md5(rand())), 
+			       0, $longitud); 
+				} 
+				// ADULTOS!! //s
+				for ($i= 1; $i <= $_SESSION['adultos'] ; $i++) {
+					$apAdul = $_POST['appAdul'.$i];
+					$nomAdul = $_POST['nomAdul'.$i];
+					$sexAdul = $_POST['sexAdul'.$i];
+					$fnacAdul = $_POST['anioAd'.$i]."-".$_POST['mesAd'.$i]."-".$_POST['diaAd'.$i];
+					$tdniAdul = $_POST['tipodniAdul'.$i];
+					$dninumAdul = $_POST['dninumAdul'.$i];
+
+					$Insert_registros = mysql_query("INSERT INTO pasajero (Nombre, Apellido, Tipo_doc, Dni, Fec_Nac, Email ) 
+					VALUES ('".$nomAdul."', '".$apAdul."' , '".$tdniAdul."' , '".$dninumAdul."' , '".$fnacAdul."', '".$email."' )", 
+				    $conexion) or die("Problemas en el select:".mysql_error());
 					
-					$email = $_POST['email'];	
 
-					$id = 21; // Id que se tiene que borrar cuando el Id de la tabla Pasaje sea identiti
+					//VERIFICAR SI HAY LUGAR EN EL VUELO SELECCIONADO ******* COMIENZO ********
+					$Cuenta=mysql_query(" SELECT COUNT(*) as Total
+										FROM pasaje 
+										WHERE nroVuelo = '".$nroVueloIda."'  ", $conexion) or die("Problemas en el select:".mysql_error());
+					
+					while ($reg = mysql_fetch_array($Cuenta)){
+								$totalIda = $reg[0];//Cantidad de personas q viajan a la ida
+						}
 
-					// ADULTOS!! //s
-
-					for ($i= 1; $i <= $_SESSION['adultos'] ; $i++) {
-						$apAdul = $_POST['appAdul'.$i];
-						$nomAdul = $_POST['nomAdul'.$i];
-						$sexAdul = $_POST['sexAdul'.$i];
-						$fnacAdul = $_POST['anioAd'.$i]."-".$_POST['mesAd'.$i]."-".$_POST['diaAd'.$i];
-						$tdniAdul = $_POST['tipodniAdul'.$i];
-						$dninumAdul = $_POST['dninumAdul'.$i];
-
-						$Insert_registros = mysql_query("INSERT INTO pasajero (Nombre, Apellido, Tipo_doc, Dni, Fec_Nac, Email ) 
-						VALUES ('".$nomAdul."', '".$apAdul."' , '".$tdniAdul."' , '".$dninumAdul."' , '".$fnacAdul."', '".$email."' )", 
-					    $conexion) or die("Problemas en el select:".mysql_error());
+					$Consulta2 = mysql_query(" SELECT idAvion
+											   FROM vuelo
+											   WHERE idVuelo = '".$nroVueloIda."'  ", $conexion) or die("Problemas en el select:".mysql_error());
 						
+					while ($reg = mysql_fetch_array($Consulta2)) {
+						$idAvionIda = $reg['idAvion'];	//id del avion que realiza el viaje de ida
+						}
 
+					$Consulta3 = mysql_query(" SELECT Economico, Primera, Tipo
+											   FROM avion
+											   WHERE idAvion = '".$idAvionIda."'  ", $conexion) or die("Problemas en el select:".mysql_error());
+						
+					while ($reg = mysql_fetch_array($Consulta3)) { //Datos de el avion..
+						$Economico = $reg['Economico'];
+						$Primera = $reg['Primera'];
+						$TipoAvion = $reg['Tipo'];
+					}
+
+					$totalAsientosAvion = $Economico + $Primera;
+
+					//VERIFICAR SI HAY LUGAR EN EL VUELO SELECCIONADO ******* FINAL ********
+
+					if ($totalIda <= $totalAsientosAvion) {
+					
 						$Consulta_registros1=mysql_query(" SELECT idPasajero FROM pasajero WHERE dni = ".$dninumAdul."  ", 
                         $conexion) or die("Problemas en el select:".mysql_error());
 
@@ -133,10 +166,6 @@
 							$id_pasajero = $reg['idPasajero'];						
 						}
 
-						$var1 = $_SESSION['origen'];
-						$var2 = $_SESSION['destino'];
-						$categoria = $_SESSION['clase'];
-						
 						$Consulta_registros2=mysql_query(" SELECT TA.idTarifa as NroTarifa, 
 							                                      TA.Precio_Economy as PrecioEconomico , 
 							                                      TA.Precio_Primary as Precio_Primary 
@@ -158,96 +187,226 @@
 							}
 						}
 
-						$nroVueloIda = $_SESSION['vuelo_ida'];
-
 						$codigo = generar_clave(6);
-						echo "Codigo de Reserva Pasajero ".$i." : ".$codigo."<br>";
+						echo "Pasajero Adulto ".$i.": ".$nomAdul." ".$apAdul."<br>";
+						echo "Codigo de Reserva Ida: ".$codigo."<br>";
+						//borrar cuando el circuito funcione!!1
+						echo "Tipo de Avion: ".$TipoAvion;
+						echo "<br>Cantidad de Asientos en el avion: ".$totalAsientosAvion;
+						echo "<br>Cantidad de perosonas q viajaran: ".$totalIda."<br><br>";
 					
-						$registros=mysql_query(" INSERT INTO pasaje (idPasaje, nroVuelo, idPasajero, NroTarifa, categoria, claveAuto, tarifa ) 
-						VALUES ('".$id."','".$nroVueloIda."', '".$id_pasajero."' , '".$nro_tarifa."', '".$categoria."', '".$codigo."', '".$tarifa."' ) ", 
+						$registros = mysql_query(" INSERT INTO pasaje (nroVuelo, idPasajero, NroTarifa, categoria, claveAuto, tarifa, fecha_Salida, habilitado ) 
+						VALUES ('".$nroVueloIda."', '".$id_pasajero."' , '".$nro_tarifa."', '".$categoria."', '".$codigo."', '".$tarifa."', '".$fechap."', 'si' ) ", 
                       	$conexion) or die("Problemas en el select:".mysql_error());
 
-						$id++;
-						// CARGAR EN LA TABLA PASAJE.. VUELTA ADULTOS!!! //
+					}elseif ($totalIda <= ($totalAsientosAvion + 10)) {
+						$Consulta_registros1=mysql_query(" SELECT idPasajero FROM pasajero WHERE dni = ".$dninumAdul."  ", 
+                        $conexion) or die("Problemas en el select:".mysql_error());
 
-						if ($_SESSION['viaje'] == 'iyv') {
-							
-							$Consulta_registros3 = mysql_query(" SELECT idPasajero FROM pasajero WHERE dni = ".$dninumAdul."  ", 
-	                        $conexion) or die("Problemas en el select:".mysql_error());
+						while ($reg = mysql_fetch_array($Consulta_registros1)){
+							$id_pasajero = $reg['idPasajero'];						
+						}
 
-							while ($reg = mysql_fetch_array($Consulta_registros3)){
-								$id_pasajero = $reg['idPasajero'];						
+						$Consulta_registros2=mysql_query(" SELECT TA.idTarifa as NroTarifa, 
+							                                      TA.Precio_Economy as PrecioEconomico , 
+							                                      TA.Precio_Primary as Precio_Primary 
+						                                   from vuelo V1 
+						                                   inner join aeropuerto A1 on V1.Aepto_Origen = A1.idAepto 
+						                                   inner join aeropuerto A2 on V1.Aepto_Destino = A2.idAepto 
+						                                   inner join tarifa as TA on V1.Aepto_Destino = TA.Aepto_Destino and V1.Aepto_Origen = TA.Aepto_Origen	
+						                                   where A1.Ciudad = '".$var1."' 
+						                                   and A2.Ciudad = '".$var2."'  ", $conexion) 
+						                                   or die("Problemas en el select:".mysql_error());
+
+						while ($reg = mysql_fetch_array($Consulta_registros2)) {
+							$nro_tarifa = $reg['NroTarifa'];
+
+							if ($categoria == "primera"){
+								$tarifa = $reg['Precio_Primary'];
+							}else {
+								$tarifa = $reg['PrecioEconomico'];
 							}
-							
-							$Consulta_registros4 = mysql_query(" SELECT TA.idTarifa as NroTarifa, 
-								                                      TA.Precio_Economy as PrecioEconomico , 
-								                                      TA.Precio_Primary as Precio_Primary 
-							                                   from vuelo V1 
-							                                   inner join aeropuerto A1 on V1.Aepto_Origen = A1.idAepto 
-							                                   inner join aeropuerto A2 on V1.Aepto_Destino = A2.idAepto 
-							                                   inner join tarifa as TA on V1.Aepto_Destino = TA.Aepto_Destino and V1.Aepto_Origen = TA.Aepto_Origen	
-							                                   where A1.Ciudad = '".$var2."' 
-							                                   and A2.Ciudad = '".$var1."'  ", $conexion) 
-							                                   or die("Problemas en el select:".mysql_error());
+						}
 
-							while ($reg = mysql_fetch_array($Consulta_registros4)) {
-								$nro_tarifa = $reg['NroTarifa'];
 
-								if ($categoria == "primera"){
-									$tarifa = $reg['Precio_Primary'];
-								}else {
-									$tarifa = $reg['PrecioEconomico'];
-								}
-							}
-
-							$nroVueloIda = $_SESSION['vuelo_vuelta'];
-
-							$codigo = generar_clave(6);
-							echo "Codigo de Reserva Pasajero ".$i." : ".$codigo."<br>";
+						$codigo = generar_clave(6);
+						echo "Pasajero Adulto ".$i.": ".$nomAdul." ".$apAdul."<br>";
+						echo "Codigo de Reserva Ida: ".$codigo."<br>";
+						echo "Usted se encuentra en lista de Espera<br>";
+						//borrar cuando el circuito funcione!!1
+						echo "Tipo de Avion: ".$TipoAvion;
+						echo "<br>Cantidad de Asientos en el avion: ".$totalAsientosAvion;
+						echo "<br>Cantidad de perosonas q viajaran: ".$totalIda."<br><br>";
+					
+						$registros = mysql_query(" INSERT INTO pasaje (nroVuelo, idPasajero, NroTarifa, categoria, claveAuto, tarifa, fecha_Salida, habilitado ) 
+						VALUES ('".$nroVueloIda."', '".$id_pasajero."' , '".$nro_tarifa."', '".$categoria."', '".$codigo."', '".$tarifa."', '".$fechap."', 'no' ) ", 
+                      	$conexion) or die("Problemas en el select:".mysql_error());
+					}else{
+						echo "Lo Sentimos pero el vuelo de ida se encuentra lleno, por favor seleccione otro vuelo. Disculpe por las molestias";
+					}
+					// CARGAR EN LA TABLA PASAJE.. VUELTA ADULTOS!!! //
+					if ($_SESSION['viaje'] == 'iyv') {
 						
-							$registros=mysql_query(" INSERT INTO pasaje (idPasaje, nroVuelo, idPasajero, NroTarifa, categoria, claveAuto, tarifa ) 
-							VALUES ('".$id."','".$nroVueloIda."', '".$id_pasajero."' , '".$nro_tarifa."', '".$categoria."', '".$codigo."', '".$tarifa."' ) ", 
-	                        $conexion) or die("Problemas en el select:".mysql_error());
+						$Consulta_registros4 = mysql_query(" SELECT TA.idTarifa as NroTarifa, 
+							                                      TA.Precio_Economy as PrecioEconomico , 
+							                                      TA.Precio_Primary as Precio_Primary 
+						                                   from vuelo V1 
+						                                   inner join aeropuerto A1 on V1.Aepto_Origen = A1.idAepto 
+						                                   inner join aeropuerto A2 on V1.Aepto_Destino = A2.idAepto 
+						                                   inner join tarifa as TA on V1.Aepto_Destino = TA.Aepto_Destino and V1.Aepto_Origen = TA.Aepto_Origen	
+						                                   where A1.Ciudad = '".$var2."' 
+						                                   and A2.Ciudad = '".$var1."'  ", $conexion) 
+						                                   or die("Problemas en el select:".mysql_error());
+
+						while ($reg = mysql_fetch_array($Consulta_registros4)) {
+							$nro_tarifa = $reg['NroTarifa'];
+
+							if ($categoria == "primera"){
+								$tarifa = $reg['Precio_Primary'];
+							}else {
+								$tarifa = $reg['PrecioEconomico'];
+							}
+						}
+						//VERIFICAR SI HAY LUGAR EN EL VUELO SELECCIONADO ******* COMIENZO ********
+						$Cuenta=mysql_query(" SELECT COUNT(*) as Total
+											FROM pasaje 
+											WHERE nroVuelo = '".$nroVueloVuelta."'  ", $conexion) or die("Problemas en el select:".mysql_error());
+						
+						while ($reg = mysql_fetch_array($Cuenta)){
+									$totalVuelta = $reg[0];//Cantidad de personas q viajan a la ida
+								}
+
+						$Consulta2 = mysql_query(" SELECT idAvion
+												   FROM vuelo
+												   WHERE idVuelo = '".$nroVueloVuelta."'  ", $conexion) or die("Problemas en el select:".mysql_error());
 							
-							$id++;
+						while ($reg = mysql_fetch_array($Consulta2)) {
+							$idAvionVuelta = $reg['idAvion'];	//id del avion que realiza el viaje de ida
+						}
+
+						$Consulta3 = mysql_query(" SELECT Economico, Primera, Tipo
+												   FROM avion
+												   WHERE idAvion = '".$idAvionVuelta."'  ", $conexion) or die("Problemas en el select:".mysql_error());
+							
+						while ($reg = mysql_fetch_array($Consulta3)) { //Datos de el avion..
+							$EconomicoVuelta = $reg['Economico'];
+							$PrimeraVuelta = $reg['Primera'];
+							$TipoAvionVuelta = $reg['Tipo'];
+						}
+						$totalAsientosAvionVuelta = $EconomicoVuelta + $PrimeraVuelta;
+
+						//VERIFICAR SI HAY LUGAR EN EL VUELO SELECCIONADO ******* FINAL ********
+						
+						if ($totalVuelta <= $totalAsientosAvionVuelta) {
+							
+							$codigo = generar_clave(6);
+							echo "Pasajero Adulto ".$i.": ".$nomAdul." ".$apAdul."<br>";
+							echo "Codigo de Reserva Vuelta: ".$codigo."<br>";
+							//borrar cuando el circuito funcione!!1
+							echo "Tipo de Avion: ".$TipoAvionVuelta;
+							echo "<br>Cantidad de Asientos en el avion: ".$totalAsientosAvionVuelta;
+							echo "<br>Cantidad de perosonas q viajaran: ".$totalVuelta."<br><br>";
+						
+							$registros=mysql_query(" INSERT INTO pasaje (nroVuelo, idPasajero, NroTarifa, categoria, claveAuto, tarifa, fecha_Salida, habilitado ) 
+							VALUES ('".$nroVueloVuelta."', '".$id_pasajero."' , '".$nro_tarifa."', '".$categoria."', '".$codigo."', '".$tarifa."', '".$fechar."', 'si' ) ", 
+	                        $conexion) or die("Problemas en el select:".mysql_error());
+						
+						}elseif ($totalIda <= ($totalAsientosAvion + 10)) {
+							$codigo = generar_clave(6);
+							echo "Pasajero Adulto ".$i.": ".$nomAdul." ".$apAdul."<br>";
+							echo "Codigo de Reserva Vuelta: ".$codigo."<br>";
+							echo "Usted se encuentra en lista de Espera<br>";
+							//borrar cuando el circuito funcione!!1
+							echo "Tipo de Avion: ".$TipoAvionVuelta;
+							echo "<br>Cantidad de Asientos en el avion: ".$totalAsientosAvionVuelta;
+							echo "<br>Cantidad de perosonas q viajaran: ".$totalVuelta."<br>";
+						
+							$registros=mysql_query(" INSERT INTO pasaje (nroVuelo, idPasajero, NroTarifa, categoria, claveAuto, tarifa, fecha_Salida, habilitado ) 
+							VALUES ('".$nroVueloVuelta."', '".$id_pasajero."' , '".$nro_tarifa."', '".$categoria."', '".$codigo."', '".$tarifa."', '".$fechar."', 'no' ) ", 
+	                        $conexion) or die("Problemas en el select:".mysql_error());
+						}else{
+						echo "Lo Sentimos pero el vuelo de ida se encuentra lleno, por favor seleccione otro vuelo. Disculpe por las molestias";
+						}
+					}
+				}
+				// MENORES!! //
+				for ($i= 1; $i <= $_SESSION['menores'] ; $i++){
+					
+					$apMen = $_POST['appMen'.$i];
+					$nomMen = $_POST['nomMen'.$i];
+					$sexMen = $_POST['sexMen'.$i];
+					$fnacMen = $_POST['anioMen'.$i]."-".$_POST['mesMen'.$i]."-".$_POST['diaMen'.$i];
+					$tdniMen = $_POST['tipodniMen'.$i];
+					$dninumMen = $_POST['dninumMen'.$i];
+
+					$Insert_registros = mysql_query(" INSERT INTO pasajero (Nombre, Apellido, Tipo_doc, Dni, Fec_Nac, Email ) 
+					VALUES ('".$nomMen."', '".$apMen."' , '".$tdniMen."' , '".$dninumMen."' , '".$fnacMen."', '".$email."' )", 
+				    $conexion) or die("Problemas en el select:".mysql_error());
+
+
+				    $Consulta_registros1=mysql_query(" SELECT idPasajero FROM pasajero WHERE dni = ".$dninumMen."  ", 
+                    $conexion) or die("Problemas en el select:".mysql_error());
+
+					while ($reg = mysql_fetch_array($Consulta_registros1)){
+						$id_pasajero = $reg['idPasajero'];						
+					}
+					
+					$Consulta_registros2=mysql_query(" SELECT TA.idTarifa as NroTarifa, 
+						                                      TA.Precio_Economy as PrecioEconomico , 
+						                                      TA.Precio_Primary as Precio_Primary 
+					                                   from vuelo V1 
+					                                   inner join aeropuerto A1 on V1.Aepto_Origen = A1.idAepto 
+					                                   inner join aeropuerto A2 on V1.Aepto_Destino = A2.idAepto 
+					                                   inner join tarifa as TA on V1.Aepto_Destino = TA.Aepto_Destino and V1.Aepto_Origen = TA.Aepto_Origen	
+					                                   where A1.Ciudad = '".$var1."' 
+					                                   and A2.Ciudad = '".$var2."'  ", $conexion) 
+					                                   or die("Problemas en el select:".mysql_error());
+
+					while ($reg = mysql_fetch_array($Consulta_registros2)) {
+						$nro_tarifa = $reg['NroTarifa'];
+
+						if ($categoria == "primera"){
+							$tarifa = $reg['Precio_Primary'];
+						}else {
+							$tarifa = $reg['PrecioEconomico'];
 						}
 					}
 
-					// MENORES!! //
+					$codigo = generar_clave(6);
+					echo "Pasajero Menor ".$i.": ".$nomMen." ".$apMen."<br>";
+					echo "Codigo de Reserva Ida: ".$codigo."<br><br>";
 
-					for ($i= 1; $i <= $_SESSION['menores'] ; $i++){
-						
-						$apMen = $_POST['appMen'.$i];
-						$nomMen = $_POST['nomMen'.$i];
-						$sexMen = $_POST['sexMen'.$i];
-						$fnacMen = $_POST['anioMen'.$i]."-".$_POST['mesMen'.$i]."-".$_POST['diaMen'.$i];
-						$tdniMen = $_POST['tipodniMen'.$i];
-						$dninumMen = $_POST['dninumMen'.$i];
+				
+					$registros = mysql_query(" INSERT INTO pasaje (nroVuelo, idPasajero, NroTarifa, categoria, claveAuto, tarifa, fecha_Salida ) 
+					VALUES ('".$nroVueloIda."', '".$id_pasajero."' , '".$nro_tarifa."', '".$categoria."', '".$codigo."', '".$tarifa."', '".$fechap."' ) ", 
+					$conexion) or die("Problemas en el select:".mysql_error());
 
-						$Insert_registros = mysql_query(" INSERT INTO pasajero (Nombre, Apellido, Tipo_doc, Dni, Fec_Nac, Email ) 
-						VALUES ('".$nomMen."', '".$apMen."' , '".$tdniMen."' , '".$dninumMen."' , '".$fnacMen."', '".$email."' )", 
-					    $conexion) or die("Problemas en el select:".mysql_error());
+					//$id++;
 
+					//CARGAR EN LA TABLA PASAJE SI ESTA SELECCIONADO IDA Y VUELTA PARA MENORES
 
-					    $Consulta_registros1=mysql_query(" SELECT idPasajero FROM pasajero WHERE dni = ".$dninumMen."  ", 
+					if ($_SESSION['viaje'] == 'iyv') {
+
+						$Consulta_registros1 = mysql_query(" SELECT idPasajero FROM pasajero WHERE dni = ".$dninumMen."  ", 
                         $conexion) or die("Problemas en el select:".mysql_error());
 
 						while ($reg = mysql_fetch_array($Consulta_registros1)){
 							$id_pasajero = $reg['idPasajero'];						
 						}
 						
-						$Consulta_registros2=mysql_query(" SELECT TA.idTarifa as NroTarifa, 
+						$Consulta_registros2 = mysql_query(" SELECT TA.idTarifa as NroTarifa, 
 							                                      TA.Precio_Economy as PrecioEconomico , 
 							                                      TA.Precio_Primary as Precio_Primary 
 						                                   from vuelo V1 
 						                                   inner join aeropuerto A1 on V1.Aepto_Origen = A1.idAepto 
 						                                   inner join aeropuerto A2 on V1.Aepto_Destino = A2.idAepto 
 						                                   inner join tarifa as TA on V1.Aepto_Destino = TA.Aepto_Destino and V1.Aepto_Origen = TA.Aepto_Origen	
-						                                   where A1.Ciudad = '".$var1."' 
-						                                   and A2.Ciudad = '".$var2."'  ", $conexion) 
+						                                   where A1.Ciudad = '".$var2."' 
+						                                   and A2.Ciudad = '".$var1."'  ", $conexion) 
 						                                   or die("Problemas en el select:".mysql_error());
 
 						while ($reg = mysql_fetch_array($Consulta_registros2)) {
+							
 							$nro_tarifa = $reg['NroTarifa'];
 
 							if ($categoria == "primera"){
@@ -257,70 +416,21 @@
 							}
 						}
 
-						$nroVueloIda = $_SESSION['vuelo_ida'];
-
 						$codigo = generar_clave(6);
-						echo "Codigo de Reserva Pasajero Menor ".$i." : ".$codigo."<br>";
+						echo "Pasajero Menor ".$i.": ".$nomMen." ".$apMen."<br>";
+						echo "Codigo de Reserva Vuelta: ".$codigo."<br><br>";
 					
-						$registros = mysql_query(" INSERT INTO pasaje (idPasaje, nroVuelo, idPasajero, NroTarifa, categoria, claveAuto, tarifa ) 
-						VALUES ('".$id."','".$nroVueloIda."', '".$id_pasajero."' , '".$nro_tarifa."', '".$categoria."', '".$codigo."', '".$tarifa."' ) ", 
+						$registros=mysql_query(" INSERT INTO pasaje (nroVuelo, idPasajero, NroTarifa, categoria, claveAuto, tarifa, fecha_Salida ) 
+						VALUES (".$nroVueloVuelta."', '".$id_pasajero."' , '".$nro_tarifa."', '".$categoria."', '".$codigo."', '".$tarifa."', '".$fechar."' ) ", 
 						$conexion) or die("Problemas en el select:".mysql_error());
-
-						$id++;
-
-						//CARGAR EN LA TABLA PASAJE SI ESTA SELECCIONADO IDA Y VUELTA PARA MENORES
-
-						if ($_SESSION['viaje'] == 'iyv') {
-
-							$Consulta_registros1 = mysql_query(" SELECT idPasajero FROM pasajero WHERE dni = ".$dninumMen."  ", 
-	                        $conexion) or die("Problemas en el select:".mysql_error());
-
-							while ($reg = mysql_fetch_array($Consulta_registros1)){
-								$id_pasajero = $reg['idPasajero'];						
-							}
-							
-							$Consulta_registros2 = mysql_query(" SELECT TA.idTarifa as NroTarifa, 
-								                                      TA.Precio_Economy as PrecioEconomico , 
-								                                      TA.Precio_Primary as Precio_Primary 
-							                                   from vuelo V1 
-							                                   inner join aeropuerto A1 on V1.Aepto_Origen = A1.idAepto 
-							                                   inner join aeropuerto A2 on V1.Aepto_Destino = A2.idAepto 
-							                                   inner join tarifa as TA on V1.Aepto_Destino = TA.Aepto_Destino and V1.Aepto_Origen = TA.Aepto_Origen	
-							                                   where A1.Ciudad = '".$var2."' 
-							                                   and A2.Ciudad = '".$var1."'  ", $conexion) 
-							                                   or die("Problemas en el select:".mysql_error());
-
-							while ($reg = mysql_fetch_array($Consulta_registros2)) {
-								
-								$nro_tarifa = $reg['NroTarifa'];
-
-								if ($categoria == "primera"){
-									$tarifa = $reg['Precio_Primary'];
-								}else {
-									$tarifa = $reg['PrecioEconomico'];
-								}
-							}
-
-							$nroVueloIda = $_SESSION['vuelo_vuelta'];
-
-							$codigo = generar_clave(6);
-							echo "Codigo de Reserva Pasajero ".$i." : ".$codigo."<br>";
-						
-							$registros=mysql_query(" INSERT INTO pasaje (idPasaje, nroVuelo, idPasajero, NroTarifa, categoria, claveAuto, tarifa ) 
-							VALUES ('".$id."','".$nroVueloIda."', '".$id_pasajero."' , '".$nro_tarifa."', '".$categoria."', '".$codigo."', '".$tarifa."' ) ", 
-							$conexion) or die("Problemas en el select:".mysql_error());
-
-							$id++;
-						}
 					}
-				?>
-				</div>
-				<a href="index-2b.php" class="button2" onClick="document.getElementById('ContactForm').submit()">Ver Pdf</a>
-				<div class="clr"></div><br><br>
-				<p class="color1">Le recordamos que usted se encontrara habilitado para hacer el check-in en el rango de 48hs a 24hs anteriores al vuelo.. </p>
-				<br><div class="clr"></div>
-			</form>
-
+				}
+			?>
+			</div>
+			<div class="clr"></div>
+			<p class="color1"> Ahora podes abonar tu pasaje desde nuestra pagina.. rapido,facil y sin moverte de tu casa. Solo hace click en el boton Pagar e ingresa tu codigo de reserva.-</p>
+			<a href="index-pago.php" class="button2">Pagar</a>
+			<br><div class="clr"></div>
 		</article>
 	</section>
 <!-- / content -->
@@ -338,4 +448,3 @@
 <script type="text/javascript"> Cufon.now(); </script>
 </body>
 </html>
-
