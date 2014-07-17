@@ -37,4 +37,14 @@ echo "$fecha";*/
 //LLAMAR AL PDF
 
 //CERRAR TODITO
+//echo "<img src='grafico_tarta.php' alt='' border = '0'>";
 ?>
+
+<html>
+<head>
+	</head>
+
+	<body>
+		<img src="grafico2.php" alt="grafico" border="0">
+	</body>
+</html>
