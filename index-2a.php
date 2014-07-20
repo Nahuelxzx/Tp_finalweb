@@ -130,11 +130,12 @@
 
 				$Cuenta=mysql_query(" SELECT COUNT(*) as Total
 									FROM pasaje 
-									WHERE nroVuelo = '".$nroVueloIda."'  ", $conexion) or die("Problemas en el select:".mysql_error());
+									WHERE nroVuelo = '".$nroVueloIda."' AND categoria = '".$categoria."'  ", $conexion) or die("Problemas en el select:".mysql_error());
 				
 				while ($reg = mysql_fetch_array($Cuenta)){
-							$totalIda = $reg[0];//Cantidad de personas q viajan a la ida
+							$totalIda = $reg[0];//Cantidad de personas q viajan a la id
 					}
+
 
 				$Consulta2 = mysql_query(" SELECT idAvion
 										   FROM vuelo
@@ -154,7 +155,11 @@
 					$TipoAvion = $reg['Tipo'];
 				}
 
-				$totalAsientosAvion = $Economico + $Primera;
+				if ($categoria == "primera"){
+							$totalAsientosAvion = $Primera;
+						}else {
+							$totalAsientosAvion = $Economico;
+						}
 
 				//VERIFICAR SI HAY LUGAR EN EL VUELO SELECCIONADO ******* FINAL ********
 
@@ -198,7 +203,7 @@
 					$registros = mysql_query(" INSERT INTO pasaje (nroVuelo, idPasajero, NroTarifa, categoria, claveAuto, tarifa, fecha_Salida, habilitado ) 
 					VALUES ('".$nroVueloIda."', '".$id_pasajero."' , '".$nro_tarifa."', '".$categoria."', '".$codigo."', '".$tarifa."', '".$fechap."', 'si' ) ", $conexion) or die("Problemas en el select:".mysql_error());
 
-				}elseif ($totalIda <= ($totalAsientosAvion + 10)) {
+				}elseif ($totalIda <= ($totalAsientosAvion + 5)) {
 					$Consulta_registros1=mysql_query(" SELECT idPasajero FROM pasajero WHERE dni = ".$dninumAdul."  ", $conexion) or die("Problemas en el select:".mysql_error());
 
 					while ($reg = mysql_fetch_array($Consulta_registros1)){
@@ -226,7 +231,6 @@
 						}
 					}
 
-
 					$codigo = generar_clave(6);
 					echo "Pasajero Adulto ".$i.": ".$nomAdul." ".$apAdul."<br>";
 					echo "Codigo de Reserva Ida: ".$codigo."<br>";
@@ -239,7 +243,7 @@
 					$registros = mysql_query(" INSERT INTO pasaje (nroVuelo, idPasajero, NroTarifa, categoria, claveAuto, tarifa, fecha_Salida, habilitado ) 
 					VALUES ('".$nroVueloIda."', '".$id_pasajero."' , '".$nro_tarifa."', '".$categoria."', '".$codigo."', '".$tarifa."', '".$fechap."', 'no' ) ", $conexion) or die("Problemas en el select:".mysql_error());
 				}else{
-					echo "Lo Sentimos pero el vuelo de ida se encuentra lleno, por favor seleccione otro vuelo. Disculpe por las molestias";
+					echo "<br><br>Lo Sentimos pero el vuelo de ida se encuentra lleno, por favor seleccione otro vuelo. Disculpe por las molestias <br><br>";
 				}
 				// CARGAR EN LA TABLA PASAJE.. VUELTA ADULTOS!!! //
 				if ($_SESSION['viaje'] == 'iyv') {
@@ -267,7 +271,7 @@
 					//VERIFICAR SI HAY LUGAR EN EL VUELO SELECCIONADO ******* COMIENZO ********
 					$Cuenta=mysql_query(" SELECT COUNT(*) as Total
 										FROM pasaje 
-										WHERE nroVuelo = '".$nroVueloVuelta."'  ", $conexion) or die("Problemas en el select:".mysql_error());
+										WHERE nroVuelo = '".$nroVueloVuelta."'  AND categoria = '".$categoria."'  ", $conexion) or die("Problemas en el select:".mysql_error());
 					
 					while ($reg = mysql_fetch_array($Cuenta)){
 								$totalVuelta = $reg[0];//Cantidad de personas q viajan a la ida
@@ -290,7 +294,12 @@
 						$PrimeraVuelta = $reg['Primera'];
 						$TipoAvionVuelta = $reg['Tipo'];
 					}
-					$totalAsientosAvionVuelta = $EconomicoVuelta + $PrimeraVuelta;
+
+					if ($categoria == "primera"){
+							$totalAsientosAvion = $Primera;
+						}else {
+							$totalAsientosAvion = $Economico;
+						}
 
 					//VERIFICAR SI HAY LUGAR EN EL VUELO SELECCIONADO ******* FINAL ********
 					
@@ -308,7 +317,7 @@
 						VALUES ('".$nroVueloVuelta."', '".$id_pasajero."' , '".$nro_tarifa."', '".$categoria."', '".$codigo."', '".$tarifa."', '".$fechar."', 'si' ) ", 
 			            $conexion) or die("Problemas en el select:".mysql_error());
 					
-					}elseif ($totalIda <= ($totalAsientosAvion + 10)) {
+					}elseif ($totalIda <= ($totalAsientosAvion + 5)) {
 						$codigo = generar_clave(6);
 						echo "Pasajero Adulto ".$i.": ".$nomAdul." ".$apAdul."<br>";
 						echo "Codigo de Reserva Vuelta: ".$codigo."<br>";
@@ -322,7 +331,7 @@
 						VALUES ('".$nroVueloVuelta."', '".$id_pasajero."' , '".$nro_tarifa."', '".$categoria."', '".$codigo."', '".$tarifa."', '".$fechar."', 'no' ) ", 
 			            $conexion) or die("Problemas en el select:".mysql_error());
 					}else{
-					echo "Lo Sentimos pero el vuelo de ida se encuentra lleno, por favor seleccione otro vuelo. Disculpe por las molestias<br><br>";
+					echo "<br><br>Lo Sentimos pero el vuelo de ida se encuentra lleno, por favor seleccione otro vuelo. Disculpe por las molestias<br><br>";
 					}
 				}
 			}
@@ -342,7 +351,7 @@
 
 				$Cuenta=mysql_query(" SELECT COUNT(*) as Total
 									FROM pasaje 
-									WHERE nroVuelo = '".$nroVueloIda."'  ", $conexion) or die("Problemas en el select:".mysql_error());
+									WHERE nroVuelo = '".$nroVueloIda."' AND categoria = '".$categoria."'  ", $conexion) or die("Problemas en el select:".mysql_error());
 				
 				while ($reg = mysql_fetch_array($Cuenta)){
 							$totalIda = $reg[0];//Cantidad de personas q viajan a la ida
@@ -366,7 +375,11 @@
 					$TipoAvion = $reg['Tipo'];
 				}
 
-				$totalAsientosAvion = $Economico + $Primera;
+				if ($categoria == "primera"){
+							$totalAsientosAvion = $Primera;
+						}else {
+							$totalAsientosAvion = $Economico;
+						}
 
 				//VERIFICAR SI HAY LUGAR EN EL VUELO SELECCIONADO ******* FINAL ********
 
@@ -409,7 +422,7 @@
 
 					$registros = mysql_query(" INSERT INTO pasaje (nroVuelo, idPasajero, NroTarifa, categoria, claveAuto, tarifa, fecha_Salida , habilitado) 
 					VALUES ('".$nroVueloIda."', '".$id_pasajero."' , '".$nro_tarifa."', '".$categoria."', '".$codigo."', '".$tarifa."', '".$fechap."', 'si' ) ", $conexion) or die("Problemas en el select:".mysql_error());
-				}elseif ($totalIda <= ($totalAsientosAvion + 10)) {
+				}elseif ($totalIda <= ($totalAsientosAvion + 5)) {
 
 					 $Consulta_registros1 = mysql_query(" SELECT idPasajero FROM pasajero WHERE dni = ".$dninumMen."  ", $conexion) or die("Problemas en el select:".mysql_error());
 
@@ -451,7 +464,7 @@
 					VALUES ('".$nroVueloIda."', '".$id_pasajero."' , '".$nro_tarifa."', '".$categoria."', '".$codigo."', '".$tarifa."', '".$fechap."', 'no' ) ", $conexion) or die("Problemas en el select:".mysql_error());
 
 					}else{
-					echo "Lo Sentimos pero el vuelo de ida se encuentra lleno, por favor seleccione otro vuelo. Disculpe por las molestias";
+					echo "<br><br>Lo Sentimos pero el vuelo de ida se encuentra lleno, por favor seleccione otro vuelo. Disculpe por las molestias<br><br>";
 				}
 
 				//CARGAR EN LA TABLA PASAJE SI ESTA SELECCIONADO IDA Y VUELTA PARA MENORES
@@ -488,7 +501,7 @@
 					//VERIFICAR SI HAY LUGAR EN EL VUELO SELECCIONADO ******* COMIENZO ********
 					$Cuenta=mysql_query(" SELECT COUNT(*) as Total
 										FROM pasaje 
-										WHERE nroVuelo = '".$nroVueloVuelta."'  ", $conexion) or die("Problemas en el select:".mysql_error());
+										WHERE nroVuelo = '".$nroVueloVuelta."' AND categoria = '".$categoria."'  ", $conexion) or die("Problemas en el select:".mysql_error());
 					
 					while ($reg = mysql_fetch_array($Cuenta)){
 								$totalVuelta = $reg[0];//Cantidad de personas q viajan a la ida
@@ -511,7 +524,12 @@
 						$PrimeraVuelta = $reg['Primera'];
 						$TipoAvionVuelta = $reg['Tipo'];
 					}
-					$totalAsientosAvionVuelta = $EconomicoVuelta + $PrimeraVuelta;
+
+					if ($categoria == "primera"){
+							$totalAsientosAvion = $Primera;
+						}else {
+							$totalAsientosAvion = $Economico;
+						}
 
 					//VERIFICAR SI HAY LUGAR EN EL VUELO SELECCIONADO ******* FINAL ********
 
@@ -527,7 +545,7 @@
 						$registros=mysql_query(" INSERT INTO pasaje (nroVuelo, idPasajero, NroTarifa, categoria, claveAuto, tarifa, fecha_Salida, habilitado  ) 
 						VALUES (".$nroVueloVuelta."', '".$id_pasajero."' , '".$nro_tarifa."', '".$categoria."', '".$codigo."', '".$tarifa."', '".$fechar."', 'si'  ) ", $conexion) or die("Problemas en el select:".mysql_error());
 
-					}elseif ($totalIda <= ($totalAsientosAvion + 10)) {
+					}elseif ($totalIda <= ($totalAsientosAvion + 5)) {
 						$codigo = generar_clave(6);
 						echo "Pasajero Menor ".$i.": ".$nomMen." ".$apMen."<br>";
 						echo "Codigo de Reserva Vuelta: ".$codigo."<br><br>";
@@ -540,7 +558,7 @@
 						$registros=mysql_query(" INSERT INTO pasaje (nroVuelo, idPasajero, NroTarifa, categoria, claveAuto, tarifa, fecha_Salida, habilitado  ) 
 						VALUES (".$nroVueloVuelta."', '".$id_pasajero."' , '".$nro_tarifa."', '".$categoria."', '".$codigo."', '".$tarifa."', '".$fechar."', 'si'  ) ", $conexion) or die("Problemas en el select:".mysql_error());
 					}else{
-						echo "Lo Sentimos pero el vuelo de ida se encuentra lleno, por favor seleccione otro vuelo. Disculpe por las molestias<br><br>";
+						echo "<br><br>Lo Sentimos pero el vuelo de ida se encuentra lleno, por favor seleccione otro vuelo. Disculpe por las molestias<br><br>";
 					}
 
 				}
@@ -551,7 +569,7 @@
 			<div class="clr"></div>
 			<p class="color1"> Ahora podes abonar tu pasaje desde nuestra pagina.. rapido,facil y sin moverte de tu casa. Solo hace click en el boton Pagar e ingresa tu codigo de reserva.-</p>
 			<a href="index-pago.php" class="button2">Pagar</a>
-			<br><div class="clr"></div>
+			<br><br><br><div class="clr"></div>
 		</article>
 	</section>
 <!-- / content -->
