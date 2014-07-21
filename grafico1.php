@@ -2,9 +2,9 @@
 
 //include_once('conexion/config.php');
 
-$link = mysql_connect('localhost','root','root','tp_finalweb2') or die('No se pudo conectar: ' . mysql_error());
+/*$link = mysql_connect('localhost','root','nahuel') or die('No se pudo conectar: ' . mysql_error());
 echo 'Connected successfully';
-mysql_select_db('tp_finalweb2') or die('No se pudo seleccionar la base de datos');
+mysql_select_db('tp_finalweb2') or die('No se pudo seleccionar la base de datos');*/
 
  require_once ('jpgraph/src/jpgraph.php');
  require_once ('jpgraph/src/jpgraph_bar.php');
