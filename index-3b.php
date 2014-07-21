@@ -94,7 +94,7 @@
 					<p class="pad_bot2"> Ya se encuentra a du disposicion un pdf con sus datos y el codigo de reserva correspondiete a su vuelo.</p>
 					<p class="pad_bot2"></p>
 				</div>
-				<a href="index-2b.php" class="button2" onClick="document.getElementById('ContactForm').submit()">Ver Pdf</a>
+				<a href="pdfqr/examples/qrcode.php" class="button2" onClick="document.getElementById('ContactForm').submit()">Ver Pdf</a>
 				<div class="clr"></div><br><br>
 				<p class="color1">Le recordamos que usted se encontrara habilitado para hacer el check-in en el rango de 48hs a 24hs anteriores al vuelo.. </p>
 				<br><div class="clr"></div>

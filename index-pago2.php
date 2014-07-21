@@ -134,9 +134,14 @@
 										WHERE idPasajero = ".$id_pasajero, 
 			        $conexion) or die("Problemas en el select:".mysql_error());
 
+			        $clave = $_SESSION['codigo_reserva'];
+
+			        $registros=mysql_query(" UPDATE pasaje 
+										SET habilitado = 'pago'
+										WHERE claveAuto = ".$clave, $conexion) or die("Problemas en el select:".mysql_error());
 					?>
 				</div>
-				<a href="index-2b.php" class="button2" onClick="document.getElementById('ContactForm').submit()">Ver Pdf</a>
+				<a href="pdfqr/examples/pasaje.php" class="button2" onClick="document.getElementById('ContactForm').submit()">Ver Pdf</a>
 				<div class="clr"></div><br><br>
 				<p class="color1">Le recordamos que usted se encontrara habilitado para hacer el check-in en el rango de 48hs a 24hs anteriores al vuelo.. </p>
 				<br><div class="clr"></div>

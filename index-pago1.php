@@ -31,8 +31,7 @@
 		window.onload = inicio
         
 	    function inicio(){
-	        document.getElementById("form_pago").onsubmit = validamos;
-	        alert("otra vez el quilombo");
+	        document.getElementById("PagoFormu").onsubmit = validamos;
 	    }
 	</script>
 </head>
@@ -108,54 +107,83 @@
 		</article>
 		<article class="col2 pad_left1">
 			<h2><strong> Formas de Pago: </strong></h2>
-			<form id="form_pago" action="index-pago2.php" method="POST">
-				<div>
-					<div class='wrapper'>
-					    Nombre Titular:
-					    <div class='bg'><input type='text' class='input' name='nomTit' required placeholder='Ingrese Nombre'/></div>
-					</div>
-					<div class='wrapper'>
-					    Apellido Titular:
-					    <div class='bg'><input type='text' class='input' name='ApTit' required placeholder='Ingrese Apellido'/></div>
-					</div>
-					<div class='wrapper'>
-					    Documento:
-					    <div class='bg1'><input type='text' id="dni" name="numdniTit" class='input1' maxlength='8' required placeholder='Ingrese Numero de Documento'/></div>
-					    <div class='bg1'><select name="tipodniTit"><option value='dni'>DNI</option><option value='le'>L.E</option><option value='lc'>L.C</option></select></div>
-					</div>
-					<div class='wrapper'>
-						Numero de Tarjeta:
-						<div class='bg'><input type='text' maxlength='16' required name="numTarj" id='numTarj' class='input' placeholder="Ingrese los 16 digitos"/></div>
-					</div>
-					<div class='wrapper'>
-						Vencimiento:
-						<div class='bg1'><input type='text' required name='anioVenc' size='2' placeholder='aa' maxlength='2' class='input2'> </div>
-						<div class='bg1'><input type='text' required name='mesVenc' size='2' placeholder='mm' maxlength='2' class='input2'> </div>
-					</div>
-					<div class='wrapper'>
-						Tarjeta:
-						<div class='bg'>
-							<select name="tarjeta">
-								<option value='visa'> Visa </option>
-								<option value='americanExpress'> American Express </option>
-								<option value='master'> Master Card </option>
-							</select>
+			<form id="PagoFormu" action="index-pago2.php" method="POST">
+				<?php
+					$clave = $_POST['codigo_reserva'];
+
+					$conexion = mysql_connect("localhost","root","") or die("Problemas en la conexion");
+					mysql_select_db("tp_finalweb2",$conexion) or die("Problemas en la selección de la base de datos");
+
+					$Consulta0 = mysql_query(" SELECT *
+										   FROM pasaje
+										   WHERE claveAuto = '".$clave."'  ", $conexion) or die("Problemas en el select:".mysql_error());
+					
+					if (mysql_num_rows($Consulta0)>0){
+				
+						$Consulta = mysql_query(" SELECT habilitado
+											   FROM pasaje
+											   WHERE claveAuto = '".$clave."'  ", $conexion) or die("Problemas en el select:".mysql_error());
+						
+						while ($reg = mysql_fetch_array($Consulta)) {
+							$habilitado = $reg['habilitado'];
+						}
+
+						if ($habilitado == 'si') {
+							echo "<div>
+						<div class='wrapper'>
+						    Nombre Titular:
+						    <div class='bg'><input type='text' class='input' name='nomTit' required placeholder='Ingrese Nombre'/></div>
 						</div>
-					</div>
-					<div class='wrapper'>
-						Coutas:
-						<div class='bg1'>
-							<select name='cuotas'>
-								<option value='1cuota'> 1 Cuota </option>
-								<option value='6cuotas'> 6 Cuotas </option>
-							</select>
+						<div class='wrapper'>
+						    Apellido Titular:
+						    <div class='bg'><input type='text' class='input' name='ApTit' required placeholder='Ingrese Apellido'/></div>
 						</div>
-					</div>			
-					<div id="ok"></div><br>
-					<input type="submit" class="button2" id="boton" value="Enviar"/>
-					<input type="reset" class="button2" id="boton" value="Cancelar"/>
-				</div>
-				<div class="clr"></div>
+						<div class='wrapper'>
+						    Documento:
+						    <div class='bg1'><input type='text' id='dni' name='numdniTit' class='input1' maxlength='8' required placeholder='Ingrese Numero de Documento'/></div>
+						    <div class='bg1'><select name='tipodniTit'><option value='dni'>DNI</option><option value='le'>L.E</option><option value='lc'>L.C</option></select></div>
+						</div>
+						<div class='wrapper'>
+							Numero de Tarjeta:
+							<div class='bg'><input type='text' maxlength='16' required name='numTarj' id='numTarj' class='input' placeholder='Ingrese los 16 digitos'/></div>
+						</div>
+						<div class='wrapper'>
+							Vencimiento:
+							<div class='bg1'><input type='text' required name='anioVenc' size='2' placeholder='aa' maxlength='2' class='input2'> </div>
+							<div class='bg1'><input type='text' required name='mesVenc' size='2' placeholder='mm' maxlength='2' class='input2'> </div>
+						</div>
+						<div class='wrapper'>
+							Tarjeta:
+							<div class='bg'>
+								<select name='tarjeta'>
+									<option value='visa'> Visa </option>
+									<option value='americanExpress'> American Express </option>
+									<option value='master'> Master Card </option>
+								</select>
+							</div>
+						</div>
+						<div class='wrapper'>
+							Coutas:
+							<div class='bg1'>
+								<select name='cuotas'>
+									<option value='1cuota'> 1 Cuota </option>
+									<option value='6cuotas'> 6 Cuotas </option>
+								</select>
+							</div>
+						</div>			
+						<div id='ok'></div><br>
+						<input type='submit' class='button2' id='boton' value='Enviar'/>
+						<input type='reset' class='button2' id='boton' value='Cancelar'/>
+						</div>
+						<div class='clr'></div>";
+						}else{
+						echo "Su codigo de reserva se encuentra en lista de espera.. <br>";
+						echo "Por el momento no puede realizar el pago correspondiene.- <br>";
+						}
+					} else {
+					echo "Su codigo de Reserva es inexistente.. por favor verifiquelo y vuelva a ingresarlo";
+					}
+				?>
 			</form>
 		</article>
 	</section>

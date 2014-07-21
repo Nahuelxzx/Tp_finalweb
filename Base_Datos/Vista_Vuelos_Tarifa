@@ -1,3 +1,0 @@
-CREATE VIEW `VUELOS` AS SELECT * FROM tp_finalweb2.vuelo;
-
-CREATE VIEW `TARIFAS` AS SELECT * FROM tp_finalweb2.tarifa;

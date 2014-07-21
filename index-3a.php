@@ -101,8 +101,6 @@
 					if (isset($_POST['codigo_reserva'])) 
 						$_SESSION['codigo_reserva'] = $_POST['codigo_reserva'];
 
-					$totalAsiento = 1;
-
 					$conexion = mysql_connect("localhost","root","") or die("Problemas en la conexion");
 					mysql_select_db("tp_finalweb2",$conexion) or die("Problemas en la selección de la base de datos");
 
@@ -110,62 +108,87 @@
 
 					$codigo_reserva = $_POST['codigo_reserva'];
 
-					$Consulta = mysql_query(" SELECT idPasajero, categoria, nroVuelo
-										   FROM pasaje 
+					$Consulta0 = mysql_query(" SELECT *
+										   FROM pasaje
 										   WHERE claveAuto = '".$codigo_reserva."'  ", $conexion) or die("Problemas en el select:".mysql_error());
 					
-					while ($reg = mysql_fetch_array($Consulta)) {
-						$id_pasajero = $reg['idPasajero'];
-						$clase = $reg['categoria'];	
-						$nroVuelo = $reg['nroVuelo'];				
-					}
+					if (mysql_num_rows($Consulta0)>0){
 
-					$Consulta1 = mysql_query(" SELECT idAvion
-										   FROM vuelo
-										   WHERE idVuelo = '".$nroVuelo."'  ", $conexion) or die("Problemas en el select:".mysql_error());
-					
-					while ($reg = mysql_fetch_array($Consulta1)) {
-						$idAvion = $reg['idAvion'];	
-					}
+						$Consulta = mysql_query(" SELECT habilitado
+											   FROM pasaje
+											   WHERE claveAuto = '".$codigo_reserva."'  ", $conexion) or die("Problemas en el select:".mysql_error());
+						
+						while ($reg = mysql_fetch_array($Consulta)) {
+							$habilitado = $reg['habilitado'];
+						}
 
-					$Consulta2 = mysql_query(" SELECT Fila_Eco, Columna_Eco, Fila_Pri, Columna_Pri, Tipo
-										   FROM avion
-										   WHERE idAvion = '".$idAvion."'  ", $conexion) or die("Problemas en el select:".mysql_error());
-					
-					while ($reg = mysql_fetch_array($Consulta2)) {
-						$Fila_Eco = $reg['Fila_Eco'];
-						$Columna_Eco = $reg['Columna_Eco'];	
-						$Fila_Pri = $reg['Fila_Pri'];	
-						$Columna_Pri = $reg['Columna_Pri'];	
-						$tipoAvion = $reg['Tipo'];
-					}
+						if ($habilitado == 'pago') {
+
+							$Consulta = mysql_query("SELECT idPasajero, categoria, nroVuelo
+							   FROM pasaje 
+							   WHERE claveAuto = '".$codigo_reserva."'  ", $conexion) or die("Problemas en el select:".mysql_error());
+		
+							while ($reg = mysql_fetch_array($Consulta)) {
+								$id_pasajero = $reg['idPasajero'];
+								$clase = $reg['categoria'];	
+								$nroVuelo = $reg['nroVuelo'];				
+							}
+
+							$Consulta1 = mysql_query(" SELECT idAvion
+												   FROM vuelo
+												   WHERE idVuelo = '".$nroVuelo."'  ", $conexion) or die("Problemas en el select:".mysql_error());
+							
+							while ($reg = mysql_fetch_array($Consulta1)) {
+								$idAvion = $reg['idAvion'];	
+							}
+
+							$Consulta2 = mysql_query(" SELECT Fila_Eco, Columna_Eco, Fila_Pri, Columna_Pri, Tipo
+												   FROM avion
+												   WHERE idAvion = '".$idAvion."'  ", $conexion) or die("Problemas en el select:".mysql_error());
+							
+							while ($reg = mysql_fetch_array($Consulta2)) {
+								$Fila_Eco = $reg['Fila_Eco'];
+								$Columna_Eco = $reg['Columna_Eco'];	
+								$Fila_Pri = $reg['Fila_Pri'];	
+								$Columna_Pri = $reg['Columna_Pri'];	
+								$tipoAvion = $reg['Tipo'];
+							}
+							
+							echo "<p class='pad_bot2'>
+								<div class='marker'>Apellido: ".$apellido."</div>
+								<div class='marker'>Codigo de Reserva: ".$codigo_reserva."</div>
+								<div class='marker'>Asiento Seleccionado: <input type='text' size='4' value=''></div>
+							</p>
+							<div id='contenedor_descripcion'> 
+								<ul id='butacas_descripcion'>
+									<li style='background:url(\"images/vacia.gif\") no-repeat scroll 0 0 transparent;'>Disp.</li>
+									<li style='background:url(\"images/ocupada.gif\") no-repeat scroll 0 0 transparent;'> Ocuada</li>
+									<li style='background:url(\"images/selec.gif\") no-repeat scroll 0 0 transparent;'>Selec.</li>
+								</ul>
+						    </div>
+						    <div id='contenedor_butacas'>
+							    <div id='holder".$tipoAvion."-".$clase."'> 
+									<ul  id='place'> </ul>    
+							    </div>
+						     </div>
+						    <div class='clr'></div><br>
+						    <input type='submit' class='button2' id='btnShowNew' value='Enviar'>";
+						}else{
+							echo "No registramos ningun pago para su codigo de reserva.. <br>";
+							echo "Por el momento no puede realizar el Check-in correspondiene.- <br>";
+							}
+					} else {
+					echo "Su codigo de Reserva es inexistente.. por favor verifiquelo y vuelva a ingresarlo";
+					}     
 				?>
-				<p class="pad_bot2">
-					<div class="marker">Apellido: <?php echo $apellido;?></div>
-					<div class="marker">Codigo de Reserva: <?php echo $codigo_reserva;?></div>
-					<div class="marker">Asiento Seleccionado: <input type="text" size="4" value=""></div>
-				</p>
-				<div id="contenedor_descripcion"> 
-			      <ul id="butacas_descripcion">
-			        <li style="background:url('images/vacia.gif') no-repeat scroll 0 0 transparent;">Disp.</li>
-			        <li style="background:url('images/ocupada.gif') no-repeat scroll 0 0 transparent;"> Ocuada</li>
-			        <li style="background:url('images/selec.gif') no-repeat scroll 0 0 transparent;">Selec.</li>
-			      </ul>
-			    </div>
-			    <div id="contenedor_butacas">
-			    <div id="holder<?php echo $tipoAvion."-".$clase ?>"> 
-			      <ul  id="place"> </ul>    
-			    </div>
-			     </div>
-			     <div class="clr"></div><br>
-			      <input type="submit" class="button2" id="btnShowNew" value="Enviar" />           
 			</form>
 		</article>
 	</section>
+
 	<script type="text/javascript">
 		$(function () {
 		  var settings = {
-		  cantPasajeros: <?php echo $totalAsiento; ?>,
+		  cantPasajeros: 1,
 		  rows: <?php if ($clase == 'primera') { echo $Fila_Pri;}else{echo $Fila_Eco;} ?>,              //filas
 		  cols: <?php if ($clase == 'primera') { echo $Columna_Pri;}else{echo $Columna_Eco;} ?>,           //columnas
 		  rowCssPrefix: 'row-',
