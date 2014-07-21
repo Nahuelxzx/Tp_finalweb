@@ -131,14 +131,14 @@
 											Vencimiento = '".$vence."', 
 											Nro_Doc_Titular = '".$dninumTit."', 
 											Tipo_Doc_Titular = '".$tdniTit."' 
-										WHERE idPasajero = ".$id_pasajero, 
+										WHERE idPasajero = '".$id_pasajero."' ", 
 			        $conexion) or die("Problemas en el select:".mysql_error());
 
 			        $clave = $_SESSION['codigo_reserva'];
 
-			        $registros=mysql_query(" UPDATE pasaje 
+			        $registros=mysql_query("UPDATE pasaje 
 										SET habilitado = 'pago'
-										WHERE claveAuto = ".$clave, $conexion) or die("Problemas en el select:".mysql_error());
+										WHERE claveAuto = '".$clave."' ", $conexion) or die("Problemas en el select:".mysql_error());
 					?>
 				</div>
 				<a href="pdfqr/examples/pasaje.php" class="button2" onClick="document.getElementById('ContactForm').submit()">Ver Pdf</a>

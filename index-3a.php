@@ -134,6 +134,15 @@
 								$nroVuelo = $reg['nroVuelo'];				
 							}
 
+							$Consulta1 = mysql_query("SELECT DISTINCT asiento
+												   FROM pasaje
+												   WHERE nroVuelo = '".$nroVuelo."'  ", $conexion) or die("Problemas en el select:".mysql_error());
+							$i = 0;
+							while ($reg = mysql_fetch_array($Consulta1)) {
+								$asientos_ocupados[$i] = $reg['asiento'];
+								$i++;
+							}
+							
 							$Consulta1 = mysql_query(" SELECT idAvion
 												   FROM vuelo
 												   WHERE idVuelo = '".$nroVuelo."'  ", $conexion) or die("Problemas en el select:".mysql_error());
@@ -157,7 +166,6 @@
 							echo "<p class='pad_bot2'>
 								<div class='marker'>Apellido: ".$apellido."</div>
 								<div class='marker'>Codigo de Reserva: ".$codigo_reserva."</div>
-								<div class='marker'>Asiento Seleccionado: <input type='text' size='4' value=''></div>
 							</p>
 							<div id='contenedor_descripcion'> 
 								<ul id='butacas_descripcion'>
@@ -219,7 +227,7 @@
 			$('#place').html(str.join(''));
 		};
 
-		var bookedSeats = [5, 10];   //Butacas Ocupadas
+		var bookedSeats = [<?php foreach ($asientos_ocupados as  $valor) { echo $valor." ,"; } ?>]; //Butacas Ocupadas
 
 		Elegir = 0;
 		init(bookedSeats);
