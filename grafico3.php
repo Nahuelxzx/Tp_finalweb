@@ -1,4 +1,5 @@
-<?php // content="text/plain; charset=utf-8"
+<?php 
+// content="text/plain; charset=utf-8"
 // Example for use of JpGraph,
 //require_once ('../jpgraph.php');
 //require_once ('../jpgraph_bar.php');
@@ -8,11 +9,10 @@
  
 
 //// Conectando, seleccionando la base de datos
-$link = mysql_connect('localhost', 'root', 'nahuel')
+$link = mysql_connect('localhost', 'root', '')
     or die('No se pudo conectar: ' . mysql_error());
 //echo 'Connected successfully';
 mysql_select_db('tp_finalweb2') or die('No se pudo seleccionar la base de datos');
-
 // Realizar una consulta MySQL
 /*	
 $query = 'SELECT AEPTO1.Aepto AS aeptoOrigen, 
@@ -36,12 +36,32 @@ $query = 'SELECT AEPTO1.Aepto AS aeptoOrigen,
 
 //$result = mysql_query($query) or die('Consulta fallida: ' . mysql_error());
 
-$query = "SELECT fecha_salida from pasaje group by fecha_salida";
+//$query = "SELECT fecha_salida from pasaje group by fecha_salida";
+
+$query = "SELECT fecha_salida from pasaje group by fecha_salida order by fecha_salida";
 
 $result = mysql_query($query) or die('Consulta fallida: ' . mysql_error());
 
 //$arreglo1 = mysql_fetch_array($result);
-$datax = mysql_fetch_array($result);
+//echo "$result";
+//$datax = mysql_fetch_array($result);
+$i=0;
+while ($line = mysql_fetch_array($result, MYSQL_ASSOC))
+{
+	$datax[$i] = $line['fecha_salida'];
+	$i++;
+}
+
+$query2 = " SELECT  count(fecha_salida) as cantidad from pasaje group by fecha_salida order by fecha_salida";
+
+$result2 = mysql_query($query2) or die('Consulta fallida: ' . mysql_error());
+
+$a=0;
+while ($line2 = mysql_fetch_array($result2, MYSQL_ASSOC))
+{
+	$datay[$a] = $line2['cantidad'];
+	$a++;
+}
 
 //var_dump($datax);
 
@@ -56,15 +76,14 @@ $asiento = $line['NroAsiento'];
 $apellido = $line['Apellido'];
 $nombre = $line['Nombre'];
 $fecha = $line['FechaSalida'];
-$hora = $line['Hora'];
-   
+$hora = $line['Hora'];   
    
 }  
 */	
 // We need some data
-$datay=array(0.13,0.25,0.21,0.35,0.31,0.06);
+//$datay=array(10,20,30);
 //$datax=array("$hora","$nombre","March","April","May","June");
-//$datax=array("$hora","$nombre","March","April","May","June");
+//$datax=array("hora","nombre","March","April","May","June");
 
 // Setup the graph.
 $graph = new Graph(400,240);
@@ -74,7 +93,7 @@ $graph->SetMarginColor("lightblue:1.1");
 $graph->SetShadow();
 
 // Set up the title for the graph
-$graph->title->Set("Bar gradient with left reflection");
+$graph->title->Set("Cantidad de pasajes vendidos por fecha");
 $graph->title->SetMargin(8);
 $graph->title->SetFont(FF_VERDANA,FS_BOLD,12);
 $graph->title->SetColor("darkred");
@@ -92,7 +111,7 @@ $graph->xaxis->SetLabelAngle(50);
 
 // Create the bar pot
 $bplot = new BarPlot($datay);
-$bplot->SetWidth(0.6);
+$bplot->SetWidth(0.7);
 
 // Setup color for gradient fill style
 $bplot->SetFillGradient("navy:0.9","navy:1.85",GRAD_LEFT_REFLECTION);

@@ -10,10 +10,10 @@ mysql_select_db('tp_finalweb2') or die('No se pudo seleccionar la base de datos'
  require_once ('jpgraph/src/jpgraph_bar.php');
  
  
-/*$link = mysql_connect('localhost','root','root','tp_finalweb2') or die('No se pudo conectar: ' . mysql_error());
+/*$link = mysql_connect('localhost','root','') or die('No se pudo conectar: ' . mysql_error());
 echo 'Connected successfully';
-mysql_select_db('tp_finalweb2') or die('No se pudo seleccionar la base de datos');*/
-
+mysql_select_db('tp_finalweb2') or die('No se pudo seleccionar la base de datos');
+*/
 /*$link = mysql_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME)
     or die('No se pudo conectar: ' . mysql_error());
 echo 'Connected successfully';
@@ -78,8 +78,8 @@ remplazar por: $barplot1 =new BarPlot($horas);
 */
 // Creamos el grafico
 
-$datos=array(6,5,8,6);
-$labels=array("pepe","juanita","Maria","Luis");
+$datos=array(6,5,8,6,9);
+$labels=array("pepe","juanita","Maria","Luis","berta");
 
 $grafico = new Graph(500, 400, 'auto');
 $grafico->SetScale("textint");
