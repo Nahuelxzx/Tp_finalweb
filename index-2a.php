@@ -129,8 +129,8 @@
 				//VERIFICAR SI HAY LUGAR EN EL VUELO SELECCIONADO ******* COMIENZO ********
 
 				$Cuenta=mysql_query(" SELECT COUNT(*) as Total
-									FROM pasaje 
-									WHERE nroVuelo = '".$nroVueloIda."' AND categoria = '".$categoria."'  ", $conexion) or die("Problemas en el select:".mysql_error());
+									FROM pasaje as psj JOIN vuelo as vl ON psj.nroVuelo = vl.idVuelo
+									WHERE psj.nroVuelo = '".$nroVueloIda."' AND psj.categoria = '".$categoria."' AND  psj.Fecha_Salida = '".$fechap."' ", $conexion) or die("Problemas en el select:".mysql_error());
 				
 				while ($reg = mysql_fetch_array($Cuenta)){
 							$totalIda = $reg[0];//Cantidad de personas q viajan a la id

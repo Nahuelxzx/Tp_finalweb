@@ -94,6 +94,8 @@
 			<h2>Seleccione su Asiento</h2>
 			<form id="checkin" name="checkin" action="index-3b.php" method="POST">
 				<?php
+					date_default_timezone_set('America/Sao_Paulo');
+
 					session_start();
 					
 					if (isset($_POST['apellido'])) 
@@ -108,83 +110,109 @@
 
 					$codigo_reserva = $_POST['codigo_reserva'];
 
-					$Consulta0 = mysql_query(" SELECT *
-										   FROM pasaje
-										   WHERE claveAuto = '".$codigo_reserva."'  ", $conexion) or die("Problemas en el select:".mysql_error());
-					
-					if (mysql_num_rows($Consulta0)>0){
-
-						$Consulta = mysql_query(" SELECT habilitado
-											   FROM pasaje
+					$Consulta01 = mysql_query("SELECT psj.Fecha_Salida, vl.Hora_Salida
+											   FROM pasaje as psj JOIN vuelo as vl ON psj.nroVuelo = vl.idVuelo
 											   WHERE claveAuto = '".$codigo_reserva."'  ", $conexion) or die("Problemas en el select:".mysql_error());
 						
-						while ($reg = mysql_fetch_array($Consulta)) {
-							$habilitado = $reg['habilitado'];
-						}
+					while ($reg = mysql_fetch_array($Consulta01)) {
+						$Fecha_Salida = $reg['Fecha_Salida'];
+						$Hora_Salida = $reg['Hora_Salida'];
+					}
 
-						if ($habilitado == 'pago') {
+					$Consulta0 = mysql_query("SELECT *
+										   FROM pasaje
+										   WHERE claveAuto = '".$codigo_reserva."' ", $conexion) or die("Problemas en el select:".mysql_error());
+					
+					if (mysql_num_rows($Consulta0)>0) { //consulta si el codigo ingresado existe en la base
 
-							$Consulta = mysql_query("SELECT idPasajero, categoria, nroVuelo
-							   FROM pasaje 
-							   WHERE claveAuto = '".$codigo_reserva."'  ", $conexion) or die("Problemas en el select:".mysql_error());
-		
-							while ($reg = mysql_fetch_array($Consulta)) {
-								$id_pasajero = $reg['idPasajero'];
-								$clase = $reg['categoria'];	
-								$nroVuelo = $reg['nroVuelo'];				
-							}
+						$fecha = date($Fecha_Salida." ".$Hora_Salida);
+						$nueva_fecha48 = strtotime('-48 hour', strtotime($fecha));
+						//$nueva_fecha48 = date('Y-m-d H:i:s', $nueva_fecha48);
+						$nueva_fecha2 = strtotime('-1 hour', strtotime($fecha));
+						//$nueva_fecha2 = date('Y-m-d H:i:s', $nueva_fecha2);
+						$fecha_actual = strtotime(date('Y-m-d H:i:s'));
 
-							$Consulta1 = mysql_query("SELECT DISTINCT asiento
+						echo "<br> fecha de salida del avion: ".$fecha;
+						echo "<br> Nueva fecha 48hs antes: ".$nueva_fecha48;
+						echo "<br> Nueva fecha 2hs antes: ".$nueva_fecha2;
+						echo "<br>".$fecha_actual;
+
+						if ( ($fecha_actual - $nueva_fecha2) < 0 && ($fecha_actual - $nueva_fecha48) > 0) {		
+
+							$Consulta = mysql_query("SELECT habilitado, asiento
 												   FROM pasaje
-												   WHERE nroVuelo = '".$nroVuelo."'  ", $conexion) or die("Problemas en el select:".mysql_error());
-							$i = 0;
-							while ($reg = mysql_fetch_array($Consulta1)) {
-								$asientos_ocupados[$i] = $reg['asiento'];
-								$i++;
-							}
-							
-							$Consulta1 = mysql_query(" SELECT idAvion
-												   FROM vuelo
-												   WHERE idVuelo = '".$nroVuelo."'  ", $conexion) or die("Problemas en el select:".mysql_error());
-							
-							while ($reg = mysql_fetch_array($Consulta1)) {
-								$idAvion = $reg['idAvion'];	
+												   WHERE claveAuto = '".$codigo_reserva."'  ", $conexion) or die("Problemas en el select:".mysql_error());
+					
+							while ($reg = mysql_fetch_array($Consulta)) {
+								$habilitado = $reg['habilitado'];
+								$asiento = $reg['asiento'];
 							}
 
-							$Consulta2 = mysql_query(" SELECT Fila_Eco, Columna_Eco, Fila_Pri, Columna_Pri, Tipo
-												   FROM avion
-												   WHERE idAvion = '".$idAvion."'  ", $conexion) or die("Problemas en el select:".mysql_error());
-							
-							while ($reg = mysql_fetch_array($Consulta2)) {
-								$Fila_Eco = $reg['Fila_Eco'];
-								$Columna_Eco = $reg['Columna_Eco'];	
-								$Fila_Pri = $reg['Fila_Pri'];	
-								$Columna_Pri = $reg['Columna_Pri'];	
-								$tipoAvion = $reg['Tipo'];
-							}
-							
-							echo "<p class='pad_bot2'>
-								<div class='marker'>Apellido: ".$apellido."</div>
-								<div class='marker'>Codigo de Reserva: ".$codigo_reserva."</div>
-							</p>
-							<div id='contenedor_descripcion'> 
-								<ul id='butacas_descripcion'>
-									<li style='background:url(\"images/vacia.gif\") no-repeat scroll 0 0 transparent;'>Disp.</li>
-									<li style='background:url(\"images/ocupada.gif\") no-repeat scroll 0 0 transparent;'> Ocuada</li>
-									<li style='background:url(\"images/selec.gif\") no-repeat scroll 0 0 transparent;'>Selec.</li>
-								</ul>
-						    </div>
-						    <div id='contenedor_butacas'>
-							    <div id='holder".$tipoAvion."-".$clase."'> 
-									<ul  id='place'> </ul>    
+							if ($habilitado == 'pago' && $asiento == 0) {
+
+								$Consulta = mysql_query("SELECT idPasajero, categoria, nroVuelo
+								   FROM pasaje 
+								   WHERE claveAuto = '".$codigo_reserva."'  ", $conexion) or die("Problemas en el select:".mysql_error());
+			
+								while ($reg = mysql_fetch_array($Consulta)) {
+									$id_pasajero = $reg['idPasajero'];
+									$clase = $reg['categoria'];	
+									$nroVuelo = $reg['nroVuelo'];				
+								}
+
+								$Consulta1 = mysql_query("SELECT DISTINCT asiento
+													   FROM pasaje
+													   WHERE nroVuelo = '".$nroVuelo."'  ", $conexion) or die("Problemas en el select:".mysql_error());
+								$i = 0;
+								while ($reg = mysql_fetch_array($Consulta1)) {
+									$asientos_ocupados[$i] = $reg['asiento'];
+									$i++;
+								}
+								
+								$Consulta1 = mysql_query("SELECT idAvion
+													   FROM vuelo
+													   WHERE idVuelo = '".$nroVuelo."'  ", $conexion) or die("Problemas en el select:".mysql_error());
+								
+								while ($reg = mysql_fetch_array($Consulta1)) {
+									$idAvion = $reg['idAvion'];	
+								}
+
+								$Consulta2 = mysql_query("SELECT Fila_Eco, Columna_Eco, Fila_Pri, Columna_Pri, Tipo
+													   FROM avion
+													   WHERE idAvion = '".$idAvion."'  ", $conexion) or die("Problemas en el select:".mysql_error());
+								
+								while ($reg = mysql_fetch_array($Consulta2)) {
+									$Fila_Eco = $reg['Fila_Eco'];
+									$Columna_Eco = $reg['Columna_Eco'];	
+									$Fila_Pri = $reg['Fila_Pri'];	
+									$Columna_Pri = $reg['Columna_Pri'];	
+									$tipoAvion = $reg['Tipo'];
+								}
+								
+								echo "<p class='pad_bot2'>
+									<div class='marker'>Apellido: ".$apellido."</div>
+									<div class='marker'>Codigo de Reserva: ".$codigo_reserva."</div>
+								</p>
+								<div id='contenedor_descripcion'> 
+									<ul id='butacas_descripcion'>
+										<li style='background:url(\"images/vacia.gif\") no-repeat scroll 0 0 transparent;'>Disp.</li>
+										<li style='background:url(\"images/ocupada.gif\") no-repeat scroll 0 0 transparent;'> Ocuada</li>
+										<li style='background:url(\"images/selec.gif\") no-repeat scroll 0 0 transparent;'>Selec.</li>
+									</ul>
 							    </div>
-						     </div>
-						    <div class='clr'></div><br>
-						    <input type='submit' class='button2' id='btnShowNew' value='Enviar'>";
-						}else{
-							echo "No registramos ningun pago para su codigo de reserva.. <br>";
-							echo "Por el momento no puede realizar el Check-in correspondiene.- <br>";
+							    <div id='contenedor_butacas'>
+								    <div id='holder".$tipoAvion."-".$clase."'> 
+										<ul  id='place'> </ul>    
+								    </div>
+							     </div>
+							    <div class='clr'></div><br>
+							    <input type='submit' class='button2' id='btnShowNew' value='Enviar'>";
+							}else {
+								echo "Por el momento no puede realizar el Check-in correspondiene.- <br>";
 							}
+						} else{
+							echo "<br>El check-in se habilita solo de 48hs a 2hs antes del horario de vuelo";
+						}
 					} else {
 					echo "Su codigo de Reserva es inexistente.. por favor verifiquelo y vuelva a ingresarlo";
 					}     
@@ -249,14 +277,6 @@
 		            }
 		    }  
 		});
-
-		/*$('#btnShow').click(function () { //muestra las q selecciono y estan ocupadas
-		    var str = [];
-		    $.each($('#place li.' + settings.selectedSeatCss + ' a, #place li.'+ settings.selectingSeatCss + ' a'), function (index, value) {
-		    str.push($(this).attr('title'));
-		    });
-		    document.write(str.join(','));
-		})*/
 
 		$('#btnShowNew').click(function (){ // muestra solo las q selecciono
 		    var str = [], item;

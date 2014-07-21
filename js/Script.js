@@ -97,6 +97,7 @@ function valida(){
 //$('#txtStartDate').datepicker({ minDate: "D" });  });
 $(function() {
 	$('#txtStartDate').datepicker({
+    minDate: 0,
 	onSelect: function(dateText, inst) {
 	var lockDate = new Date($('#txtStartDate').datepicker('getDate')); 
 	$('input#txtEndDate').datepicker('option', 'minDate', lockDate); }
