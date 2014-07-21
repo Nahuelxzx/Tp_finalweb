@@ -1,5 +1,5 @@
 <?php
- //include ('Conexion/estructuraConsulta.php');
+// include_once ('Conexion/estructuraConsulta.php');
  require_once ('jpgraph/src/jpgraph.php'); 
  require_once ('jpgraph/src/jpgraph_pie.php');
  require_once ('jpgraph/src/jpgraph_pie3d.php');
