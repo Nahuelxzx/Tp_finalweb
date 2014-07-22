@@ -13,7 +13,7 @@ mysql_select_db(DB_NAME) or die('No se pudo seleccionar la base de datos');
 
 //$query3 = "SELECT fecha_salida from pasaje group by fecha_salida order by fecha_salida";
 
-$query3 = "select * from pasaje where fecha_salida between '2014-07-10' and '2014-07-25' group by fecha_salida ";
+//$query3 = "select * from pasaje where fecha_salida between '2014-07-10' and '2014-07-25' group by fecha_salida ";
 
 $query2 = " SELECT  count(*) as cantidad
 			from pasaje pj
@@ -58,11 +58,12 @@ echo "</h2>";
 // Imprimir los resultados en HTML
 //$datos=array();
 
-$variables = array(); 
+//$variables = array(); 
 $i=0;         
 while($fil_campos = mysql_fetch_array($result)) 
 { 
-	array_push($variables,array($fil_campos[$i] => $fil_campos['fecha_salida'])); 
+	//array_push($variables,array($fil_campos[$i] => $fil_campos['fecha_salida'])); 
+	$vector[]
 	$i++;
 }  
 
