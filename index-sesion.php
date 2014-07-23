@@ -22,6 +22,7 @@
 		<script type="text/javascript" src="js/html5.js"></script>
 	<![endif]-->
 	<?php
+		date_default_timezone_set('America/Sao_Paulo');
 	//LEVANTO LOS DATOS CON POST Y LLAMO A INICIO SESION DONDE COMPARO LOS DATOS//
 	//*************************************************************************//
 	if ( (isset($_POST['email'])) && (isset($_POST['password']) ))
@@ -81,9 +82,9 @@
 					<nav>
 						<ul id="menu">
 							<li><a href="index.php">Home</a></li>
+							<li><a href="index-pago.php"> Pago </a></li>
 							<li><a href="index-3.php">Check - in</a></li>
 							<li><a href="index-4.php">Contacto</a></li>
-
 							<li id="redes"><a href=""><img src="images/img4.png"></a></li>
 							<li><a href=""><img src="images/img5.png"></a></li>
 							<li><a href=""><img src="images/img6.png"></a></li>
@@ -129,12 +130,16 @@
 			</div>
 		</article>
 		<article class="col2 pad_left1">
+		<form form id="form_1" action="index-sesion1.php" method="post">
 			<h2>Informes de Gestion Semanales</h2>
-			<div class='marker_1'> Cantidad de pasajes vendidos <input type="button" value="Ver" class="button2"></div>
-			<div class='marker_1'> Cantidad de pasajes vendidos por categoría y por destino <input type="button" value="Ver" class="button2"></div>
-			<div class='marker_1'> Ocupación por avión y destino <input type="button" value="Ver" class="button2"></div>
-			<div class='marker_1'> Cantidad de reservas caídas <input type="button" value="Ver" class="button2"></div>
-			<div class='marker_1'> Grficos <input type="button" value="Ver" class="button2"></div>
+			<div class='marker_1'> Cantidad de pasajes vendidos <a href="grafico3.php" class="button2" target="_blank">Ver</a></div>
+			<div class='marker_1'> Cantidad de pasajes vendidos por categoría y por destino <a href="grafico4.php" class="button2" target="_blank">Ver</a></div>
+			<div class='marker_1'> Ocupación por avión y destino <a href="" class="button2">Ver</a></div>
+			<div class='marker_1'> Cantidad de reservas caídas <a href="" class="button2">Ver</a></div>
+			<div class='marker_1'> Grficos <a href="" class="button2">Ver</a></div>
+			<h2> Verificar Lista de espera </h2>
+			<div class='marker_1'> Lista de Espera <input type="submit" value="Verificar" class="button2" name="verificar"></div><br><br>
+		</form>
 		</article>
 	</section>
 <!-- / content -->

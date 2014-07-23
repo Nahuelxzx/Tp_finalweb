@@ -40,6 +40,7 @@
 					<nav>
 						<ul id="menu">
 							<li><a href="index.php">Home</a></li>
+							<li><a href="index-pago.php"> Pago </a></li>
 							<li id="menu_active"><a href="index-3.php">Check - in</a></li>
 							<li><a href="index-4.php">Contacto</a></li>
 							<li id="redes"><a href=""><img src="images/img4.png"></a></li>
@@ -70,11 +71,11 @@
 
 					<div class="wrapper3">
 						Apellido :
-						<div class="bg"><input type="text" required id="apellido" class="input input1" placeholder="Ingrese su Apellido" ></div>
+						<div class="bg"><input type="text" required name="apellido" class="input input1" placeholder="Ingrese su Apellido" ></div>
 					</div>
 					<div class="wrapper3">
 						Codigo de Reserva :
-						<div class="bg"><input type="text" required id="codigo_reserva" class="input input1" placeholder="Ingrese su Codigo de Reserva" ></div>
+						<div class="bg"><input type="text" required name="codigo_reserva" class="input input1" placeholder="Ingrese su Codigo de Reserva" ></div>
 					</div>
 
 					<div class="wrapper3">

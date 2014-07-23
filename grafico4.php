@@ -68,7 +68,7 @@
 	$theme_class=new UniversalTheme;
 	$graph->SetTheme($theme_class);
 
-	$graph->yaxis->SetTickPositions(array(5,11,15,25));
+	$graph->yaxis->SetTickPositions(array(5,10,15,30));
 	$graph->SetBox(false);
 
 	$graph->ygrid->SetFill(false);
@@ -88,19 +88,18 @@
 	// ...and add it to the graPH
 	$graph->Add($gbplot);
 
-
 	$b1plot->SetColor("white");
 	$b1plot->SetFillColor("#cc1111");
-	$b1plot->SetLegend("primera");
+	$b1plot->SetLegend("Economy");
 
 	$b2plot->SetColor("white");
 	$b2plot->SetFillColor("#11cccc");
-	$b2plot->SetLegend("Economica");
+	$b2plot->SetLegend("Primera");
 
 	//$b3plot->SetColor("white");
 	//$b3plot->SetFillColor("#1111cc");
 
-	$graph->title->Set("Bar Plots");
+	$graph->title->Set("Pasajes vendidos por categoría y por destino");
 
 	// Display the graph
 	$graph->Stroke();
