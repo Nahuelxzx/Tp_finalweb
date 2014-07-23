@@ -1,5 +1,5 @@
 <?php // content="text/plain; charset=utf-8"
-	require_once ('jpgraph/src/jpgraph.php');
+require_once ('jpgraph/src/jpgraph.php');
 	require_once ('jpgraph/src/jpgraph_bar.php');
 
 	$link = mysql_connect('localhost', 'root', 'nahuel')
@@ -12,14 +12,12 @@
 			inner join aeropuerto aeo on v.Aepto_Origen = aeo.idAepto
 			inner join aeropuerto aed on v.Aepto_Destino = aed.idAepto
 			where pj.habilitado='si' and pj.categoria = 'economy'
-			group by aed.ciudad,pj.categoria ";
+			group by aed.ciudad,pj.categoria ";		
 
-		$query2 = " SELECT aed.Ciudad as ciudad ,count(*) as cantidad
-			from pasaje pj inner join vuelo v on pj.nrovuelo = v.idvuelo
-			inner join aeropuerto aeo on v.Aepto_Origen = aeo.idAepto
-			inner join aeropuerto aed on v.Aepto_Destino = aed.idAepto
-			where pj.habilitado='si'
-			group by aed.ciudad order by aed.Ciudad asc ";
+		$query2 = " SELECT aed.Ciudad ,count(*) 
+			from pasaje pj inner join vuelo v1 on pj.nroVuelo = v1.idVuelo inner join avion av on v1.idAvion = av.idAvion inner join aeropuerto aed on v1.Aepto_Destino = aed.idAepto
+			where pj.habilitado = 'si'
+			group by av.Tipo , aed.Ciudad ";
 
 		$query3 = " SELECT aed.Ciudad as ciudad ,pj.categoria as categoria, count(*) as cantidad
 			from pasaje pj inner join vuelo v on pj.nrovuelo = v.idvuelo
@@ -81,34 +79,43 @@
 	$graph->SetBox(false);
 
 	$graph->ygrid->SetFill(false);
-	$graph->xaxis->SetTickLabels($ciudad1);
+	$graph->xaxis->SetTickLabels($ciudad1); //Ciudades
 	//$graph->xaxis->SetTickLabels(array('A','B','C','D'));
 
 	$graph->yaxis->HideLine(false);
 	$graph->yaxis->HideTicks(false,false);
 
 	// Create the bar plots
-	$b1plot = new BarPlot($data1y); //cantidad economy
-	$b2plot = new BarPlot($data2y); //cantidad primera
-	//$b3plot = new BarPlot($data3y);
+	$b1plot = new BarPlot($data1y); //tipo avion 1
+	$b2plot = new BarPlot($data2y); //tipo avion 2
+	$b3plot = new BarPlot($data3y); //tipo avion 3
+	$b4plot = new BarPlot($data4y); //tipo avion 4	
 
 	// Create the grouped bar plot
-	$gbplot = new GroupBarPlot(array($b1plot,$b2plot));
+	$gbplot = new GroupBarPlot(array($b1plot,$b2plot,$b3plot,$b4plot));
 	// ...and add it to the graPH
 	$graph->Add($gbplot);
 
 	$b1plot->SetColor("white");
 	$b1plot->SetFillColor("#cc1111");
-	$b1plot->SetLegend("Economy");
+	$b1plot->SetLegend("Tipo 1");
 
 	$b2plot->SetColor("white");
 	$b2plot->SetFillColor("#11cccc");
-	$b2plot->SetLegend("Primera");
+	$b2plot->SetLegend("Tipo 2");
+
+	$b3plot->SetColor("white");
+	$b3plot->SetFillColor("#11cccc");
+	$b3plot->SetLegend("Tipo 3");
+
+	$b4plot->SetColor("white");
+	$b4plot->SetFillColor("#11cccc");
+	$b4plot->SetLegend("Tipo 4");
 
 	//$b3plot->SetColor("white");
 	//$b3plot->SetFillColor("#1111cc");
 
-	$graph->title->Set("Pasajes vendidos por categoría y por destino");
+	$graph->title->Set("Pasajes vendidos por Tipo avion y destino");
 
 	// Display the graph
 	$graph->Stroke();
