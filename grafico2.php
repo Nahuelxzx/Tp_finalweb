@@ -3,50 +3,41 @@
  require_once ('jpgraph/src/jpgraph.php'); 
  require_once ('jpgraph/src/jpgraph_pie.php');
  require_once ('jpgraph/src/jpgraph_pie3d.php');
-
  
+//// Conectando, seleccionando la base de datos
+$link = mysql_connect('localhost', 'root', 'nahuel')
+    or die('No se pudo conectar: ' . mysql_error());
+//echo 'Connected successfully';
+mysql_select_db('tp_finalweb2') or die('No se pudo seleccionar la base de datos');
 
- /*$estructuraConsulta = new estructuraModelo();
+$query = "SELECT count(pj.idpasaje) as cantidad from pasaje pj where habilitado = 'no' ";
+$query2 = "SELECT count(pj.idpasaje) as cantidad from pasaje pj where habilitado = 'si' ";
 
- $diasvuelos = $estructuraConsulta->get_sql("select count(*) as ventas from pasaje where habilitado='si' ");
- //echo $diasvuelos["ventas"];
-// printf("%s",$diasvuelos["ventas"]);
-//var_dump($diasvuelos);
- foreach ($diasvuelos as $row){	
- 	$num = $row['ventas'];
- }
+$result = mysql_query($query) or die('Consulta fallida: ' . mysql_error());
+$result2 = mysql_query($query2) or die('Consulta fallida: ' . mysql_error());
 
- //echo "$num";
+//economy
+while ($line = mysql_fetch_array($result, MYSQL_ASSOC))
+{			
+	$data1y = $line['cantidad'];	
+}
 
-$diasvuelos2 = $estructuraConsulta->get_sql("select count(*) as ventas from pasaje where habilitado='no' ");
- //echo $diasvuelos["ventas"];
-// printf("%s",$diasvuelos["ventas"]);
-//var_dump($diasvuelos2);
- foreach ($diasvuelos2 as $row2){	
- 	$num2 = $row2['ventas'];
- }*/
+//ciudad
+while ($line2 = mysql_fetch_array($result2, MYSQL_ASSOC))
+{
+	$data2y = $line2['cantidad'];	
+}
 
- /*while($row = mysql_fetch_array($diasvuelos))
-    {
-     $data[] = $row['ventas'];
-     //$can[] = $row[1];
-    } */
- //var_dump($diasvuelos);
-
-//$grafico->xaxis->SetTickLabels($labes);  remplazar por:  $grafico->xaxis->SetTickLabels($usuarios);
 //$datos =array($num,$num2);
-$datos = array(1,2);
+$datos = array($data1y,$data2y);
 //$labels = array("pepe","juanita","Maria","Luis");
-$labels = array("pepe","rosa");
+$labels = array("Sin pagar","Sin check-in");
 $grafico = new PieGraph(500, 400, 'auto');
 $grafico->img->SetAntiAliasing();
 $grafico->SetMarginColor("gray");
-//$grafico->title->Set("Ejemplo de Grafica");
-//$grafico->xaxis->title->Set("Trabajadores");
-//$grafico->xaxis->SetTickLabels($labels);
-//$grafico->yaxis->title->Set("Horas Trabajadas");
 
-$grafico->title->Set("Ejemplo: HOras trabajadas");
+
+$grafico->title->Set("Reservas no concretadas");
 
 $sp1 = new PiePlot3D($datos);
 $sp1->SetSize(0.35);
@@ -61,8 +52,5 @@ $sp1->ExplodeAll();
 
 $grafico->Add($sp1);
 $grafico->Stroke();
-
 //echo "<img src='grafico_tarta.php' alt='' border = '0'>";
-
-
 ?>

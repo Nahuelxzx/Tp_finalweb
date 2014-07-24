@@ -2,7 +2,7 @@
 	require_once ('jpgraph/src/jpgraph.php');
 	require_once ('jpgraph/src/jpgraph_bar.php');
 
-	$link = mysql_connect('localhost', 'root', 'root')
+	$link = mysql_connect('localhost', 'root', 'nahuel')
     or die('No se pudo conectar: ' . mysql_error());
 	//echo 'Connected successfully';
 	mysql_select_db('tp_finalweb2') or die('No se pudo seleccionar la base de datos');
